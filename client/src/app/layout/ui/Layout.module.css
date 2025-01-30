@@ -1,0 +1,20 @@
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  padding-top: 64px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: 1rem;
+}
+
+@media (max-width: 600px) {
+  .mainContent {
+    padding-top: 56px;
+  }
+}

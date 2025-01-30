@@ -1,0 +1,19 @@
+:root {
+  --main-font: 'Monserrat', sans-serif !important;
+}
+
+.logo {
+  font-family: var(--main-font) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 5px !important;
+  letter-spacing: -0.05em !important;
+
+  > svg {
+    transition: 200ms ease !important;
+  }
+
+  &:hover > svg {
+    transform: rotate(0deg) !important;
+  }
+}

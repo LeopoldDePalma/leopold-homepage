@@ -1,0 +1,6 @@
+.svg {
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 6px;
+  transform: rotate(-20deg) !important;
+}

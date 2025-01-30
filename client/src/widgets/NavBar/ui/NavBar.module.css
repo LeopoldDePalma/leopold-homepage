@@ -1,0 +1,131 @@
+:root {
+  --primary-gold: goldenrod;
+  --primary-main: rgba(32, 32, 35, 0.5);
+}
+
+.linkItem {
+  display: inline-block !important;
+  color: gray !important;
+  padding: 8px 16px !important;
+}
+
+.linkItem:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.linkItemActive {
+  background-color: #88ccca !important;
+  color: #202023 !important;
+}
+
+.appbar {
+  position: fixed !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  --Paper-overlay: none !important;
+  transition: all 0.3s ease-in-out !important;
+  z-index: 1000 !important;
+}
+
+.toolbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 10rem !important;
+  /* flex-wrap: wrap !important; */
+}
+
+.logo {
+  transition: color 0.3s ease-in-out !important;
+}
+
+.navigationSection {
+  font-family: var(--main-font) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  margin-right: 6rem !important;
+  transition: color 0.3s ease-in-out !important;
+}
+
+.navLink {
+  position: relative !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.navLink:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.navLink::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 2px !important;
+  background-color: var(--primary-gold) !important;
+  transform: translateX(-50%) scaleX(0) !important;
+  transition: transform 0.3s ease !important;
+}
+
+.navLink:hover::after {
+  transform: translateX(-50%) scaleX(1) !important;
+}
+
+.navLink.github {
+  padding-left: 0.5rem !important;
+  gap: 0.5rem !important;
+}
+
+.navLink.github:hover {
+  color: var(--primary-gold) !important;
+}
+
+.buttonContainer {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.menuButton {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--mui-white-main) !important;
+  background-color: rgba(255, 255, 255, 0.0784) !important;
+  color: var(--mui-white-main) !important;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .navigationSection {
+    display: none !important;
+  }
+  .menuButton {
+    display: inline-flex !important;
+  }
+}
+
+@media (min-width: 600px) {
+  .menuButton {
+    display: none !important;
+  }
+}

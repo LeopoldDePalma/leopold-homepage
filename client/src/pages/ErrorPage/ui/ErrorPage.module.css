@@ -1,0 +1,211 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.background {
+  position: fixed !important;
+  background: linear-gradient(45deg, rgba(255, 75, 75, 0.1), rgba(185, 20, 30, 0.1)) !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.backgroundElements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.circle1,
+.circle2,
+.circle3,
+.circle4,
+.circle5 {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(255, 75, 75, 0.1), rgba(185, 20, 30, 0.1));
+}
+
+.circle1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  right: 30px;
+  animation: float 8s infinite ease-in-out;
+}
+
+.circle2 {
+  width: 200px;
+  height: 200px;
+  bottom: 20%;
+  left: -25px;
+  animation: float 6s infinite ease-in-out reverse;
+}
+
+.circle3 {
+  width: 150px;
+  height: 150px;
+  top: 40%;
+  right: 10%;
+  animation: float 7s infinite ease-in-out;
+}
+
+.circle4 {
+  width: 100px;
+  height: 100px;
+  top: 80%;
+  right: 5%;
+  animation: float 5s infinite ease-in-out;
+}
+
+.circle5 {
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  right: 80%;
+  animation: float 5s infinite ease-in-out;
+}
+
+.container {
+  padding: 32px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 16px !important;
+  border: 1px solid rgb(185, 20, 30) !important;
+  text-align: center !important;
+  transition: transform 0.3s ease !important;
+}
+
+.container:hover {
+  transform: translateY(-5px) !important;
+}
+
+.form {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 24px !important;
+}
+
+.icon {
+  font-size: 100px !important;
+  color: rgb(185, 20, 30) !important;
+  margin-bottom: 16px !important;
+}
+
+.title {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  color: rgb(185, 20, 30) !important;
+  margin-bottom: 16px !important;
+}
+
+.subtitle {
+  margin-bottom: 24px !important;
+  color: rgb(185, 20, 30) !important;
+  font-weight: 500 !important;
+}
+
+.description {
+  margin-bottom: 32px !important;
+  color: rgb(185, 20, 30) !important;
+}
+
+.button {
+  width: 100% !important;
+  max-width: 400px !important;
+  border-radius: 12px !important;
+  padding: 12px 30px !important;
+  background-color: rgb(185, 20, 30) !important;
+  color: #ffffff !important;
+  text-transform: none !important;
+  font-size: 1.1rem !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.button::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+  transition: 0.5s !important;
+}
+
+.button:hover {
+  background-color: var(--primary-red-dark) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(185, 20, 30, 0.3) !important;
+}
+
+.button:hover::before {
+  left: 100%;
+}
+
+@media (max-width: 600px) {
+  .background {
+    background: linear-gradient(45deg, rgba(255, 75, 75, 0.2), rgba(185, 20, 30, 0.2)) !important;
+  }
+
+  .title {
+    font-size: 1.8rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .icon {
+    font-size: 80px !important;
+  }
+
+  .container {
+    padding: 16px !important;
+    margin: 0 10px !important;
+  }
+
+  .form {
+    gap: 16px !important;
+  }
+
+  .button {
+    padding: 10px 20px !important;
+    font-size: 1rem !important;
+  }
+
+  .subtitle,
+  .description {
+    font-size: 0.9rem !important;
+    margin-bottom: 16px !important;
+  }
+
+  .pharmacyList {
+    max-height: 300px !important;
+    width: 95% !important;
+  }
+
+  .mapContainer {
+    height: 300px !important;
+    width: 95% !important;
+  }
+
+  .circle1,
+  .circle2,
+  .circle3,
+  .circle4,
+  .circle5 {
+    display: none !important;
+  }
+}

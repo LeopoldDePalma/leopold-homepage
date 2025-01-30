@@ -1,0 +1,33 @@
+:root {
+  --mui-orange-main: rgba(255, 204, 128, 1);
+  --mui-orange-dark: rgba(255, 179, 0, 1);
+  --mui-grey-main: rgba(30, 41, 59, 1);
+  --mui-purple-main: rgba(63, 30, 168, 1);
+  --mui-purple-dark: rgba(50, 24, 135, 1);
+  --mui-white-main: rgba(255, 255, 255, 1);
+}
+
+.toggleButton {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 4px !important;
+  transition: background-color 0.2s !important;
+}
+
+.toggleButton.dark {
+  background-color: var(--mui-purple-main) !important;
+  color: var(--mui-white-main) !important;
+}
+
+.toggleButton.dark:hover {
+  background-color: var(--mui-purple-dark) !important;
+}
+
+.toggleButton.light {
+  background-color: var(--mui-orange-main) !important;
+  color: var(--mui-grey-main) !important;
+}
+
+.toggleButton.light:hover {
+  background-color: var(--mui-orange-dark) !important;
+}
