@@ -22,11 +22,9 @@ const layout = tv({
 
 const styles = layout();
 
-type LocaleParams = {locale: Locale};
-
 export const generateStaticParams = () => {
   // Explicit type arguments make lodash return a mutable array, as Next.js expects.
-  return map<Locale, LocaleParams>(routing.locales, (locale) => ({locale}));
+  return map<Locale, {locale: Locale}>(routing.locales, (locale) => ({locale}));
 };
 
 export const generateMetadata = async (): Promise<Metadata> => {
