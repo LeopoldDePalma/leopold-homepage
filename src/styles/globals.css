@@ -1,25 +1,63 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Parchment — the light theme. */
 :root {
   --background: #f0e7db;
-  --foreground: #1a202c;
+  --foreground: #2b2118;
+  --muted: #6b5a48;
+  --accent: #7d5a10;
+  --border: #2b21181f;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #202023;
-    --foreground: #ededed;
-  }
+/* Iron — the dark theme. */
+.dark {
+  --background: #202023;
+  --foreground: #ede6d9;
+  --muted: #a79e90;
+  --accent: #d4a93a;
+  --border: #ede6d91f;
+}
+
+/*
+ * Font stacks are chosen by the language of the text, so an element marked `lang="ar"`
+ * inside an English page (and vice versa) gets the right typeface.
+ */
+:lang(en) {
+  --font-body: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-display: var(--font-eb-garamond), ui-serif, serif;
+}
+
+:lang(ar) {
+  --font-body: var(--font-noto-kufi-arabic), ui-sans-serif, sans-serif;
+  --font-display: var(--font-amiri), ui-serif, serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
+@layer base {
+  body,
+  [lang] {
+    @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-heading;
+  }
 }

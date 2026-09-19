@@ -27,7 +27,7 @@ export function LocaleSwitcher() {
                 className={
                   isCurrent
                     ? 'font-semibold underline underline-offset-4'
-                    : 'text-foreground/70 hover:text-foreground'
+                    : 'text-muted hover:text-foreground'
                 }
               >
                 {localeNames[locale]}

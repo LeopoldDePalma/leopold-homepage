@@ -1,23 +1,15 @@
 import '@/styles/globals.css';
 
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { localeDirection, routing } from '@/i18n/routing';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+import { fontVariables } from '@/styles/fonts';
 
 export const dynamicParams = false;
 
@@ -49,15 +41,20 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
     <html
       lang={locale}
       dir={localeDirection[locale]}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${fontVariables} h-full antialiased`}
+      // next-themes sets the theme class on <html> before hydration.
+      suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
-        <NextIntlClientProvider>
-          <header className="mx-auto flex w-full max-w-2xl justify-end px-4 pt-6">
-            <LocaleSwitcher />
-          </header>
-          {children}
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider>
+            <header className="mx-auto flex w-full max-w-2xl items-center justify-end gap-4 px-4 pt-6">
+              <LocaleSwitcher />
+              <ThemeToggle />
+            </header>
+            {children}
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

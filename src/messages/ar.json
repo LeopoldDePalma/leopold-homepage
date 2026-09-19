@@ -9,5 +9,8 @@
   },
   "LocaleSwitcher": {
     "label": "اللغة"
+  },
+  "ThemeToggle": {
+    "label": "تبديل المظهر"
   }
 }

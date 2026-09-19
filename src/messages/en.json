@@ -9,5 +9,8 @@
   },
   "LocaleSwitcher": {
     "label": "Language"
+  },
+  "ThemeToggle": {
+    "label": "Toggle theme"
   }
 }
