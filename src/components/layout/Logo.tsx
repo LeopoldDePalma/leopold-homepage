@@ -25,7 +25,7 @@ export const Logo = () => {
 
   return (
     <Link href="/" className={root()}>
-      <Image src="/images/eagle.svg" alt="" width={32} height={32} priority className={emblem()} />
+      <Image src="/images/eagle.svg" alt="" width={32} height={32} className={emblem()} />
       <span className={name()}>{t('name')}</span>
     </Link>
   );

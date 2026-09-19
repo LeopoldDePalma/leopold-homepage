@@ -2,9 +2,8 @@ import '@/styles/globals.css';
 
 import {keyBy, map, mapValues} from 'lodash-es';
 import type {Metadata} from 'next';
-import {notFound} from 'next/navigation';
-import {hasLocale, NextIntlClientProvider} from 'next-intl';
-import {getTranslations} from 'next-intl/server';
+import {NextIntlClientProvider} from 'next-intl';
+import {getLocale, getTranslations} from 'next-intl/server';
 import {tv} from 'tailwind-variants';
 
 import {SiteFooter} from '@/components/layout/SiteFooter';
@@ -23,8 +22,6 @@ const layout = tv({
 
 const styles = layout();
 
-export const dynamicParams = false;
-
 type LocaleParams = {locale: Locale};
 
 export const generateStaticParams = () => {
@@ -32,17 +29,11 @@ export const generateStaticParams = () => {
   return map<Locale, LocaleParams>(routing.locales, (locale) => ({locale}));
 };
 
-export const generateMetadata = async ({params}: LayoutProps<'/[locale]'>): Promise<Metadata> => {
-  const {locale} = await params;
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-
-  const t = await getTranslations({locale, namespace: 'Metadata'});
+export const generateMetadata = async (): Promise<Metadata> => {
+  const t = await getTranslations('Metadata');
 
   return {
-    title: {default: t('name'), template: `%s — ${t('name')}`},
+    title: t('name'),
     description: t('description'),
     icons: {
       icon: [
@@ -51,17 +42,14 @@ export const generateMetadata = async ({params}: LayoutProps<'/[locale]'>): Prom
       ],
     },
     alternates: {
-      languages: mapValues(keyBy(routing.locales), (l) => `/${l}`),
+      languages: mapValues(keyBy(routing.locales), (locale) => `/${locale}`),
     },
   };
 };
 
-const LocaleLayout = async ({children, params}: LayoutProps<'/[locale]'>) => {
-  const {locale} = await params;
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
+const LocaleLayout = async ({children}: LayoutProps<'/[locale]'>) => {
+  // Validated in `src/i18n/request.ts`: unknown locales end in notFound().
+  const locale = await getLocale();
 
   return (
     <html

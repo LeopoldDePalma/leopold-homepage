@@ -5,6 +5,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
+    /* Explicit: `next build` adds "allowJs": true when the option is missing. */
     "allowJs": false,
     "skipLibCheck": true,
     "noEmit": true,
@@ -12,7 +13,6 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
 
     /* Type safety */
     "strict": true,

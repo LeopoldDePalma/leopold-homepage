@@ -6,5 +6,5 @@ export default createMiddleware(routing);
 
 export const config = {
   // Skip Next.js internals and any path with a file extension (images, favicon, etc.).
-  matcher: '/((?!api|_next|_vercel|.*\\..*).*)',
+  matcher: '/((?!_next|.*\\..*).*)',
 };

@@ -1,6 +1,6 @@
 import {map} from 'lodash-es';
 
-export type Theme = 'light' | 'dark';
+type Theme = 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'theme';
 
@@ -13,7 +13,7 @@ const DARK_QUERY = '(prefers-color-scheme: dark)';
  * no references to anything outside its own body except its arguments
  * (no imports — lodash included).
  */
-export const initTheme = (storageKey: string, darkClass: string, darkQuery: string) => {
+const initTheme = (storageKey: string, darkClass: string, darkQuery: string) => {
   const readStoredTheme = () => {
     try {
       return localStorage.getItem(storageKey);

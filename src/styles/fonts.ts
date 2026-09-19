@@ -23,7 +23,7 @@ const notoKufiArabic = Noto_Kufi_Arabic({
 const amiri = Amiri({
   variable: '--font-amiri',
   subsets: ['arabic', 'latin'],
-  weight: ['400', '700'],
+  weight: '700',
   preload: false,
 });
 

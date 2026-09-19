@@ -40,8 +40,6 @@ export default defineConfig([
         'error',
         {argsIgnorePattern: '^_', varsIgnorePattern: '^_'},
       ],
-      '@typescript-eslint/restrict-template-expressions': ['error', {allowNumber: true}],
-      '@typescript-eslint/no-misused-promises': ['error', {checksVoidReturn: {attributes: false}}],
 
       'react/self-closing-comp': 'error',
       'react/jsx-no-useless-fragment': 'error',

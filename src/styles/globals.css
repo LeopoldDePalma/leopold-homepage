@@ -48,7 +48,6 @@
 }
 
 @layer base {
-  body,
   [lang] {
     @apply font-sans;
   }

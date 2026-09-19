@@ -3,9 +3,6 @@
   "printWidth": 100,
   "singleQuote": true,
   "bracketSpacing": false,
-  "trailingComma": "all",
-  "arrowParens": "always",
-  "endOfLine": "lf",
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindStylesheet": "./src/styles/globals.css",
   "tailwindFunctions": ["tv", "cn"]
