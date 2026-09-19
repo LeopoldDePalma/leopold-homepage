@@ -1,4 +1,4 @@
-import {SiGithub, SiTelegram} from '@icons-pack/react-simple-icons';
+import {SiGithub, SiInstagram, SiTelegram} from '@icons-pack/react-simple-icons';
 import {map} from 'lodash-es';
 import {tv} from 'tailwind-variants';
 
@@ -19,20 +19,21 @@ const socialLinks = tv({
 
 const {list, link, icon} = socialLinks();
 
-const profiles = [
-  {name: 'GitHub', href: site.links.github, Icon: SiGithub},
-  {name: 'Telegram', href: site.links.telegram, Icon: SiTelegram},
+const PROFILES = [
+  {name: 'GitHub', Icon: SiGithub, ...site.profiles.github},
+  {name: 'Telegram', Icon: SiTelegram, ...site.profiles.telegram},
+  {name: 'Instagram', Icon: SiInstagram, ...site.profiles.instagram},
 ];
 
 export const SocialLinks = () => {
   return (
     <ul className={list()}>
-      {map(profiles, ({name, href, Icon}) => (
+      {map(PROFILES, ({name, url, handle, Icon}) => (
         <li key={name}>
-          <a href={href} target="_blank" rel="noopener noreferrer" className={link()}>
+          <a href={url} target="_blank" rel="noopener noreferrer" className={link()}>
             <Icon aria-hidden className={icon()} />
             <span>
-              {name} <span dir="ltr">{site.handle}</span>
+              {name} <span dir="ltr">{handle}</span>
             </span>
           </a>
         </li>

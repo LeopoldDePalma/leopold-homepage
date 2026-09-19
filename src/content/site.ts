@@ -1,9 +1,14 @@
 export const site = {
-  handle: '@LeopoldDePalma',
   links: {
-    github: 'https://github.com/LeopoldDePalma',
-    telegram: 'https://t.me/LeopoldDePalma',
     source: 'https://github.com/LeopoldDePalma/leopold-homepage',
+  },
+  profiles: {
+    github: {url: 'https://github.com/LeopoldDePalma', handle: '@LeopoldDePalma'},
+    telegram: {url: 'https://t.me/LeopoldDePalma', handle: '@LeopoldDePalma'},
+    instagram: {
+      url: 'https://www.instagram.com/konstantin.konyushkin',
+      handle: '@konstantin.konyushkin',
+    },
   },
   modelCredit: {
     model:
