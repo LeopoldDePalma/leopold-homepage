@@ -3,8 +3,8 @@ import {defineRouting} from 'next-intl/routing';
 export const routing = defineRouting({
   locales: ['en', 'ar'],
   defaultLocale: 'en',
-  // English lives at `/`, other locales keep their prefix (`/ar`).
-  localePrefix: 'as-needed',
+  // No locale in the URL: the chosen locale is kept in a cookie.
+  localePrefix: 'never',
 });
 
 export type Locale = (typeof routing.locales)[number];

@@ -1,24 +1,61 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+/*
+ * Dark applies either on an explicit choice (`data-theme`, rendered by the server from a cookie)
+ * or on the system preference when nothing was chosen.
+ */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
 
-/* Parchment — the light theme. */
+  @media (prefers-color-scheme: dark) {
+    &:where(html:not([data-theme='light']), html:not([data-theme='light']) *) {
+      @slot;
+    }
+  }
+}
+
 :root {
-  --background: #f0e7db;
-  --foreground: #2b2118;
-  --muted: #6b5a48;
-  --accent: #7d5a10;
-  --border: #2b21181f;
+  /* Parchment. */
+  --parchment-background: #f0e7db;
+  --parchment-foreground: #2b2118;
+  --parchment-muted: #6b5a48;
+  --parchment-accent: #7d5a10;
+  --parchment-border: #2b21181f;
+
+  /* Iron. */
+  --iron-background: #202023;
+  --iron-foreground: #ede6d9;
+  --iron-muted: #a79e90;
+  --iron-accent: #d4a93a;
+  --iron-border: #ede6d91f;
+
+  --background: var(--parchment-background);
+  --foreground: var(--parchment-foreground);
+  --muted: var(--parchment-muted);
+  --accent: var(--parchment-accent);
+  --border: var(--parchment-border);
   color-scheme: light;
 }
 
-/* Iron — the dark theme. */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) {
+    --background: var(--iron-background);
+    --foreground: var(--iron-foreground);
+    --muted: var(--iron-muted);
+    --accent: var(--iron-accent);
+    --border: var(--iron-border);
+    color-scheme: dark;
+  }
+}
+
 [data-theme='dark'] {
-  --background: #202023;
-  --foreground: #ede6d9;
-  --muted: #a79e90;
-  --accent: #d4a93a;
-  --border: #ede6d91f;
+  --background: var(--iron-background);
+  --foreground: var(--iron-foreground);
+  --muted: var(--iron-muted);
+  --accent: var(--iron-accent);
+  --border: var(--iron-border);
   color-scheme: dark;
 }
 

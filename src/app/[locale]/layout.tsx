@@ -1,15 +1,15 @@
 import '@/styles/globals.css';
 
-import {keyBy, map, mapValues} from 'lodash-es';
+import {map} from 'lodash-es';
 import type {Metadata} from 'next';
+import {cookies} from 'next/headers';
 import {NextIntlClientProvider} from 'next-intl';
 import {getLocale, getTranslations} from 'next-intl/server';
 import {tv} from 'tailwind-variants';
 
 import {SiteFooter} from '@/components/layout/SiteFooter';
 import {SiteHeader} from '@/components/layout/SiteHeader';
-import {ThemeScript} from '@/features/theme/ThemeScript';
-import {getPathname} from '@/i18n/navigation';
+import {isTheme, THEME_COOKIE} from '@/features/theme/theme';
 import {type Locale, localeDirection, routing} from '@/i18n/routing';
 import {fontVariables} from '@/styles/fonts';
 
@@ -40,27 +40,24 @@ export const generateMetadata = async (): Promise<Metadata> => {
         {url: '/images/eagle.png', type: 'image/png'},
       ],
     },
-    alternates: {
-      languages: mapValues(keyBy(routing.locales), (locale) => getPathname({href: '/', locale})),
-    },
   };
 };
 
 const LocaleLayout = async ({children}: LayoutProps<'/[locale]'>) => {
   // Validated in `src/i18n/request.ts`: unknown locales end in notFound().
   const locale = await getLocale();
+  // Rendered by the server so the theme is right in the first paint and React owns the attribute.
+  const chosenTheme = (await cookies()).get(THEME_COOKIE)?.value;
 
   return (
     <html
       lang={locale}
       dir={localeDirection[locale]}
       className={html({className: fontVariables})}
-      // The theme script sets the `data-theme` attribute on <html> before hydration.
-      suppressHydrationWarning
+      data-theme={isTheme(chosenTheme) ? chosenTheme : undefined}
     >
       <body className={body()}>
         <NextIntlClientProvider>
-          <ThemeScript />
           <SiteHeader />
           <main className={main()}>{children}</main>
           <SiteFooter />

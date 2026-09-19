@@ -4,7 +4,7 @@ import {NextIntlClientProvider} from 'next-intl';
 
 import messages from '@/messages/en.json';
 
-import {THEME_STORAGE_KEY} from './theme';
+import {THEME_COOKIE} from './theme';
 import {ThemeToggle} from './ThemeToggle';
 
 const renderToggle = () => {
@@ -17,7 +17,7 @@ const renderToggle = () => {
 
 describe('ThemeToggle', () => {
   beforeEach(() => {
-    localStorage.clear();
+    document.cookie = `${THEME_COOKIE}=;max-age=0;path=/`;
     document.documentElement.removeAttribute('data-theme');
     vi.stubGlobal(
       'matchMedia',
@@ -37,10 +37,10 @@ describe('ThemeToggle', () => {
 
     await user.click(button);
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
+    expect(document.cookie).toContain(`${THEME_COOKIE}=dark`);
 
     await user.click(button);
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('light');
+    expect(document.cookie).toContain(`${THEME_COOKIE}=light`);
   });
 });
