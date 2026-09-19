@@ -4,7 +4,7 @@ import {tv} from 'tailwind-variants';
 
 import {Section} from '@/components/ui/Section';
 import {Typewriter} from '@/components/ui/Typewriter';
-import {ArmourShowcase} from '@/features/armour/ArmourShowcase';
+import {HelmetShowcase} from '@/features/helmet/HelmetShowcase';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {SocialLinks} from '@/features/home/SocialLinks';
 
@@ -27,7 +27,7 @@ const HomePage = () => {
 
   return (
     <div className={root()}>
-      <ArmourShowcase />
+      <HelmetShowcase />
 
       <Typewriter text={t('greeting')} className={greeting()} />
 

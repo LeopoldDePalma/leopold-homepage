@@ -32,7 +32,7 @@ describe('Typewriter', () => {
     vi.useFakeTimers();
     vi.stubGlobal(
       'matchMedia',
-      vi.fn(() => ({matches: false})),
+      vi.fn(() => ({matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn()})),
     );
   });
 

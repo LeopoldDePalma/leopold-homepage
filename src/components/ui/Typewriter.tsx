@@ -5,6 +5,8 @@ import {useLocale} from 'next-intl';
 import {useEffect, useState} from 'react';
 import {tv} from 'tailwind-variants';
 
+import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
+
 const TYPING_DELAY_MS = 45;
 
 const typewriter = tv({
@@ -24,13 +26,8 @@ const typewriter = tv({
 
 const {root, placeholder, typed, caret} = typewriter();
 
-type TypewriterProps = {
-  text: string;
-  className?: string;
-};
-
 /** Types the text out once. Screen readers and reduced-motion users get it in full right away. */
-export const Typewriter = ({text, className}: TypewriterProps) => {
+export const Typewriter = ({text, className}: {text: string; className?: string}) => {
   const locale = useLocale();
   // Graphemes, not code units: keeps Arabic letters together with their diacritics.
   const graphemes = map(
@@ -38,10 +35,10 @@ export const Typewriter = ({text, className}: TypewriterProps) => {
     'segment',
   );
   const [typedCount, setTypedCount] = useState(0);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const isDone = typedCount >= graphemes.length;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (isDone || prefersReducedMotion) {
       return undefined;
@@ -54,7 +51,7 @@ export const Typewriter = ({text, className}: TypewriterProps) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [typedCount, graphemes.length]);
+  }, [typedCount, graphemes.length, prefersReducedMotion]);
 
   return (
     <p className={root({className})}>

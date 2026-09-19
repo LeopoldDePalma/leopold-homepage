@@ -1,0 +1,99 @@
+'use client';
+
+import {Center, Environment, Html, Lightformer, OrbitControls} from '@react-three/drei';
+import {Canvas, useLoader, useThree} from '@react-three/fiber';
+import {Suspense} from 'react';
+import type {WebGLRenderer} from 'three';
+import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {KTX2Loader} from 'three/addons/loaders/KTX2Loader.js';
+
+import {Spinner} from '@/components/ui/Spinner';
+import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
+
+const MODEL = {
+  detailed: {url: '/models/helmet-8k.glb', textureSize: 8192},
+  fallback: {url: '/models/helmet-4k.glb'},
+};
+// Basis transcoder shipped with three (node_modules/three/examples/jsm/libs/basis).
+const BASIS_TRANSCODER_PATH = '/basis/';
+
+// The scan faces +X; turn it towards the camera.
+const FACE_CAMERA: [number, number, number] = [0, -Math.PI / 2, 0];
+// Framing for the ~2.2-unit-tall helmet.
+const CAMERA_POSITION: [number, number, number] = [0, 0, 4.6];
+// Keeps the camera outside the helmet and the helmet from shrinking to a dot.
+const ZOOM = {min: 2.4, max: 7};
+
+let ktx2Loader: KTX2Loader | undefined;
+
+// One loader for the page: it owns the transcoding workers, which live as long as the page.
+const getKtx2Loader = (renderer: WebGLRenderer) => {
+  ktx2Loader ??= new KTX2Loader().setTranscoderPath(BASIS_TRANSCODER_PATH).detectSupport(renderer);
+
+  return ktx2Loader;
+};
+
+// A dark studio with a few soft boxes: polished steel reads dark, with bright highlights.
+const StudioLighting = () => {
+  return (
+    <Environment resolution={256}>
+      <color attach="background" args={['#7a7a7a']} />
+      <Lightformer form="rect" intensity={4} position={[0, 3, 3]} scale={[5, 2, 1]} />
+      <Lightformer form="rect" intensity={3} position={[-4, 1, 1]} scale={[2, 4, 1]} />
+      <Lightformer form="rect" intensity={2} position={[4, 0, -2]} scale={[2, 4, 1]} />
+      <Lightformer form="rect" intensity={1.5} position={[0, -0.5, 5]} scale={[6, 3, 1]} />
+    </Environment>
+  );
+};
+
+const Helmet = () => {
+  const renderer = useThree((state) => state.gl);
+  // Devices that can't hold an 8K texture get the 4K build.
+  const {url} =
+    renderer.capabilities.maxTextureSize >= MODEL.detailed.textureSize
+      ? MODEL.detailed
+      : MODEL.fallback;
+  const {scene} = useLoader(GLTFLoader, url, (loader) => {
+    loader.setMeshoptDecoder(MeshoptDecoder).setKTX2Loader(getKtx2Loader(renderer));
+  });
+
+  return (
+    <Center>
+      <primitive object={scene} rotation={FACE_CAMERA} />
+    </Center>
+  );
+};
+
+const HelmetScene = ({isActive}: {isActive: boolean}) => {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  return (
+    <Canvas
+      frameloop={isActive ? 'always' : 'never'}
+      dpr={[1, 2]}
+      camera={{fov: 30, position: CAMERA_POSITION}}
+      gl={{alpha: true}}
+    >
+      <StudioLighting />
+      <Suspense
+        fallback={
+          <Html center>
+            <Spinner />
+          </Html>
+        }
+      >
+        <Helmet />
+      </Suspense>
+      <OrbitControls
+        enablePan={false}
+        minDistance={ZOOM.min}
+        maxDistance={ZOOM.max}
+        autoRotate={!prefersReducedMotion}
+        autoRotateSpeed={1}
+      />
+    </Canvas>
+  );
+};
+
+export default HelmetScene;
