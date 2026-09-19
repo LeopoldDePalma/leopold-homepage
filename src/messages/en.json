@@ -35,6 +35,7 @@
     "source": "Source"
   },
   "SiteFooter": {
-    "copyright": "© {year} {name}. All rights reserved."
+    "copyright": "© {year} {name}. All rights reserved.",
+    "modelCredit": "3D model: <model>Helmet with Grotesque Visor</model> by <author>The Royal Armoury (Livrustkammaren)</author>, <license>CC BY-SA 4.0</license>; simplified and re-encoded."
   }
 }

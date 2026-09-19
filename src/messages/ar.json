@@ -35,6 +35,7 @@
     "source": "الشيفرة المصدرية"
   },
   "SiteFooter": {
-    "copyright": "© {year} {name}. جميع الحقوق محفوظة."
+    "copyright": "© {year} {name}. جميع الحقوق محفوظة.",
+    "modelCredit": "نموذج ثلاثي الأبعاد: <model>Helmet with Grotesque Visor</model> من <author>The Royal Armoury (Livrustkammaren)</author>، بترخيص <license>CC BY-SA 4.0</license>؛ مع التبسيط وإعادة الترميز."
   }
 }

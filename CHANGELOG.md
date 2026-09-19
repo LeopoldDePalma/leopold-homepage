@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Typography: JetBrains Mono and EB Garamond for English, Noto Kufi Arabic and Amiri for Arabic.
 - Site header with the imperial eagle logo, a link to the source code, language switcher and theme toggle; footer with copyright.
 - Home page: typed greeting, profile header with photo, About, I ♥ and On the web sections.
+- Interactive 3D helmet with a grotesque visor (The Royal Armoury scan) on the home page: loads after the page, shows a spinner meanwhile, rotates and zooms; model credit in the footer.
 
 ### Removed
 

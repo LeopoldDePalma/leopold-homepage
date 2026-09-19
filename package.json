@@ -17,10 +17,13 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "check": "npm run typecheck && npm run lint && npm run format:check && npm run test",
-    "prepare": "husky"
+    "prepare": "husky",
+    "model:helmet": "node scripts/build-helmet-model.mts"
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^13.15.1",
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
     "lodash-es": "^4.18.1",
     "lucide-react": "^1.47.0",
     "next": "16.3.5",
@@ -28,9 +31,14 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwind-merge": "^3.7.0",
-    "tailwind-variants": "^3.3.1"
+    "tailwind-variants": "^3.3.1",
+    "three": "^0.182.0"
   },
   "devDependencies": {
+    "@gltf-transform/cli": "^4.5.0",
+    "@gltf-transform/core": "^4.5.0",
+    "@gltf-transform/extensions": "^4.5.0",
+    "@gltf-transform/functions": "^4.5.0",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.2",
@@ -41,6 +49,7 @@
     "@types/node": "^24.13.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.182.0",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
@@ -49,8 +58,10 @@
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "lint-staged": "^17.5.1",
+    "meshoptimizer": "^1.2.0",
     "prettier": "^3.9.8",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4",
     "typescript": "^5",
     "typescript-eslint": "^8.70.0",
