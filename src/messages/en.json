@@ -4,8 +4,24 @@
     "description": "Frontend developer with a love for medieval history. Homepage and project collection."
   },
   "HomePage": {
+    "greeting": "Hello, I’m a frontend developer with the soul of a medieval chronicler.",
     "name": "Konstantin Konyushkin",
-    "role": "Frontend developer"
+    "role": "Frontend developer",
+    "photoAlt": "Portrait of Konstantin Konyushkin",
+    "about": {
+      "title": "About",
+      "text": "Konstantin writes code the way medieval craftsmen built cathedrals: patiently, with care for every detail, and for the love of the craft itself. React and TypeScript are his tools; small personal projects are his collection, gathered here like pieces in an armoury. When the editor is closed, he returns to the Middle Ages — to emperors, knights, and the stories told by coats of arms."
+    },
+    "interests": {
+      "title": "I ♥",
+      "programming": "Programming",
+      "history": "Medieval history",
+      "books": "Books",
+      "music": "Music"
+    },
+    "web": {
+      "title": "On the web"
+    }
   },
   "LocaleSwitcher": {
     "label": "Language"

@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Light "parchment" and dark "iron" themes with a gold accent, following the system preference, and a theme toggle.
 - Typography: JetBrains Mono and EB Garamond for English, Noto Kufi Arabic and Amiri for Arabic.
 - Site header with the imperial eagle logo, a link to the source code, language switcher and theme toggle; footer with copyright.
+- Home page: typed greeting, profile header with photo, About, I ♥ and On the web sections.
 
 ### Removed
 

@@ -36,6 +36,16 @@
   --font-display: var(--font-amiri), ui-serif, serif;
 }
 
+@theme {
+  --animate-caret: caret 1s steps(1) infinite;
+
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
