@@ -4,12 +4,12 @@ import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {hasLocale, NextIntlClientProvider} from 'next-intl';
 import {getTranslations} from 'next-intl/server';
+import {cn} from 'tailwind-variants';
 
 import {LocaleSwitcher} from '@/components/LocaleSwitcher';
 import {ThemeProvider} from '@/components/ThemeProvider';
 import {ThemeToggle} from '@/components/ThemeToggle';
 import {localeDirection, routing} from '@/i18n/routing';
-import {cn} from '@/lib/cn';
 import {fontVariables} from '@/styles/fonts';
 
 export const dynamicParams = false;
