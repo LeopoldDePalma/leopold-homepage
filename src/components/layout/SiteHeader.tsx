@@ -2,10 +2,10 @@ import {SiGithub} from '@icons-pack/react-simple-icons';
 import {useTranslations} from 'next-intl';
 import {tv} from 'tailwind-variants';
 
-import {LocaleSwitcher} from '@/components/LocaleSwitcher';
 import {site} from '@/content/site';
 import {ThemeToggle} from '@/features/theme/ThemeToggle';
 
+import {LocaleSwitcher} from './LocaleSwitcher';
 import {Logo} from './Logo';
 
 const siteHeader = tv({

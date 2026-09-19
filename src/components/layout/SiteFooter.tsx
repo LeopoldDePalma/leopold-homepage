@@ -6,9 +6,10 @@ const siteFooter = tv({
 });
 
 export const SiteFooter = () => {
+  const tSite = useTranslations('Site');
   const t = useTranslations('SiteFooter');
   // Passed as a string so locales with digit grouping don't render "2,026".
   const year = String(new Date().getFullYear());
 
-  return <footer className={siteFooter()}>{t('copyright', {year})}</footer>;
+  return <footer className={siteFooter()}>{t('copyright', {year, name: tSite('name')})}</footer>;
 };

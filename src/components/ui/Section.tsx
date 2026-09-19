@@ -4,14 +4,14 @@ import {tv} from 'tailwind-variants';
 const section = tv({
   slots: {
     root: 'flex flex-col gap-3',
-    title: [
+    heading: [
       'font-heading text-2xl font-bold',
       'underline decoration-accent/50 decoration-[0.12em] underline-offset-[0.3em]',
     ],
   },
 });
 
-const {root, title: titleStyles} = section();
+const {root, heading} = section();
 
 type SectionProps = {
   title: string;
@@ -21,7 +21,7 @@ type SectionProps = {
 export const Section = ({title, children}: SectionProps) => {
   return (
     <section className={root()}>
-      <h2 className={titleStyles()}>{title}</h2>
+      <h2 className={heading()}>{title}</h2>
       {children}
     </section>
   );

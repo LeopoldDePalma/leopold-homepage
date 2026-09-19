@@ -21,7 +21,7 @@ const logo = tv({
 const {root, emblem, name} = logo();
 
 export const Logo = () => {
-  const t = useTranslations('Metadata');
+  const t = useTranslations('Site');
 
   return (
     <Link href="/" className={root()}>

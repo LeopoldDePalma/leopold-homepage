@@ -12,7 +12,7 @@ import {ThemeScript} from '@/features/theme/ThemeScript';
 import {type Locale, localeDirection, routing} from '@/i18n/routing';
 import {fontVariables} from '@/styles/fonts';
 
-const layout = tv({
+const localeLayout = tv({
   slots: {
     html: 'h-full antialiased',
     body: 'flex min-h-full flex-col',
@@ -20,7 +20,7 @@ const layout = tv({
   },
 });
 
-const styles = layout();
+const {html, body, main} = localeLayout();
 
 export const generateStaticParams = () => {
   // Explicit type arguments make lodash return a mutable array, as Next.js expects.
@@ -28,7 +28,7 @@ export const generateStaticParams = () => {
 };
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const t = await getTranslations('Metadata');
+  const t = await getTranslations('Site');
 
   return {
     title: t('name'),
@@ -53,15 +53,15 @@ const LocaleLayout = async ({children}: LayoutProps<'/[locale]'>) => {
     <html
       lang={locale}
       dir={localeDirection[locale]}
-      className={styles.html({className: fontVariables})}
+      className={html({className: fontVariables})}
       // The theme script sets the `dark` class on <html> before hydration.
       suppressHydrationWarning
     >
-      <body className={styles.body()}>
+      <body className={body()}>
         <ThemeScript />
         <NextIntlClientProvider>
           <SiteHeader />
-          <main className={styles.main()}>{children}</main>
+          <main className={main()}>{children}</main>
           <SiteFooter />
         </NextIntlClientProvider>
       </body>
