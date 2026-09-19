@@ -16,46 +16,22 @@
   }
 }
 
+/* Parchment and iron. `light-dark()` picks a value from the color scheme in effect. */
 :root {
-  /* Parchment. */
-  --parchment-background: #f0e7db;
-  --parchment-foreground: #2b2118;
-  --parchment-muted: #6b5a48;
-  --parchment-accent: #7d5a10;
-  --parchment-border: #2b21181f;
+  color-scheme: light dark;
+  --background: light-dark(#f0e7db, #202023);
+  --foreground: light-dark(#2b2118, #ede6d9);
+  --muted: light-dark(#6b5a48, #a79e90);
+  --accent: light-dark(#7d5a10, #d4a93a);
+  --border: light-dark(#2b21181f, #ede6d91f);
+}
 
-  /* Iron. */
-  --iron-background: #202023;
-  --iron-foreground: #ede6d9;
-  --iron-muted: #a79e90;
-  --iron-accent: #d4a93a;
-  --iron-border: #ede6d91f;
-
-  --background: var(--parchment-background);
-  --foreground: var(--parchment-foreground);
-  --muted: var(--parchment-muted);
-  --accent: var(--parchment-accent);
-  --border: var(--parchment-border);
+/* An explicit choice pins the scheme, so the tokens above follow it. */
+[data-theme='light'] {
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  html:not([data-theme='light']) {
-    --background: var(--iron-background);
-    --foreground: var(--iron-foreground);
-    --muted: var(--iron-muted);
-    --accent: var(--iron-accent);
-    --border: var(--iron-border);
-    color-scheme: dark;
-  }
-}
-
 [data-theme='dark'] {
-  --background: var(--iron-background);
-  --foreground: var(--iron-foreground);
-  --muted: var(--iron-muted);
-  --accent: var(--iron-accent);
-  --border: var(--iron-border);
   color-scheme: dark;
 }
 

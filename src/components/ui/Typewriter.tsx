@@ -13,8 +13,8 @@ const typewriter = tv({
   slots: {
     // Both layers share one grid cell, so the full text reserves the final size up front.
     root: 'grid',
-    placeholder: ['col-start-1 row-start-1', 'invisible motion-reduce:visible'],
-    typed: ['col-start-1 row-start-1', 'motion-reduce:hidden'],
+    placeholder: ['col-start-1 row-start-1', 'invisible'],
+    typed: 'col-start-1 row-start-1',
     caret: [
       'inline-block',
       'ms-[0.05em] h-[1em] w-[0.1em]',
@@ -60,8 +60,8 @@ export const Typewriter = ({text, className}: {text: string; className?: string}
         {text}
       </span>
       <span aria-hidden className={typed()}>
-        {graphemes.slice(0, typedCount).join('')}
-        <span className={caret()} />
+        {prefersReducedMotion ? text : graphemes.slice(0, typedCount).join('')}
+        {!prefersReducedMotion && <span className={caret()} />}
       </span>
     </p>
   );
