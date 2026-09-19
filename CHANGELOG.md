@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Strict TypeScript config, ESLint with type-checked rules, and Prettier with Tailwind class sorting.
 - Vitest and Testing Library setup for unit tests.
 - Pre-commit hook (Husky + lint-staged) and a GitHub Actions CI pipeline.
+- English and Arabic versions of the site with right-to-left layout for Arabic and a language switcher.
 
 ### Removed
 

@@ -1,0 +1,13 @@
+{
+  "Metadata": {
+    "name": "Konstantin Konyushkin",
+    "description": "Frontend developer with a love for medieval history. Homepage and project collection."
+  },
+  "HomePage": {
+    "name": "Konstantin Konyushkin",
+    "role": "Frontend developer"
+  },
+  "LocaleSwitcher": {
+    "label": "Language"
+  }
+}
