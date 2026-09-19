@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { NextIntlClientProvider } from 'next-intl';
+import {NextIntlClientProvider} from 'next-intl';
 
 import messages from '@/messages/en.json';
 
-import { ThemeProvider } from './ThemeProvider';
-import { ThemeToggle } from './ThemeToggle';
+import {ThemeProvider} from './ThemeProvider';
+import {ThemeToggle} from './ThemeToggle';
 
 function renderToggle() {
   return render(
@@ -44,7 +44,7 @@ describe('ThemeToggle', () => {
     const user = userEvent.setup();
     renderToggle();
 
-    const button = screen.getByRole('button', { name: 'Toggle theme' });
+    const button = screen.getByRole('button', {name: 'Toggle theme'});
 
     await user.click(button);
     expect(document.documentElement).toHaveClass('dark');

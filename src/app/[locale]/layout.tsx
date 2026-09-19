@@ -1,40 +1,41 @@
 import '@/styles/globals.css';
 
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import type {Metadata} from 'next';
+import {notFound} from 'next/navigation';
+import {hasLocale, NextIntlClientProvider} from 'next-intl';
+import {getTranslations} from 'next-intl/server';
 
-import { LocaleSwitcher } from '@/components/LocaleSwitcher';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { localeDirection, routing } from '@/i18n/routing';
-import { fontVariables } from '@/styles/fonts';
+import {LocaleSwitcher} from '@/components/LocaleSwitcher';
+import {ThemeProvider} from '@/components/ThemeProvider';
+import {ThemeToggle} from '@/components/ThemeToggle';
+import {localeDirection, routing} from '@/i18n/routing';
+import {cn} from '@/lib/cn';
+import {fontVariables} from '@/styles/fonts';
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({locale}));
 }
 
-export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata({params}: LayoutProps<'/[locale]'>): Promise<Metadata> {
+  const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  const t = await getTranslations({locale, namespace: 'Metadata'});
 
   return {
-    title: { default: t('name'), template: `%s — ${t('name')}` },
+    title: {default: t('name'), template: `%s — ${t('name')}`},
     description: t('description'),
-    icons: { icon: '/images/eagle.png' },
+    icons: {icon: '/images/eagle.png'},
     alternates: {
       languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
     },
   };
 }
 
-export default async function LocaleLayout({ children, params }: LayoutProps<'/[locale]'>) {
-  const { locale } = await params;
+export default async function LocaleLayout({children, params}: LayoutProps<'/[locale]'>) {
+  const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
   return (
@@ -48,7 +49,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           <NextIntlClientProvider>
-            <header className="mx-auto flex w-full max-w-2xl items-center justify-end gap-4 px-4 pt-6">
+            <header
+              className={cn(
+                'mx-auto flex w-full max-w-2xl items-center justify-end gap-4',
+                'px-4 pt-6',
+              )}
+            >
               <LocaleSwitcher />
               <ThemeToggle />
             </header>

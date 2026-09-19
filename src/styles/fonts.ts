@@ -1,4 +1,4 @@
-import { Amiri, EB_Garamond, JetBrains_Mono, Noto_Kufi_Arabic } from 'next/font/google';
+import {Amiri, EB_Garamond, JetBrains_Mono, Noto_Kufi_Arabic} from 'next/font/google';
 
 // Latin script: body/UI and headings.
 const jetBrainsMono = JetBrains_Mono({
