@@ -7,7 +7,7 @@ import messages from '@/messages/en.json';
 import {ThemeProvider} from './ThemeProvider';
 import {ThemeToggle} from './ThemeToggle';
 
-function renderToggle() {
+const renderToggle = () => {
   return render(
     <NextIntlClientProvider locale="en" messages={messages}>
       <ThemeProvider>
@@ -15,7 +15,7 @@ function renderToggle() {
       </ThemeProvider>
     </NextIntlClientProvider>,
   );
-}
+};
 
 describe('ThemeToggle', () => {
   beforeEach(() => {

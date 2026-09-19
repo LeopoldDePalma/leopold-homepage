@@ -5,7 +5,7 @@ import {useLocale, useTranslations} from 'next-intl';
 import {Link, usePathname} from '@/i18n/navigation';
 import {localeNames, routing} from '@/i18n/routing';
 
-export function LocaleSwitcher() {
+export const LocaleSwitcher = () => {
   const t = useTranslations('LocaleSwitcher');
   const currentLocale = useLocale();
   const pathname = usePathname();
@@ -38,4 +38,4 @@ export function LocaleSwitcher() {
       </ul>
     </nav>
   );
-}
+};

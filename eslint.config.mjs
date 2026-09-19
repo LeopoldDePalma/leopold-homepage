@@ -64,10 +64,21 @@ export default defineConfig([
     },
   },
   {
-    files: ['**/*.tsx'],
+    files: ['**/*.{ts,tsx,mts}'],
     rules: {
+      // Arrow functions only: components, handlers, helpers and callbacks.
+      'func-style': ['error', 'expression'],
+      'prefer-arrow-callback': 'error',
+      'react/function-component-definition': [
+        'error',
+        {namedComponents: 'arrow-function', unnamedComponents: 'arrow-function'},
+      ],
       'no-restricted-syntax': [
         'error',
+        {
+          selector: 'FunctionExpression:not(MethodDefinition > FunctionExpression)',
+          message: 'Use an arrow function instead of a function expression.',
+        },
         {
           selector: [
             'JSXAttribute > JSXExpressionContainer',

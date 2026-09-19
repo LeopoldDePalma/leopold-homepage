@@ -14,11 +14,11 @@ import {fontVariables} from '@/styles/fonts';
 
 export const dynamicParams = false;
 
-export function generateStaticParams() {
+export const generateStaticParams = () => {
   return routing.locales.map((locale) => ({locale}));
-}
+};
 
-export async function generateMetadata({params}: LayoutProps<'/[locale]'>): Promise<Metadata> {
+export const generateMetadata = async ({params}: LayoutProps<'/[locale]'>): Promise<Metadata> => {
   const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
@@ -32,9 +32,9 @@ export async function generateMetadata({params}: LayoutProps<'/[locale]'>): Prom
       languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
     },
   };
-}
+};
 
-export default async function LocaleLayout({children, params}: LayoutProps<'/[locale]'>) {
+const LocaleLayout = async ({children, params}: LayoutProps<'/[locale]'>) => {
   const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
@@ -64,4 +64,6 @@ export default async function LocaleLayout({children, params}: LayoutProps<'/[lo
       </body>
     </html>
   );
-}
+};
+
+export default LocaleLayout;

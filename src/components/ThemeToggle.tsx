@@ -6,13 +6,13 @@ import {useTheme} from 'next-themes';
 
 import {cn} from '@/lib/cn';
 
-export function ThemeToggle() {
+export const ThemeToggle = () => {
   const t = useTranslations('ThemeToggle');
   const {resolvedTheme, setTheme} = useTheme();
 
-  function handleClick() {
+  const handleClick = () => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
-  }
+  };
 
   return (
     <button
@@ -30,4 +30,4 @@ export function ThemeToggle() {
       <Sun aria-hidden className="hidden size-[1.25em] dark:block" />
     </button>
   );
-}
+};

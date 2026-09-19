@@ -1,6 +1,6 @@
 import {useTranslations} from 'next-intl';
 
-export default function HomePage() {
+const HomePage = () => {
   const t = useTranslations('HomePage');
 
   return (
@@ -9,4 +9,6 @@ export default function HomePage() {
       <p className="mt-2 text-muted">{t('role')}</p>
     </main>
   );
-}
+};
+
+export default HomePage;
