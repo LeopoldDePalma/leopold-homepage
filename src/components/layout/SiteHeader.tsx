@@ -1,7 +1,7 @@
+import {SiGithub} from '@icons-pack/react-simple-icons';
 import {useTranslations} from 'next-intl';
 import {tv} from 'tailwind-variants';
 
-import {GitHubIcon} from '@/components/icons/GitHubIcon';
 import {LocaleSwitcher} from '@/components/LocaleSwitcher';
 import {ThemeToggle} from '@/components/ThemeToggle';
 import {site} from '@/content/site';
@@ -42,7 +42,7 @@ export const SiteHeader = () => {
             rel="noopener noreferrer"
             className={sourceLink()}
           >
-            <GitHubIcon className={sourceIcon()} />
+            <SiGithub aria-hidden className={sourceIcon()} />
             <span className={sourceLabel()}>{t('source')}</span>
           </a>
         </nav>
