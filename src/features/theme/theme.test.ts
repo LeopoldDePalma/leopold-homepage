@@ -15,7 +15,9 @@ const stubSystemTheme = (prefersDark: boolean) => {
 
   return {
     changeSystemTheme: (isDark: boolean) => {
-      for (const listener of listeners) listener({matches: isDark});
+      for (const listener of listeners) {
+        listener({matches: isDark});
+      }
     },
   };
 };

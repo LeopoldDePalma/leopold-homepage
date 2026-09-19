@@ -56,6 +56,8 @@ export default defineConfig([
   {
     // Declared after eslint-config-prettier, which switches these off.
     rules: {
+      // Always use braces for if/else/for/while, even around a single statement.
+      curly: ['error', 'all'],
       // Prettier wraps code at 100 but can't split long strings; this catches those.
       'max-len': [
         'error',

@@ -32,7 +32,9 @@ export const initTheme = (storageKey: string, darkClass: string, darkQuery: stri
 
   // Follow system changes live until the visitor picks a theme explicitly.
   media.addEventListener('change', (event) => {
-    if (!readStoredTheme()) applyDark(event.matches);
+    if (!readStoredTheme()) {
+      applyDark(event.matches);
+    }
   });
 };
 

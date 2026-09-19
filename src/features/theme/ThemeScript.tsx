@@ -13,7 +13,10 @@ export const ThemeScript = () => {
   const isInserted = useRef(false);
 
   useServerInsertedHTML(() => {
-    if (isInserted.current) return null;
+    if (isInserted.current) {
+      return null;
+    }
+
     isInserted.current = true;
 
     return <script dangerouslySetInnerHTML={{__html: themeScript}} />;

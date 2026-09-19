@@ -34,7 +34,9 @@ export const generateStaticParams = () => {
 
 export const generateMetadata = async ({params}: LayoutProps<'/[locale]'>): Promise<Metadata> => {
   const {locale} = await params;
-  if (!hasLocale(routing.locales, locale)) notFound();
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   const t = await getTranslations({locale, namespace: 'Metadata'});
 
@@ -55,7 +57,9 @@ export const generateMetadata = async ({params}: LayoutProps<'/[locale]'>): Prom
 
 const LocaleLayout = async ({children, params}: LayoutProps<'/[locale]'>) => {
   const {locale} = await params;
-  if (!hasLocale(routing.locales, locale)) notFound();
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   return (
     <html
