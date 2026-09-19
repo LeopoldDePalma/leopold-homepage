@@ -1,3 +1,4 @@
+import stylistic from '@stylistic/eslint-plugin';
 import {defineConfig, globalIgnores} from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
@@ -55,9 +56,18 @@ export default defineConfig([
   prettier,
   {
     // Declared after eslint-config-prettier, which switches these off.
+    plugins: {
+      '@stylistic': stylistic,
+    },
     rules: {
       // Always use braces for if/else/for/while, even around a single statement.
       curly: ['error', 'all'],
+      // Blank lines around control blocks and before return, so each step of a function stands out.
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        {blankLine: 'always', prev: '*', next: ['block-like', 'return']},
+        {blankLine: 'always', prev: 'block-like', next: '*'},
+      ],
       // Prettier wraps code at 100 but can't split long strings; this catches those.
       'max-len': [
         'error',

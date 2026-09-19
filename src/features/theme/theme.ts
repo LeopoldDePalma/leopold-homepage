@@ -23,6 +23,7 @@ export const initTheme = (storageKey: string, darkClass: string, darkQuery: stri
   };
 
   const media = window.matchMedia(darkQuery);
+
   const applyDark = (isDark: boolean) => {
     document.documentElement.classList.toggle(darkClass, isDark);
   };
