@@ -12,5 +12,12 @@
   },
   "ThemeToggle": {
     "label": "تبديل المظهر"
+  },
+  "SiteHeader": {
+    "navLabel": "الرئيسية",
+    "source": "الشيفرة المصدرية"
+  },
+  "SiteFooter": {
+    "copyright": "© {year} كونستانتين كونيوشكين. جميع الحقوق محفوظة."
   }
 }

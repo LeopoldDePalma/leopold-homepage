@@ -12,5 +12,12 @@
   },
   "ThemeToggle": {
     "label": "Toggle theme"
+  },
+  "SiteHeader": {
+    "navLabel": "Main",
+    "source": "Source"
+  },
+  "SiteFooter": {
+    "copyright": "© {year} Konstantin Konyushkin. All rights reserved."
   }
 }

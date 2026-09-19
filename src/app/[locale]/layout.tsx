@@ -4,13 +4,23 @@ import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {hasLocale, NextIntlClientProvider} from 'next-intl';
 import {getTranslations} from 'next-intl/server';
-import {cn} from 'tailwind-variants';
+import {tv} from 'tailwind-variants';
 
-import {LocaleSwitcher} from '@/components/LocaleSwitcher';
+import {SiteFooter} from '@/components/layout/SiteFooter';
+import {SiteHeader} from '@/components/layout/SiteHeader';
 import {ThemeProvider} from '@/components/ThemeProvider';
-import {ThemeToggle} from '@/components/ThemeToggle';
 import {localeDirection, routing} from '@/i18n/routing';
 import {fontVariables} from '@/styles/fonts';
+
+const layout = tv({
+  slots: {
+    html: 'h-full antialiased',
+    body: 'flex min-h-full flex-col',
+    main: ['mx-auto w-full max-w-2xl flex-1', 'px-4 py-12'],
+  },
+});
+
+const styles = layout();
 
 export const dynamicParams = false;
 
@@ -27,7 +37,12 @@ export const generateMetadata = async ({params}: LayoutProps<'/[locale]'>): Prom
   return {
     title: {default: t('name'), template: `%s — ${t('name')}`},
     description: t('description'),
-    icons: {icon: '/images/eagle.png'},
+    icons: {
+      icon: [
+        {url: '/images/eagle.svg', type: 'image/svg+xml'},
+        {url: '/images/eagle.png', type: 'image/png'},
+      ],
+    },
     alternates: {
       languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
     },
@@ -42,23 +57,16 @@ const LocaleLayout = async ({children, params}: LayoutProps<'/[locale]'>) => {
     <html
       lang={locale}
       dir={localeDirection[locale]}
-      className={`${fontVariables} h-full antialiased`}
+      className={styles.html({className: fontVariables})}
       // next-themes sets the theme class on <html> before hydration.
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col">
+      <body className={styles.body()}>
         <ThemeProvider>
           <NextIntlClientProvider>
-            <header
-              className={cn(
-                'mx-auto flex w-full max-w-2xl items-center justify-end gap-4',
-                'px-4 pt-6',
-              )}
-            >
-              <LocaleSwitcher />
-              <ThemeToggle />
-            </header>
-            {children}
+            <SiteHeader />
+            <main className={styles.main()}>{children}</main>
+            <SiteFooter />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
