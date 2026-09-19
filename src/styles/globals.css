@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /* Parchment — the light theme. */
 :root {
@@ -13,7 +13,7 @@
 }
 
 /* Iron — the dark theme. */
-.dark {
+[data-theme='dark'] {
   --background: #202023;
   --foreground: #ede6d9;
   --muted: #a79e90;

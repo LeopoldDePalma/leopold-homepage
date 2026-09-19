@@ -9,6 +9,7 @@ import {tv} from 'tailwind-variants';
 import {SiteFooter} from '@/components/layout/SiteFooter';
 import {SiteHeader} from '@/components/layout/SiteHeader';
 import {ThemeScript} from '@/features/theme/ThemeScript';
+import {getPathname} from '@/i18n/navigation';
 import {type Locale, localeDirection, routing} from '@/i18n/routing';
 import {fontVariables} from '@/styles/fonts';
 
@@ -40,7 +41,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       ],
     },
     alternates: {
-      languages: mapValues(keyBy(routing.locales), (locale) => `/${locale}`),
+      languages: mapValues(keyBy(routing.locales), (locale) => getPathname({href: '/', locale})),
     },
   };
 };
@@ -54,12 +55,12 @@ const LocaleLayout = async ({children}: LayoutProps<'/[locale]'>) => {
       lang={locale}
       dir={localeDirection[locale]}
       className={html({className: fontVariables})}
-      // The theme script sets the `dark` class on <html> before hydration.
+      // The theme script sets the `data-theme` attribute on <html> before hydration.
       suppressHydrationWarning
     >
       <body className={body()}>
-        <ThemeScript />
         <NextIntlClientProvider>
+          <ThemeScript />
           <SiteHeader />
           <main className={main()}>{children}</main>
           <SiteFooter />

@@ -1,4 +1,4 @@
-import {THEME_STORAGE_KEY, themeScript} from './theme';
+import {restoreTheme, THEME_STORAGE_KEY, themeScript} from './theme';
 
 type ChangeListener = (event: {matches: boolean}) => void;
 
@@ -33,7 +33,7 @@ const runThemeScript = () => {
 describe('theme script', () => {
   beforeEach(() => {
     localStorage.clear();
-    document.documentElement.className = '';
+    document.documentElement.removeAttribute('data-theme');
   });
 
   afterEach(() => {
@@ -44,7 +44,7 @@ describe('theme script', () => {
     stubSystemTheme(true);
     runThemeScript();
 
-    expect(document.documentElement).toHaveClass('dark');
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
   });
 
   it('prefers the stored choice over the system preference', () => {
@@ -52,7 +52,17 @@ describe('theme script', () => {
     localStorage.setItem(THEME_STORAGE_KEY, 'light');
     runThemeScript();
 
-    expect(document.documentElement).not.toHaveClass('dark');
+    expect(document.documentElement).toHaveAttribute('data-theme', 'light');
+  });
+
+  it('restores the stored theme after the root layout re-renders', () => {
+    stubSystemTheme(false);
+    localStorage.setItem(THEME_STORAGE_KEY, 'dark');
+    document.documentElement.removeAttribute('data-theme');
+
+    restoreTheme();
+
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
   });
 
   it('reacts to system changes only until the visitor picks a theme', () => {
@@ -60,11 +70,11 @@ describe('theme script', () => {
     runThemeScript();
 
     changeSystemTheme(true);
-    expect(document.documentElement).toHaveClass('dark');
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
 
     localStorage.setItem(THEME_STORAGE_KEY, 'light');
     changeSystemTheme(false);
     changeSystemTheme(true);
-    expect(document.documentElement).toHaveClass('dark');
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
   });
 });

@@ -1,9 +1,11 @@
 'use client';
 
 import {useServerInsertedHTML} from 'next/navigation';
-import {useRef} from 'react';
+import {useEffect, useRef} from 'react';
 
-import {themeScript} from './theme';
+import {usePathname} from '@/i18n/navigation';
+
+import {restoreTheme, themeScript} from './theme';
 
 /**
  * Injects the theme script into the server-rendered HTML stream, outside the React tree:
@@ -11,6 +13,7 @@ import {themeScript} from './theme';
  */
 export const ThemeScript = () => {
   const isInserted = useRef(false);
+  const pathname = usePathname();
 
   useServerInsertedHTML(() => {
     if (isInserted.current) {
@@ -21,6 +24,11 @@ export const ThemeScript = () => {
 
     return <script dangerouslySetInnerHTML={{__html: themeScript}} />;
   });
+
+  // Switching locale re-renders the root layout, and React strips attributes it doesn't own.
+  useEffect(() => {
+    restoreTheme();
+  }, [pathname]);
 
   return null;
 };

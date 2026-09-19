@@ -18,7 +18,15 @@ const renderToggle = () => {
 describe('ThemeToggle', () => {
   beforeEach(() => {
     localStorage.clear();
-    document.documentElement.className = '';
+    document.documentElement.removeAttribute('data-theme');
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn(() => ({matches: false})),
+    );
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('switches between light and dark themes and remembers the choice', async () => {
@@ -28,11 +36,11 @@ describe('ThemeToggle', () => {
     const button = screen.getByRole('button', {name: 'Toggle theme'});
 
     await user.click(button);
-    expect(document.documentElement).toHaveClass('dark');
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
     expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
 
     await user.click(button);
-    expect(document.documentElement).not.toHaveClass('dark');
+    expect(document.documentElement).toHaveAttribute('data-theme', 'light');
     expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('light');
   });
 });

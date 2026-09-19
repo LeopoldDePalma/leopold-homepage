@@ -4,7 +4,8 @@ type Theme = 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'theme';
 
-const DARK_CLASS = 'dark';
+// An attribute, not a class: React rewrites the <html> className on client-side navigation.
+const THEME_ATTRIBUTE = 'data-theme';
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 
 /**
@@ -13,7 +14,7 @@ const DARK_QUERY = '(prefers-color-scheme: dark)';
  * no references to anything outside its own body except its arguments
  * (no imports — lodash included).
  */
-const initTheme = (storageKey: string, darkClass: string, darkQuery: string) => {
+const initTheme = (storageKey: string, attribute: string, darkQuery: string) => {
   const readStoredTheme = () => {
     try {
       return localStorage.getItem(storageKey);
@@ -24,32 +25,56 @@ const initTheme = (storageKey: string, darkClass: string, darkQuery: string) => 
 
   const media = window.matchMedia(darkQuery);
 
-  const applyDark = (isDark: boolean) => {
-    document.documentElement.classList.toggle(darkClass, isDark);
+  const applyTheme = (isDark: boolean) => {
+    document.documentElement.setAttribute(attribute, isDark ? 'dark' : 'light');
   };
 
   const storedTheme = readStoredTheme();
-  applyDark(storedTheme ? storedTheme === 'dark' : media.matches);
+  applyTheme(storedTheme ? storedTheme === 'dark' : media.matches);
 
   // Follow system changes live until the visitor picks a theme explicitly.
   media.addEventListener('change', (event) => {
     if (!readStoredTheme()) {
-      applyDark(event.matches);
+      applyTheme(event.matches);
     }
   });
 };
 
-const scriptArgs = map([THEME_STORAGE_KEY, DARK_CLASS, DARK_QUERY], (arg) =>
+const scriptArgs = map([THEME_STORAGE_KEY, THEME_ATTRIBUTE, DARK_QUERY], (arg) =>
   JSON.stringify(arg),
 ).join(', ');
 
 export const themeScript = `(${initTheme.toString()})(${scriptArgs})`;
 
-export const getTheme = (): Theme =>
-  document.documentElement.classList.contains(DARK_CLASS) ? 'dark' : 'light';
+const readStoredTheme = () => {
+  try {
+    return localStorage.getItem(THEME_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+};
+
+export const getTheme = (): Theme => {
+  const storedTheme = readStoredTheme();
+
+  if (storedTheme) {
+    return storedTheme === 'dark' ? 'dark' : 'light';
+  }
+
+  return window.matchMedia(DARK_QUERY).matches ? 'dark' : 'light';
+};
+
+const applyTheme = (theme: Theme) => {
+  document.documentElement.setAttribute(THEME_ATTRIBUTE, theme);
+};
+
+/** Re-applies the current theme; React drops the attribute when the root layout re-renders. */
+export const restoreTheme = () => {
+  applyTheme(getTheme());
+};
 
 export const setTheme = (theme: Theme) => {
-  document.documentElement.classList.toggle(DARK_CLASS, theme === 'dark');
+  applyTheme(theme);
 
   try {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
