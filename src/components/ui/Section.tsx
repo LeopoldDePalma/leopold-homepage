@@ -13,12 +13,7 @@ const section = tv({
 
 const {root, heading} = section();
 
-type SectionProps = {
-  title: string;
-  children: ReactNode;
-};
-
-export const Section = ({title, children}: SectionProps) => {
+export const Section = ({title, children}: {title: string; children: ReactNode}) => {
   return (
     <section className={root()}>
       <h2 className={heading()}>{title}</h2>

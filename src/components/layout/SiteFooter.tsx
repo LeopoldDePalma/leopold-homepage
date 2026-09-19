@@ -19,13 +19,8 @@ const siteFooter = tv({
 
 const {root, credit, link} = siteFooter();
 
-type ExternalLinkProps = {
-  href: string;
-  children: ReactNode;
-};
-
 // Latin titles keep their own direction inside Arabic text.
-const ExternalLink = ({href, children}: ExternalLinkProps) => {
+const ExternalLink = ({href, children}: {href: string; children: ReactNode}) => {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" dir="ltr" className={link()}>
       {children}

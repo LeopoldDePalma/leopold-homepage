@@ -11,10 +11,8 @@ import {KTX2Loader} from 'three/addons/loaders/KTX2Loader.js';
 import {Spinner} from '@/components/ui/Spinner';
 import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
 
-const MODEL = {
-  detailed: {url: '/models/helmet-8k.glb', textureSize: 8192},
-  fallback: {url: '/models/helmet-4k.glb'},
-};
+const MODEL_URL = {detailed: '/models/helmet-8k.glb', fallback: '/models/helmet-4k.glb'};
+const DETAILED_TEXTURE_SIZE = 8192;
 // Basis transcoder shipped with three (node_modules/three/examples/jsm/libs/basis).
 const BASIS_TRANSCODER_PATH = '/basis/';
 
@@ -37,12 +35,12 @@ const getKtx2Loader = (renderer: WebGLRenderer) => {
 // A dark studio with a few soft boxes: polished steel reads dark, with bright highlights.
 const StudioLighting = () => {
   return (
-    <Environment resolution={256}>
+    <Environment>
       <color attach="background" args={['#7a7a7a']} />
-      <Lightformer form="rect" intensity={4} position={[0, 3, 3]} scale={[5, 2, 1]} />
-      <Lightformer form="rect" intensity={3} position={[-4, 1, 1]} scale={[2, 4, 1]} />
-      <Lightformer form="rect" intensity={2} position={[4, 0, -2]} scale={[2, 4, 1]} />
-      <Lightformer form="rect" intensity={1.5} position={[0, -0.5, 5]} scale={[6, 3, 1]} />
+      <Lightformer intensity={4} position={[0, 3, 3]} scale={[5, 2, 1]} />
+      <Lightformer intensity={3} position={[-4, 1, 1]} scale={[2, 4, 1]} />
+      <Lightformer intensity={2} position={[4, 0, -2]} scale={[2, 4, 1]} />
+      <Lightformer intensity={1.5} position={[0, -0.5, 5]} scale={[6, 3, 1]} />
     </Environment>
   );
 };
@@ -50,14 +48,15 @@ const StudioLighting = () => {
 const Helmet = () => {
   const renderer = useThree((state) => state.gl);
   // Devices that can't hold an 8K texture get the 4K build.
-  const {url} =
-    renderer.capabilities.maxTextureSize >= MODEL.detailed.textureSize
-      ? MODEL.detailed
-      : MODEL.fallback;
+  const url =
+    renderer.capabilities.maxTextureSize >= DETAILED_TEXTURE_SIZE
+      ? MODEL_URL.detailed
+      : MODEL_URL.fallback;
   const {scene} = useLoader(GLTFLoader, url, (loader) => {
     loader.setMeshoptDecoder(MeshoptDecoder).setKTX2Loader(getKtx2Loader(renderer));
   });
 
+  // The scan's pivot is slightly off its bounding box, which would wobble while rotating.
   return (
     <Center>
       <primitive object={scene} rotation={FACE_CAMERA} />
@@ -73,7 +72,6 @@ const HelmetScene = ({isActive}: {isActive: boolean}) => {
       frameloop={isActive ? 'always' : 'never'}
       dpr={[1, 2]}
       camera={{fov: 30, position: CAMERA_POSITION}}
-      gl={{alpha: true}}
     >
       <StudioLighting />
       <Suspense

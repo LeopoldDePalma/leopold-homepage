@@ -10,7 +10,7 @@ import {Logo} from './Logo';
 
 const siteHeader = tv({
   slots: {
-    root: ['sticky top-0 z-10', 'border-b border-border', 'bg-background/80 backdrop-blur-md'],
+    root: ['sticky top-0 z-10', 'bg-background/60 backdrop-blur-md'],
     container: ['mx-auto flex w-full max-w-2xl items-center', 'gap-4 px-4 py-3'],
     nav: 'ms-auto',
     sourceLink: [
