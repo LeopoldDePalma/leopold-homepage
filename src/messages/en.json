@@ -22,10 +22,10 @@
     "bio": {
       "title": "Bio",
       "untilNow": "present",
-      "born": "Born in Ulan-Ude, Russia.",
-      "moscow": "Moved to Moscow.",
-      "university": "Started studying information security at Moscow Power Engineering Institute (MPEI).",
-      "work": "Working at Evriteg."
+      "born": "Born in Ulan-Ude (<ar>أولان أودي</ar>), the Russian Federation.",
+      "moscow": "Settled in Moscow (<ar>موسكو</ar>).",
+      "university": "Started studying information security at Moscow Power Engineering Institute (<ar>معهد موسكو للطاقة</ar>).",
+      "work": "Working at Everytag (<ar>إيفري تاغ</ar>)."
     }
   },
   "ProfileHeader": {
