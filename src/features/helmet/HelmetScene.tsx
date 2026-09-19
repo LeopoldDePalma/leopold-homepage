@@ -1,14 +1,13 @@
 'use client';
 
-import {Center, Environment, Html, Lightformer, OrbitControls} from '@react-three/drei';
+import {Center, Environment, Lightformer, OrbitControls} from '@react-three/drei';
 import {Canvas, useLoader, useThree} from '@react-three/fiber';
-import {Suspense} from 'react';
+import {Suspense, useEffect} from 'react';
 import type {WebGLRenderer} from 'three';
 import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {KTX2Loader} from 'three/addons/loaders/KTX2Loader.js';
 
-import {Spinner} from '@/components/ui/Spinner';
 import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
 
 const MODEL_URL = {detailed: '/models/helmet-8k.glb', fallback: '/models/helmet-4k.glb'};
@@ -45,7 +44,7 @@ const StudioLighting = () => {
   );
 };
 
-const Helmet = () => {
+const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
   const renderer = useThree((state) => state.gl);
   // Devices that can't hold an 8K texture get the 4K build.
   const url =
@@ -57,6 +56,11 @@ const Helmet = () => {
   });
 
   // The scan's pivot is slightly off its bounding box, which would wobble while rotating.
+  // The showcase keeps its spinner until the model is on screen.
+  useEffect(() => {
+    onModelReady();
+  }, [onModelReady]);
+
   return (
     <Center>
       <primitive object={scene} rotation={FACE_CAMERA} />
@@ -64,24 +68,25 @@ const Helmet = () => {
   );
 };
 
-const HelmetScene = ({isActive}: {isActive: boolean}) => {
+type HelmetSceneProps = {
+  isActive: boolean;
+  onModelReady: () => void;
+  className: string;
+};
+
+const HelmetScene = ({isActive, onModelReady, className}: HelmetSceneProps) => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
     <Canvas
+      className={className}
       frameloop={isActive ? 'always' : 'never'}
       dpr={[1, 2]}
       camera={{fov: 30, position: CAMERA_POSITION}}
     >
       <StudioLighting />
-      <Suspense
-        fallback={
-          <Html center>
-            <Spinner />
-          </Html>
-        }
-      >
-        <Helmet />
+      <Suspense fallback={null}>
+        <Helmet onModelReady={onModelReady} />
       </Suspense>
       <OrbitControls
         enablePan={false}
