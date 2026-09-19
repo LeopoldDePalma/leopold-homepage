@@ -3,8 +3,8 @@ import {useTranslations} from 'next-intl';
 import {tv} from 'tailwind-variants';
 
 import {LocaleSwitcher} from '@/components/LocaleSwitcher';
-import {ThemeToggle} from '@/components/ThemeToggle';
 import {site} from '@/content/site';
+import {ThemeToggle} from '@/features/theme/ThemeToggle';
 
 import {Logo} from './Logo';
 

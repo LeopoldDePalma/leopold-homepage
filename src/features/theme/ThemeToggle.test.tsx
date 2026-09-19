@@ -4,15 +4,13 @@ import {NextIntlClientProvider} from 'next-intl';
 
 import messages from '@/messages/en.json';
 
-import {ThemeProvider} from './ThemeProvider';
+import {THEME_STORAGE_KEY} from './theme';
 import {ThemeToggle} from './ThemeToggle';
 
 const renderToggle = () => {
   return render(
     <NextIntlClientProvider locale="en" messages={messages}>
-      <ThemeProvider>
-        <ThemeToggle />
-      </ThemeProvider>
+      <ThemeToggle />
     </NextIntlClientProvider>,
   );
 };
@@ -21,26 +19,9 @@ describe('ThemeToggle', () => {
   beforeEach(() => {
     localStorage.clear();
     document.documentElement.className = '';
-    // jsdom has no matchMedia; report a light system theme.
-    vi.stubGlobal(
-      'matchMedia',
-      vi.fn((query: string) => ({
-        matches: false,
-        media: query,
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        // next-themes still subscribes through the legacy listener API.
-        addListener: vi.fn(),
-        removeListener: vi.fn(),
-      })),
-    );
   });
 
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  it('switches between light and dark themes', async () => {
+  it('switches between light and dark themes and remembers the choice', async () => {
     const user = userEvent.setup();
     renderToggle();
 
@@ -48,8 +29,10 @@ describe('ThemeToggle', () => {
 
     await user.click(button);
     expect(document.documentElement).toHaveClass('dark');
+    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
 
     await user.click(button);
-    expect(document.documentElement).toHaveClass('light');
+    expect(document.documentElement).not.toHaveClass('dark');
+    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('light');
   });
 });

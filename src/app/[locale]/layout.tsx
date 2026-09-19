@@ -8,7 +8,7 @@ import {tv} from 'tailwind-variants';
 
 import {SiteFooter} from '@/components/layout/SiteFooter';
 import {SiteHeader} from '@/components/layout/SiteHeader';
-import {ThemeProvider} from '@/components/ThemeProvider';
+import {ThemeScript} from '@/features/theme/ThemeScript';
 import {localeDirection, routing} from '@/i18n/routing';
 import {fontVariables} from '@/styles/fonts';
 
@@ -58,17 +58,16 @@ const LocaleLayout = async ({children, params}: LayoutProps<'/[locale]'>) => {
       lang={locale}
       dir={localeDirection[locale]}
       className={styles.html({className: fontVariables})}
-      // next-themes sets the theme class on <html> before hydration.
+      // The theme script sets the `dark` class on <html> before hydration.
       suppressHydrationWarning
     >
       <body className={styles.body()}>
-        <ThemeProvider>
-          <NextIntlClientProvider>
-            <SiteHeader />
-            <main className={styles.main()}>{children}</main>
-            <SiteFooter />
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <ThemeScript />
+        <NextIntlClientProvider>
+          <SiteHeader />
+          <main className={styles.main()}>{children}</main>
+          <SiteFooter />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

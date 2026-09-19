@@ -9,6 +9,7 @@
   --muted: #6b5a48;
   --accent: #7d5a10;
   --border: #2b21181f;
+  color-scheme: light;
 }
 
 /* Iron — the dark theme. */
@@ -18,6 +19,7 @@
   --muted: #a79e90;
   --accent: #d4a93a;
   --border: #ede6d91f;
+  color-scheme: dark;
 }
 
 /*
