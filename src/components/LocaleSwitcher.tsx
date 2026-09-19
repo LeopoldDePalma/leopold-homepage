@@ -1,5 +1,6 @@
 'use client';
 
+import {map, without} from 'lodash-es';
 import {useLocale, useTranslations} from 'next-intl';
 import {tv} from 'tailwind-variants';
 
@@ -15,12 +16,12 @@ export const LocaleSwitcher = () => {
   const t = useTranslations('LocaleSwitcher');
   const currentLocale = useLocale();
   const pathname = usePathname();
-  const otherLocales = routing.locales.filter((locale) => locale !== currentLocale);
+  const otherLocales = without(routing.locales, currentLocale);
 
   return (
     <nav aria-label={t('label')}>
       <ul className="flex gap-3">
-        {otherLocales.map((locale) => (
+        {map(otherLocales, (locale) => (
           <li key={locale}>
             <Link
               href={pathname}

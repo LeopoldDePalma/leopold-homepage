@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 
+import {keyBy, map, mapValues} from 'lodash-es';
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {hasLocale, NextIntlClientProvider} from 'next-intl';
@@ -9,7 +10,7 @@ import {tv} from 'tailwind-variants';
 import {SiteFooter} from '@/components/layout/SiteFooter';
 import {SiteHeader} from '@/components/layout/SiteHeader';
 import {ThemeScript} from '@/features/theme/ThemeScript';
-import {localeDirection, routing} from '@/i18n/routing';
+import {type Locale, localeDirection, routing} from '@/i18n/routing';
 import {fontVariables} from '@/styles/fonts';
 
 const layout = tv({
@@ -24,8 +25,11 @@ const styles = layout();
 
 export const dynamicParams = false;
 
+type LocaleParams = {locale: Locale};
+
 export const generateStaticParams = () => {
-  return routing.locales.map((locale) => ({locale}));
+  // Explicit type arguments make lodash return a mutable array, as Next.js expects.
+  return map<Locale, LocaleParams>(routing.locales, (locale) => ({locale}));
 };
 
 export const generateMetadata = async ({params}: LayoutProps<'/[locale]'>): Promise<Metadata> => {
@@ -44,7 +48,7 @@ export const generateMetadata = async ({params}: LayoutProps<'/[locale]'>): Prom
       ],
     },
     alternates: {
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
+      languages: mapValues(keyBy(routing.locales), (l) => `/${l}`),
     },
   };
 };

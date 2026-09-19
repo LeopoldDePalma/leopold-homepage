@@ -69,12 +69,26 @@ export default defineConfig([
       // Arrow functions only: components, handlers, helpers and callbacks.
       'func-style': ['error', 'expression'],
       'prefer-arrow-callback': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [{name: 'lodash', message: 'Import from lodash-es (tree-shakeable ESM build).'}],
+          patterns: [{group: ['lodash/*'], message: 'Import from lodash-es.'}],
+        },
+      ],
       'react/function-component-definition': [
         'error',
         {namedComponents: 'arrow-function', unnamedComponents: 'arrow-function'},
       ],
       'no-restricted-syntax': [
         'error',
+        {
+          selector: [
+            'CallExpression > MemberExpression.callee > Identifier.property',
+            '[name=/^(map|filter|reduce|find|findIndex|some|every|flatMap)$/]',
+          ].join(''),
+          message: 'Use the lodash-es function instead of the native array method.',
+        },
         {
           selector: 'FunctionExpression:not(MethodDefinition > FunctionExpression)',
           message: 'Use an arrow function instead of a function expression.',

@@ -1,3 +1,4 @@
+import {map} from 'lodash-es';
 import {Amiri, EB_Garamond, JetBrains_Mono, Noto_Kufi_Arabic} from 'next/font/google';
 
 // Latin script: body/UI and headings.
@@ -26,6 +27,7 @@ const amiri = Amiri({
   preload: false,
 });
 
-export const fontVariables = [jetBrainsMono, ebGaramond, notoKufiArabic, amiri]
-  .map((font) => font.variable)
-  .join(' ');
+export const fontVariables = map(
+  [jetBrainsMono, ebGaramond, notoKufiArabic, amiri],
+  'variable',
+).join(' ');

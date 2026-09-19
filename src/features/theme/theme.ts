@@ -1,3 +1,5 @@
+import {map} from 'lodash-es';
+
 export type Theme = 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'theme';
@@ -8,7 +10,8 @@ const DARK_QUERY = '(prefers-color-scheme: dark)';
 /**
  * Runs as an inline script before the first paint, so the page never flashes the wrong theme.
  * It is serialised with `toString()`, therefore it must stay self-contained:
- * no references to anything outside its own body except its arguments.
+ * no references to anything outside its own body except its arguments
+ * (no imports — lodash included).
  */
 export const initTheme = (storageKey: string, darkClass: string, darkQuery: string) => {
   const readStoredTheme = () => {
@@ -33,9 +36,9 @@ export const initTheme = (storageKey: string, darkClass: string, darkQuery: stri
   });
 };
 
-const scriptArgs = [THEME_STORAGE_KEY, DARK_CLASS, DARK_QUERY]
-  .map((arg) => JSON.stringify(arg))
-  .join(', ');
+const scriptArgs = map([THEME_STORAGE_KEY, DARK_CLASS, DARK_QUERY], (arg) =>
+  JSON.stringify(arg),
+).join(', ');
 
 export const themeScript = `(${initTheme.toString()})(${scriptArgs})`;
 
