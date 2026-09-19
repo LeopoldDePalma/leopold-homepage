@@ -18,6 +18,14 @@
     },
     "web": {
       "title": "On the web"
+    },
+    "bio": {
+      "title": "Bio",
+      "untilNow": "present",
+      "born": "Born in Ulan-Ude, Russia.",
+      "moscow": "Moved to Moscow.",
+      "university": "Started studying information security at Moscow Power Engineering Institute (MPEI).",
+      "work": "Working at Evriteg."
     }
   },
   "ProfileHeader": {

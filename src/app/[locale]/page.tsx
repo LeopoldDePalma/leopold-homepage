@@ -5,6 +5,7 @@ import {tv} from 'tailwind-variants';
 import {Section} from '@/components/ui/Section';
 import {Typewriter} from '@/components/ui/Typewriter';
 import {HelmetShowcase} from '@/features/helmet/HelmetShowcase';
+import {Bio} from '@/features/home/Bio';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {SocialLinks} from '@/features/home/SocialLinks';
 
@@ -35,6 +36,10 @@ const HomePage = () => {
 
       <Section title={t('about.title')}>
         <p className={paragraph()}>{t('about.text')}</p>
+      </Section>
+
+      <Section title={t('bio.title')}>
+        <Bio />
       </Section>
 
       <Section title={t('interests.title')}>

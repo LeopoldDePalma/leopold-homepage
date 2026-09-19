@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   theme toggle; footer with copyright.
 - Home page: typed greeting, profile header with photo, About, Passions and On the web sections.
 - Links to GitHub, Telegram and Instagram profiles.
+- Bio section on the home page: a timeline from 1998 to the current job.
 - Interactive 3D helmet with a grotesque visor (The Royal Armoury scan) on the home page: loads
   after the page, shows a spinner meanwhile, rotates and zooms; model credit in the footer.
 
