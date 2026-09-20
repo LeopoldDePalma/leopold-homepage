@@ -36,6 +36,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# copied from three on install (scripts/copy-basis-transcoder.mts)
+/public/basis
+
 # vercel
 .vercel
 
