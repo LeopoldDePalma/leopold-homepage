@@ -10,7 +10,7 @@ import {ContactButton} from '@/features/home/ContactButton';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {SocialLinks} from '@/features/home/SocialLinks';
 import {getListening} from '@/features/spotify/api';
-import {NOW_PLAYING_POPOVER_ID} from '@/features/spotify/NowPlayingToggle';
+import {MUSIC_POPOVER_ID} from '@/features/spotify/MusicToggle';
 
 const homePage = tv({
   slots: {
@@ -40,7 +40,7 @@ const HomePage = async () => {
       <button
         key={interest}
         type="button"
-        popoverTarget={NOW_PLAYING_POPOVER_ID}
+        popoverTarget={MUSIC_POPOVER_ID}
         className={musicTrigger()}
       >
         {t(`interests.${interest}`)}

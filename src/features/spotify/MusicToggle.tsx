@@ -10,14 +10,14 @@ import {IconButton} from '@/components/ui/IconButton';
 import type {Listening} from './api';
 
 /** The "Music" word on the home page opens this same popover. */
-export const NOW_PLAYING_POPOVER_ID = 'now-playing';
-const NOW_PLAYING_URL = '/api/now-playing';
+export const MUSIC_POPOVER_ID = 'music';
+const MUSIC_URL = '/api/music';
 
-const nowPlayingToggle = tv({
+const musicToggle = tv({
   slots: {
     // Written out in full: Tailwind scans the source statically and cannot see
     // a class name assembled at runtime.
-    button: '[anchor-name:--now-playing]',
+    button: '[anchor-name:--music]',
     icon: 'size-[1.25em]',
     /*
      * The browser puts a popover in the top layer and anchors it under the button. Where anchor
@@ -27,7 +27,7 @@ const nowPlayingToggle = tv({
     panel: [
       'fixed inset-auto end-[max(1rem,calc(50vw-21rem))] top-16 m-0',
       'supports-[position-anchor]:inset-auto supports-[position-anchor]:mt-2',
-      '[position-anchor:--now-playing] [position-area:block-end_span-inline-start]',
+      '[position-anchor:--music] [position-area:block-end_span-inline-start]',
       '[position-try-fallbacks:flip-inline]',
       'w-[min(20rem,calc(100vw-2rem))] p-3',
       'text-sm',
@@ -56,15 +56,15 @@ const nowPlayingToggle = tv({
  * is fetched again whenever the panel opens — the one moment somebody is looking at it, so no
  * timer is needed. The "Music" word on the home page targets the same popover id.
  */
-export const NowPlayingToggle = ({initial}: {initial: Listening}) => {
-  const t = useTranslations('NowPlaying');
+export const MusicToggle = ({initial}: {initial: Listening}) => {
+  const t = useTranslations('Music');
   const format = useFormatter();
   const [listening, setListening] = useState(initial);
-  const styles = nowPlayingToggle({isPlaying: listening.isPlaying});
+  const styles = musicToggle({isPlaying: listening.isPlaying});
 
   const refresh = async () => {
     try {
-      const response = await fetch(NOW_PLAYING_URL);
+      const response = await fetch(MUSIC_URL);
       const fresh = (await response.json()) as Listening | null;
 
       if (fresh) {
@@ -88,16 +88,11 @@ export const NowPlayingToggle = ({initial}: {initial: Listening}) => {
 
   return (
     <>
-      <IconButton label={status} popoverTarget={NOW_PLAYING_POPOVER_ID} className={styles.button()}>
+      <IconButton label={status} popoverTarget={MUSIC_POPOVER_ID} className={styles.button()}>
         <IconBrandSpotify aria-hidden className={styles.icon()} />
       </IconButton>
 
-      <div
-        id={NOW_PLAYING_POPOVER_ID}
-        popover="auto"
-        className={styles.panel()}
-        onToggle={handleToggle}
-      >
+      <div id={MUSIC_POPOVER_ID} popover="auto" className={styles.panel()} onToggle={handleToggle}>
         <span className={styles.row()}>
           {listening.cover ? (
             // Spotify's own artwork, so it is served straight from their CDN.

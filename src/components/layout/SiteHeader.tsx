@@ -4,7 +4,7 @@ import {tv} from 'tailwind-variants';
 
 import {site} from '@/content/site';
 import {getListening} from '@/features/spotify/api';
-import {NowPlayingToggle} from '@/features/spotify/NowPlayingToggle';
+import {MusicToggle} from '@/features/spotify/MusicToggle';
 import {ThemeToggle} from '@/features/theme/ThemeToggle';
 
 import {LocaleSwitcher} from './LocaleSwitcher';
@@ -52,7 +52,7 @@ export const SiteHeader = async () => {
         </nav>
 
         <LocaleSwitcher />
-        {listening ? <NowPlayingToggle initial={listening} /> : null}
+        {listening ? <MusicToggle initial={listening} /> : null}
         <ThemeToggle />
       </div>
     </header>
