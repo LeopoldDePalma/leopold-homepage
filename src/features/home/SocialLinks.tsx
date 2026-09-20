@@ -32,9 +32,10 @@ export const SocialLinks = () => {
         <li key={name}>
           <a href={url} target="_blank" rel="noopener noreferrer" className={link()}>
             <Icon aria-hidden className={icon()} />
-            <span>
-              {name} <span dir="ltr">{handle}</span>
-            </span>
+            {/* Latin either way: kept together and left to right, whatever the page direction. */}
+            <bdi dir="ltr" lang="en">
+              {name} {handle}
+            </bdi>
           </a>
         </li>
       ))}
