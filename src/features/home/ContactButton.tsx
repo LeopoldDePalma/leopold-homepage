@@ -36,7 +36,8 @@ export const ContactButton = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   // Measured once, while the button sits still: reading it mid-pull would feed its own offset
-  // back into the next one, and each move would cost a layout pass.
+  // back into the next one, and each move would cost a layout pass. Page coordinates, so the
+  // measurement survives a scroll under the pointer.
   const handlePointerEnter = () => {
     const button = buttonRef.current;
 
@@ -47,7 +48,10 @@ export const ContactButton = () => {
     button.style.translate = '';
     const box = button.getBoundingClientRect();
 
-    restingCentre.current = {x: box.left + box.width / 2, y: box.top + box.height / 2};
+    restingCentre.current = {
+      x: box.left + window.scrollX + box.width / 2,
+      y: box.top + window.scrollY + box.height / 2,
+    };
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLAnchorElement>) => {
@@ -59,8 +63,8 @@ export const ContactButton = () => {
       return;
     }
 
-    const pullX = (event.clientX - centre.x) * MAGNET_PULL;
-    const pullY = (event.clientY - centre.y) * MAGNET_PULL;
+    const pullX = (event.pageX - centre.x) * MAGNET_PULL;
+    const pullY = (event.pageY - centre.y) * MAGNET_PULL;
 
     button.style.translate = `${String(pullX)}px ${String(pullY)}px`;
   };
