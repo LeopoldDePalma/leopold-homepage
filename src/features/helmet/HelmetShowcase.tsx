@@ -13,8 +13,15 @@ const helmetShowcase = tv({
     // Pulled up: cancels the page padding and tucks the model under the translucent header.
     root: ['relative', '-mt-24 aspect-[4/3] w-full'],
     loader: 'absolute inset-0 flex items-center justify-center',
-    // Hidden until the model is there, so the empty canvas never flashes.
-    scene: ['absolute inset-0', 'opacity-0 transition-opacity duration-500'],
+    /*
+     * Hidden until the model is there, so the empty canvas never flashes. The important flag
+     * beats the inline touch-action OrbitControls writes on connect, which would otherwise
+     * swallow vertical swipes and trap the page on a phone.
+     */
+    scene: [
+      'absolute inset-0 [&_canvas]:touch-pan-y!',
+      'opacity-0 transition-opacity duration-500',
+    ],
   },
   variants: {
     isModelReady: {
