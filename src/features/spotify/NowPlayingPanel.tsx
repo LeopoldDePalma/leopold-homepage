@@ -67,8 +67,9 @@ export const NowPlayingPanel = ({initial}: {initial: Listening}) => {
       if (fresh) {
         setListening(fresh);
       }
-    } catch {
-      // Keep showing the track we already have.
+    } catch (error) {
+      // Keep showing the track we already have, but do not swallow the reason.
+      console.warn('Could not refresh the Spotify track', error);
     }
   };
 

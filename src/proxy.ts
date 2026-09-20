@@ -5,6 +5,6 @@ import {routing} from './i18n/routing';
 export default createMiddleware(routing);
 
 export const config = {
-  // Skip Next.js internals and any path with a file extension (images, favicon, etc.).
-  matcher: '/((?!_next|.*\\..*).*)',
+  // Skip route handlers, Next.js internals and any path with a file extension.
+  matcher: '/((?!api|_next|.*\\..*).*)',
 };
