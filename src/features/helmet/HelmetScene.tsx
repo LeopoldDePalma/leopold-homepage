@@ -1,17 +1,16 @@
 'use client';
 
 import {Center, Environment, Lightformer, OrbitControls} from '@react-three/drei';
-import {Canvas, useLoader, useThree} from '@react-three/fiber';
-import {Suspense, useEffect} from 'react';
-import type {WebGLRenderer} from 'three';
+import {Canvas, useFrame, useLoader, useThree} from '@react-three/fiber';
+import {type ComponentRef, Suspense, useEffect, useRef} from 'react';
+import {MathUtils, type WebGLRenderer} from 'three';
 import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {KTX2Loader} from 'three/addons/loaders/KTX2Loader.js';
 
 import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
 
-const MODEL_URL = {detailed: '/models/helmet-8k.glb', fallback: '/models/helmet-4k.glb'};
-const DETAILED_TEXTURE_SIZE = 8192;
+const MODEL_URL = '/models/helmet-4k.glb';
 // Basis transcoder shipped with three (node_modules/three/examples/jsm/libs/basis).
 const BASIS_TRANSCODER_PATH = '/basis/';
 
@@ -21,6 +20,9 @@ const FACE_CAMERA: [number, number, number] = [0, -Math.PI / 2, 0];
 const CAMERA_POSITION: [number, number, number] = [0, 0, 4.6];
 // Keeps the camera outside the helmet and the helmet from shrinking to a dot.
 const ZOOM = {min: 2.4, max: 7};
+// Speeds in the units OrbitControls counts in, where 1 is about a turn a minute: the camera
+// arrives with a fast sweep and settles into the idle turn.
+const SPIN = {intro: 400, idle: 1, introSeconds: 1.6};
 
 let ktx2Loader: KTX2Loader | undefined;
 
@@ -44,14 +46,43 @@ const StudioLighting = () => {
   );
 };
 
+// Circular ease-out: fastest on the first frame, gliding into the idle speed.
+const easeOutCirc = (progress: number) => {
+  return Math.sqrt(1 - (progress - 1) ** 2);
+};
+
+/** Orbit controls whose rotation arrives as a fast sweep and eases into the idle turn. */
+const OrbitingCamera = ({autoRotate}: {autoRotate: boolean}) => {
+  const controlsRef = useRef<ComponentRef<typeof OrbitControls>>(null);
+  const elapsedSeconds = useRef(0);
+
+  useFrame((_, delta) => {
+    const orbit = controlsRef.current;
+
+    if (!orbit || !autoRotate) {
+      return;
+    }
+
+    elapsedSeconds.current += delta;
+    const progress = Math.min(elapsedSeconds.current / SPIN.introSeconds, 1);
+
+    orbit.autoRotateSpeed = MathUtils.lerp(SPIN.intro, SPIN.idle, easeOutCirc(progress));
+  });
+
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      enablePan={false}
+      minDistance={ZOOM.min}
+      maxDistance={ZOOM.max}
+      autoRotate={autoRotate}
+    />
+  );
+};
+
 const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
   const renderer = useThree((state) => state.gl);
-  // Devices that can't hold an 8K texture get the 4K build.
-  const url =
-    renderer.capabilities.maxTextureSize >= DETAILED_TEXTURE_SIZE
-      ? MODEL_URL.detailed
-      : MODEL_URL.fallback;
-  const {scene} = useLoader(GLTFLoader, url, (loader) => {
+  const {scene} = useLoader(GLTFLoader, MODEL_URL, (loader) => {
     loader.setMeshoptDecoder(MeshoptDecoder).setKTX2Loader(getKtx2Loader(renderer));
   });
 
@@ -80,21 +111,16 @@ const HelmetScene = ({isActive, onModelReady, className}: HelmetSceneProps) => {
   return (
     <Canvas
       className={className}
-      frameloop={isActive ? 'always' : 'never'}
+      frameloop={isActive ? 'always' : 'demand'}
       dpr={[1, 2]}
       camera={{fov: 30, position: CAMERA_POSITION}}
     >
       <StudioLighting />
       <Suspense fallback={null}>
         <Helmet onModelReady={onModelReady} />
+        {/* Mounted with the model, so the sweep starts the moment the helmet appears. */}
+        <OrbitingCamera autoRotate={!prefersReducedMotion} />
       </Suspense>
-      <OrbitControls
-        enablePan={false}
-        minDistance={ZOOM.min}
-        maxDistance={ZOOM.max}
-        autoRotate={!prefersReducedMotion}
-        autoRotateSpeed={1}
-      />
     </Canvas>
   );
 };
