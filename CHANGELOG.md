@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Home page: typed greeting, profile header with photo, About, Passions and Get in touch
   sections.
 - Links to GitHub, Telegram and Instagram profiles.
+- Heraldry among the passions, linking out to WappenWiki.
 - Bio section on the home page: a timeline from 1998 to the current job.
 - Mail button in the Get in touch section: leans towards the pointer and opens the visitor's
   mail client.

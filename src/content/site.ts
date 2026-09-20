@@ -2,6 +2,7 @@ export const site = {
   email: 'maggot-step.4h@icloud.com',
   links: {
     source: 'https://github.com/LeopoldDePalma/leopold-homepage',
+    heraldry: 'https://wappenwiki.org/index.php/Main_Page',
   },
   profiles: {
     github: {url: 'https://github.com/LeopoldDePalma', handle: '@LeopoldDePalma'},
