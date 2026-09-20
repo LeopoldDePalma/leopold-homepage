@@ -21,9 +21,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Typography: JetBrains Mono and EB Garamond for English, Noto Kufi Arabic and Amiri for Arabic.
 - Site header with the imperial eagle logo, a link to the source code, language switcher and
   theme toggle; footer with copyright.
-- Home page: typed greeting, profile header with photo, About, Passions and On the web sections.
+- Home page: typed greeting, profile header with photo, About, Passions and Get in touch
+  sections.
 - Links to GitHub, Telegram and Instagram profiles.
 - Bio section on the home page: a timeline from 1998 to the current job.
+- Mail button in the Get in touch section: leans towards the pointer and opens the visitor's
+  mail client.
+- Now playing section on the home page: the current Spotify track, or the last one played.
+- Error and "page not found" screens in the site's own layout, with translations in both
+  locales; the 404 carries the arms of Swabia borne by the Hohenstaufen.
 - Interactive 3D helmet with a grotesque visor (The Royal Armoury scan) on the home page: loads
   after the page, shows a spinner meanwhile, rotates and zooms; model credit in the footer.
 
