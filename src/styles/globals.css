@@ -45,9 +45,6 @@
   --font-latin-display: var(--font-eb-garamond), ui-serif, serif;
   --font-arabic-body: var(--font-noto-kufi-arabic), ui-sans-serif, sans-serif;
   --font-arabic-display: var(--font-amiri), ui-serif, serif;
-
-  --font-body: var(--font-latin-body);
-  --font-display: var(--font-latin-display);
 }
 
 :lang(ar) {

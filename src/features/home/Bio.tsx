@@ -10,7 +10,7 @@ const bio = tv({
     root: 'grid grid-cols-[auto_1fr] gap-x-3 gap-y-2',
     // Subgrid keeps every event aligned, however wide the year next to it is.
     entry: 'col-span-2 grid grid-cols-subgrid',
-    year: ['shrink-0', 'font-heading font-bold', 'whitespace-nowrap', 'text-accent'],
+    year: ['font-heading font-bold', 'whitespace-nowrap', 'text-accent'],
     event: 'leading-relaxed',
   },
 });
