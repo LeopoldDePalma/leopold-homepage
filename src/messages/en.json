@@ -30,6 +30,10 @@
       "work": "Working at Everytag (<ar>إيفري تاغ</ar>)."
     }
   },
+  "NowPlaying": {
+    "title": "Now playing",
+    "lastPlayed": "Last played"
+  },
   "ProfileHeader": {
     "role": "Frontend developer",
     "photoAlt": "Portrait of {name}"

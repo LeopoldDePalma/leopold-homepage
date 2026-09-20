@@ -74,6 +74,13 @@ export default defineConfig([
     },
   },
   {
+    // Command-line scripts talk to the terminal; printing is their interface, not a stray log.
+    files: ['scripts/**'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
     files: ['**/*.{ts,tsx,mts}'],
     rules: {
       // Arrow functions only: components, handlers, helpers and callbacks.

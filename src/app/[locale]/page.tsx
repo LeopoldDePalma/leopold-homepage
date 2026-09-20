@@ -9,6 +9,7 @@ import {Bio} from '@/features/home/Bio';
 import {ContactButton} from '@/features/home/ContactButton';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {SocialLinks} from '@/features/home/SocialLinks';
+import {NowPlaying} from '@/features/spotify/NowPlaying';
 
 const homePage = tv({
   slots: {
@@ -46,6 +47,8 @@ const HomePage = () => {
       <Section title={t('interests.title')}>
         <p className={paragraph()}>{format.list(interests, {type: 'conjunction'})}</p>
       </Section>
+
+      <NowPlaying />
 
       <Section title={t('contact.title')}>
         <SocialLinks />
