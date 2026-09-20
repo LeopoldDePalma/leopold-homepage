@@ -30,8 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   mail client.
 - Now playing panel behind a header button: cover, track and artist for what is on Spotify,
   or the last thing played; the word "Music" in Passions opens the same panel.
-- Error and "page not found" screens in the site's own layout, with translations in both
-  locales; the 404 carries the arms of Swabia borne by the Hohenstaufen.
+- Error and "page not found" screens in the site's own layout, translated into every language.
+  The 404 carries the arms of Swabia borne by the Hohenstaufen.
 - Interactive 3D helmet with a grotesque visor (The Royal Armoury scan) on the home page. It
   loads after the page, shows a spinner meanwhile, turns and zooms, rests while it is off screen,
   and leaves vertical swipes to the page. Model credit in the footer.
