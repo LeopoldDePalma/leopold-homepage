@@ -107,11 +107,14 @@ type HelmetSceneProps = {
 
 const HelmetScene = ({isActive, onModelReady, className}: HelmetSceneProps) => {
   const prefersReducedMotion = usePrefersReducedMotion();
+  // Rotation is what keeps the loop awake: OrbitControls fires "change" on every turn and drei
+  // answers with invalidate(), so "demand" idles only once the turning stops.
+  const isTurning = isActive && !prefersReducedMotion;
 
   return (
     <Canvas
       className={className}
-      frameloop={isActive ? 'always' : 'demand'}
+      frameloop={isTurning ? 'always' : 'demand'}
       dpr={[1, 2]}
       camera={{fov: 30, position: CAMERA_POSITION}}
     >
@@ -119,7 +122,7 @@ const HelmetScene = ({isActive, onModelReady, className}: HelmetSceneProps) => {
       <Suspense fallback={null}>
         <Helmet onModelReady={onModelReady} />
         {/* Mounted with the model, so the sweep starts the moment the helmet appears. */}
-        <OrbitingCamera autoRotate={!prefersReducedMotion} />
+        <OrbitingCamera autoRotate={isTurning} />
       </Suspense>
     </Canvas>
   );
