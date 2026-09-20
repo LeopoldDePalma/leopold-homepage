@@ -6,7 +6,7 @@ import {Typewriter} from './Typewriter';
 const TEXT = 'مطوّر';
 
 const renderTypewriter = () => {
-  const {container} = render(
+  const {container, rerender} = render(
     <NextIntlClientProvider locale="ar" messages={{}}>
       <Typewriter text={TEXT} />
     </NextIntlClientProvider>,
@@ -15,7 +15,15 @@ const renderTypewriter = () => {
   // The visually typed layer is the last child of the paragraph.
   const typedLayer = container.querySelector('p > span:last-child');
 
-  return {typedText: () => typedLayer?.textContent};
+  const retype = (text: string) => {
+    rerender(
+      <NextIntlClientProvider locale="ar" messages={{}}>
+        <Typewriter text={text} />
+      </NextIntlClientProvider>,
+    );
+  };
+
+  return {typedText: () => typedLayer?.textContent, retype};
 };
 
 // Each tick schedules the next one after re-rendering, so ticks are advanced one at a time.
@@ -58,5 +66,17 @@ describe('Typewriter', () => {
 
     typeGraphemes(10);
     expect(typedText()).toBe(TEXT);
+  });
+
+  it('starts over when the text changes, as it does on a locale switch', () => {
+    const {typedText, retype} = renderTypewriter();
+
+    typeGraphemes(3);
+    retype('Developer');
+
+    expect(typedText()).toBe('');
+
+    typeGraphemes(3);
+    expect(typedText()).toBe('Dev');
   });
 });

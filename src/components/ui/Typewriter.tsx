@@ -32,7 +32,14 @@ export const Typewriter = ({text, className}: {text: string; className?: string}
   const segments = new Intl.Segmenter(locale, {granularity: 'grapheme'}).segment(text);
   const graphemes = Array.from(segments, (segment) => segment.segment);
   const [typedCount, setTypedCount] = useState(0);
+  const [typedText, setTypedText] = useState(text);
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Switching locale replaces the text mid-flight, so the new one is typed from its first letter.
+  if (typedText !== text) {
+    setTypedText(text);
+    setTypedCount(0);
+  }
 
   useEffect(() => {
     const isDone = typedCount >= graphemes.length;
