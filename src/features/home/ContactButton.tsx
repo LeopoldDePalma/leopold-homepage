@@ -32,25 +32,42 @@ const {root, icon} = contactButton();
 export const ContactButton = () => {
   const t = useTranslations('HomePage.contact');
   const buttonRef = useRef<HTMLAnchorElement>(null);
+  const restingCentre = useRef<{x: number; y: number} | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const handlePointerMove = (event: PointerEvent<HTMLAnchorElement>) => {
+  // Measured once, while the button sits still: reading it mid-pull would feed its own offset
+  // back into the next one, and each move would cost a layout pass.
+  const handlePointerEnter = () => {
     const button = buttonRef.current;
 
-    // Only a real pointer pulls the button; a finger already lands on it.
-    if (!button || prefersReducedMotion || event.pointerType !== 'mouse') {
+    if (!button) {
       return;
     }
 
+    button.style.translate = '';
     const box = button.getBoundingClientRect();
-    const pullX = (event.clientX - (box.left + box.width / 2)) * MAGNET_PULL;
-    const pullY = (event.clientY - (box.top + box.height / 2)) * MAGNET_PULL;
+
+    restingCentre.current = {x: box.left + box.width / 2, y: box.top + box.height / 2};
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLAnchorElement>) => {
+    const button = buttonRef.current;
+    const centre = restingCentre.current;
+
+    // Only a real pointer pulls the button; a finger already lands on it.
+    if (!button || !centre || prefersReducedMotion || event.pointerType !== 'mouse') {
+      return;
+    }
+
+    const pullX = (event.clientX - centre.x) * MAGNET_PULL;
+    const pullY = (event.clientY - centre.y) * MAGNET_PULL;
 
     button.style.translate = `${String(pullX)}px ${String(pullY)}px`;
   };
 
   const handlePointerLeave = () => {
     const button = buttonRef.current;
+    restingCentre.current = null;
 
     if (!button) {
       return;
@@ -64,6 +81,7 @@ export const ContactButton = () => {
       ref={buttonRef}
       href={`mailto:${site.email}`}
       className={root()}
+      onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >
