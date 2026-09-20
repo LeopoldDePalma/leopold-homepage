@@ -25,11 +25,12 @@ const nowPlayingToggle = tv({
       'supports-[position-anchor]:inset-auto supports-[position-anchor]:mt-2',
       '[position-anchor:--now-playing] [position-area:block-end_span-inline-start]',
       '[position-try-fallbacks:flip-inline]',
-      'flex w-[min(20rem,calc(100vw-2rem))] items-center gap-3 p-3',
+      'w-[min(20rem,calc(100vw-2rem))] p-3',
       'text-sm',
       'rounded-lg border border-border',
       'bg-background text-foreground shadow-lg',
     ],
+    row: 'flex items-center gap-3',
     cover: ['size-14 shrink-0', 'rounded-md border border-border', 'object-cover'],
     details: ['flex min-w-0 flex-col gap-0.5'],
     status: ['flex items-center gap-[0.4em]', 'text-xs tracking-wide uppercase', 'text-muted'],
@@ -69,34 +70,36 @@ export const NowPlayingToggle = async () => {
       </IconButton>
 
       <div id={NOW_PLAYING_POPOVER_ID} popover="auto" className={styles.panel()}>
-        {listening.cover ? (
-          // Spotify's own artwork, so it is served straight from their CDN.
-          // eslint-disable-next-line @next/next/no-img-element -- not worth a remote image loader
-          <img
-            src={listening.cover.url}
-            alt=""
-            width={listening.cover.size}
-            height={listening.cover.size}
-            className={styles.cover()}
-          />
-        ) : null}
+        <span className={styles.row()}>
+          {listening.cover ? (
+            // Spotify's own artwork, so it is served straight from their CDN.
+            // eslint-disable-next-line @next/next/no-img-element -- not worth a remote image loader
+            <img
+              src={listening.cover.url}
+              alt=""
+              width={listening.cover.size}
+              height={listening.cover.size}
+              className={styles.cover()}
+            />
+          ) : null}
 
-        <span className={styles.details()}>
-          <span className={styles.status()}>
-            <span aria-hidden className={styles.dot()} />
-            {status}
-          </span>
-          <a
-            href={listening.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.link()}
-          >
-            <span className={styles.track()}>{listening.track}</span>
-            <span className={styles.artist()}>
-              {format.list(listening.artists, {type: 'conjunction'})}
+          <span className={styles.details()}>
+            <span className={styles.status()}>
+              <span aria-hidden className={styles.dot()} />
+              {status}
             </span>
-          </a>
+            <a
+              href={listening.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link()}
+            >
+              <span className={styles.track()}>{listening.track}</span>
+              <span className={styles.artist()}>
+                {format.list(listening.artists, {type: 'conjunction'})}
+              </span>
+            </a>
+          </span>
         </span>
       </div>
     </>
