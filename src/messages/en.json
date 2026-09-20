@@ -1,13 +1,13 @@
 {
   "Site": {
     "name": "Konstantin Konyushkin",
-    "description": "Frontend developer with a love for medieval history. Homepage and project collection."
+    "description": "Frontend developer with a love for history and heraldry. Homepage and project collection."
   },
   "HomePage": {
-    "greeting": "Hello, I’m a frontend developer with the soul of a medieval chronicler.",
+    "greeting": "Hello. I write interfaces by day and read chronicles by night.",
     "about": {
       "title": "About",
-      "text": "Konstantin writes code the way medieval craftsmen built cathedrals: patiently, with care for every detail, and for the love of the craft itself. React and TypeScript are his tools; small personal projects are his collection, gathered here like pieces in an armoury. When the editor is closed, he returns to the Middle Ages — to emperors, knights, and the stories told by coats of arms."
+      "text": "Konstantin makes interfaces the way a scribe kept a chronicle: one careful line at a time, and with a weakness for the marginalia. React and TypeScript fill his working hours; history and heraldry fill the rest. This page is his armoury — a few pieces, each kept for a reason."
     },
     "interests": {
       "title": "Passions",
