@@ -11,6 +11,11 @@ export const site = {
       handle: '@konstantin.konyushkin',
     },
   },
+  armsCredit: {
+    arms: 'https://commons.wikimedia.org/wiki/File:Arms_of_Swabia_(lions_passant_guardant).svg',
+    author: 'https://commons.wikimedia.org/wiki/User:Ssolbergj',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
   modelCredit: {
     model:
       'https://sketchfab.com/3d-models/helmet-with-grotesque-visor-d1438344826a4ff9b97dd35ccd56f535',

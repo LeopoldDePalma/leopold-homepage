@@ -1,6 +1,5 @@
 import '@/styles/globals.css';
 
-import {map} from 'lodash-es';
 import type {Metadata} from 'next';
 import {cookies} from 'next/headers';
 import {NextIntlClientProvider} from 'next-intl';
@@ -10,23 +9,19 @@ import {tv} from 'tailwind-variants';
 import {SiteFooter} from '@/components/layout/SiteFooter';
 import {SiteHeader} from '@/components/layout/SiteHeader';
 import {isTheme, THEME_COOKIE} from '@/features/theme/theme';
-import {type Locale, localeDirection, routing} from '@/i18n/routing';
+import {localeDirection} from '@/i18n/routing';
 import {fontVariables} from '@/styles/fonts';
 
 const localeLayout = tv({
   slots: {
     html: 'h-full antialiased',
     body: 'flex min-h-full flex-col',
-    main: ['mx-auto w-full max-w-2xl flex-1', 'px-4 py-12'],
+    // A column so a page can stretch and push its own footnotes to the bottom.
+    main: ['mx-auto flex w-full max-w-2xl flex-1 flex-col', 'px-4 py-12'],
   },
 });
 
 const {html, body, main} = localeLayout();
-
-export const generateStaticParams = () => {
-  // Explicit type arguments make lodash return a mutable array, as Next.js expects.
-  return map<Locale, {locale: Locale}>(routing.locales, (locale) => ({locale}));
-};
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations('Site');
