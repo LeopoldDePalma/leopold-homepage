@@ -8,7 +8,7 @@ const iconButton = tv({
     'rounded-md border border-border',
     'text-accent',
     'transition-colors hover:bg-foreground/5',
-    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+    'focus-ring',
   ],
 });
 

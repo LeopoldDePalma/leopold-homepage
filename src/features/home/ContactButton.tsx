@@ -20,7 +20,7 @@ const contactButton = tv({
       'rounded-md border border-ink/10',
       'bg-paper text-ink',
       'transition hover:brightness-95 active:scale-[0.97] motion-reduce:transition-none',
-      'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+      'focus-ring',
     ],
     icon: ['size-[1.25em]', 'text-seal'],
   },

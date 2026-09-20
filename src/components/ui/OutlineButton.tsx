@@ -9,7 +9,7 @@ export const outlineButton = tv({
     'rounded-md border border-border',
     'transition active:scale-[0.97] motion-reduce:transition-none',
     'hover:border-accent hover:text-accent',
-    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+    'focus-ring',
   ],
 });
 
