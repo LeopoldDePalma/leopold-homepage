@@ -5,7 +5,9 @@ import {tv} from 'tailwind-variants';
 import {IconButton} from '@/components/ui/IconButton';
 
 import {getListening} from './api';
-import {NOW_PLAYING_POPOVER_ID} from './popover';
+
+/** Shared with the "Music" trigger on the home page, which opens the same panel. */
+export const NOW_PLAYING_POPOVER_ID = 'now-playing';
 
 const nowPlayingToggle = tv({
   slots: {
