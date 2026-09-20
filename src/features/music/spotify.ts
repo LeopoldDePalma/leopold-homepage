@@ -3,8 +3,9 @@ import {last, map, sortBy} from 'lodash-es';
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const CURRENTLY_PLAYING_URL = 'https://api.spotify.com/v1/me/player/currently-playing';
 const RECENTLY_PLAYED_URL = 'https://api.spotify.com/v1/me/player/recently-played?limit=1';
-// The track on the page may lag behind the speakers by this much.
-const TRACK_REVALIDATE_SECONDS = 60;
+// How stale the track may get. Spotify is asked again once it expires, and the caller waits for
+// that answer rather than being handed the old one.
+const TRACK_CACHE_SECONDS = 60;
 // Access tokens live an hour; refresh a little early to never serve an expired one.
 const TOKEN_SAFETY_MARGIN_SECONDS = 60;
 
@@ -98,17 +99,15 @@ const toListening = (track: SpotifyTrack, isPlaying: boolean): Listening => {
 };
 
 const fetchSpotify = async (url: string, accessToken: string) => {
-  return fetch(url, {
-    headers: {Authorization: `Bearer ${accessToken}`},
-    next: {revalidate: TRACK_REVALIDATE_SECONDS},
-  });
+  // Caching lives in this module, not in the fetch cache, whose revalidate serves the stale
+  // answer first and refreshes behind it — which showed the previous track on every first look.
+  return fetch(url, {headers: {Authorization: `Bearer ${accessToken}`}, cache: 'no-store'});
 };
 
-/**
- * What is playing right now, or the last thing that played. Returns `undefined` when the
- * feature is not configured or Spotify is unreachable — the section then stays off the page.
- */
-export const getListening = async (): Promise<Listening | undefined> => {
+// Kept in the process so visitors share one call a minute rather than making one each.
+let cachedListening: {value: Listening | undefined; expiresAt: number} | undefined;
+
+const fetchListening = async (): Promise<Listening | undefined> => {
   const credentials = readCredentials();
 
   if (!credentials) {
@@ -141,4 +140,20 @@ export const getListening = async (): Promise<Listening | undefined> => {
   } catch {
     return undefined;
   }
+};
+
+/**
+ * What is playing right now, or the last thing that played. Returns `undefined` when the feature
+ * is not configured or Spotify is unreachable, and the music button then stays off the page.
+ */
+export const getListening = async (): Promise<Listening | undefined> => {
+  if (cachedListening && cachedListening.expiresAt > Date.now()) {
+    return cachedListening.value;
+  }
+
+  const value = await fetchListening();
+
+  cachedListening = {value, expiresAt: Date.now() + TRACK_CACHE_SECONDS * 1000};
+
+  return value;
 };
