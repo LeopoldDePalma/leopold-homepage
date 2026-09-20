@@ -1,4 +1,5 @@
 export const site = {
+  email: 'maggot-step.4h@icloud.com',
   links: {
     source: 'https://github.com/LeopoldDePalma/leopold-homepage',
   },

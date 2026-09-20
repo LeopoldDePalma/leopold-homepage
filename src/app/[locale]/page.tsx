@@ -6,6 +6,7 @@ import {Section} from '@/components/ui/Section';
 import {Typewriter} from '@/components/ui/Typewriter';
 import {HelmetShowcase} from '@/features/helmet/HelmetShowcase';
 import {Bio} from '@/features/home/Bio';
+import {ContactButton} from '@/features/home/ContactButton';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {SocialLinks} from '@/features/home/SocialLinks';
 
@@ -46,8 +47,9 @@ const HomePage = () => {
         <p className={paragraph()}>{format.list(interests, {type: 'conjunction'})}</p>
       </Section>
 
-      <Section title={t('web.title')}>
+      <Section title={t('contact.title')}>
         <SocialLinks />
+        <ContactButton />
       </Section>
     </div>
   );

@@ -30,8 +30,9 @@ export const Bio = () => {
       {map(BIO_ENTRIES, (entry) => (
         <div key={entry.id} className={entryRow()}>
           <dt className={year()}>
-            {entry.year}
-            {'untilNow' in entry ? ` — ${t('untilNow')}` : ''}
+            {'untilNow' in entry
+              ? t('yearRange', {year: String(entry.year), untilNow: t('untilNow')})
+              : entry.year}
           </dt>
           <dd className={event()}>{t.rich(entry.id, {ar: renderArabic, en: renderEnglish})}</dd>
         </div>

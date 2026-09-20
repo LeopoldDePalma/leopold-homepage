@@ -16,12 +16,14 @@
       "books": "الكتب",
       "music": "الموسيقى"
     },
-    "web": {
-      "title": "على الإنترنت"
+    "contact": {
+      "title": "تواصل معي",
+      "action": "اكتب لي"
     },
     "bio": {
       "title": "السيرة",
       "untilNow": "حتى الآن",
+      "yearRange": "{year} — {untilNow}",
       "born": "وُلد في أولان أودي (<en>Ulan-Ude</en>)، الاتحاد الروسي.",
       "moscow": "استقر في موسكو (<en>Moscow</en>).",
       "university": "بدأ دراسة أمن المعلومات في معهد موسكو للطاقة (<en>Moscow Power Engineering Institute</en>).",

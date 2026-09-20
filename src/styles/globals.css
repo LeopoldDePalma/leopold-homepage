@@ -50,6 +50,11 @@
 }
 
 @theme {
+  /* A letter on the desk: the same paper, ink and wax seal in either theme. */
+  --color-paper: #faf7f2;
+  --color-ink: #2b2118;
+  --color-seal: #9b2226;
+
   --animate-caret: caret 1s steps(1) infinite;
 
   @keyframes caret {

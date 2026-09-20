@@ -16,12 +16,14 @@
       "books": "Books",
       "music": "Music"
     },
-    "web": {
-      "title": "On the web"
+    "contact": {
+      "title": "Get in touch",
+      "action": "Write to me"
     },
     "bio": {
       "title": "Bio",
       "untilNow": "present",
+      "yearRange": "{year} — {untilNow}",
       "born": "Born in Ulan-Ude (<ar>أولان أودي</ar>), the Russian Federation.",
       "moscow": "Settled in Moscow (<ar>موسكو</ar>).",
       "university": "Started studying information security at Moscow Power Engineering Institute (<ar>معهد موسكو للطاقة</ar>).",
