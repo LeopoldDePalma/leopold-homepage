@@ -14,8 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sorting.
 - Vitest and Testing Library setup for unit tests.
 - Pre-commit hook (Husky + lint-staged) and a GitHub Actions CI pipeline.
-- English and Arabic versions of the site with right-to-left layout for Arabic and a language
-  switcher; the locale stays out of the URL and is remembered in a cookie.
+- English, Arabic and French versions of the site with right-to-left layout for Arabic and a
+  language switcher. The locale stays out of the URL and is remembered in a cookie.
 - Light "parchment" and dark "iron" themes with a gold accent: the system preference applies by
   default, an explicit choice is remembered in a cookie and rendered by the server.
 - Typography: JetBrains Mono and EB Garamond for English, Noto Kufi Arabic and Amiri for Arabic.

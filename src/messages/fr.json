@@ -1,0 +1,67 @@
+{
+  "Site": {
+    "name": "Konstantin Konyushkin",
+    "description": "Développeur front-end épris d'histoire et d'héraldique. Page personnelle et collection de projets."
+  },
+  "HomePage": {
+    "greeting": "Bonjour. J'écris des interfaces le jour et je lis des chroniques la nuit.",
+    "about": {
+      "title": "À propos",
+      "text": "Konstantin façonne des interfaces comme un copiste tenait une chronique, une ligne soignée après l'autre, avec un faible pour les marginalia. React et TypeScript occupent ses heures de travail. L’histoire et l’héraldique occupent le reste. Cette page est son arsenal, et chaque pièce y a été gardée pour une raison."
+    },
+    "interests": {
+      "title": "Passions",
+      "programming": "Programmation",
+      "history": "Histoire",
+      "heraldry": "Héraldique",
+      "books": "Livres",
+      "music": "Musique"
+    },
+    "contact": {
+      "title": "Me contacter",
+      "action": "Écrivez-moi"
+    },
+    "bio": {
+      "title": "Parcours",
+      "untilNow": "aujourd'hui",
+      "yearRange": "{year} — {untilNow}",
+      "born": "Né à Oulan-Oude (<ar>أولان أودي</ar>), en Fédération de Russie.",
+      "moscow": "Installé à Moscou (<ar>موسكو</ar>).",
+      "university": "Débute des études en sécurité de l’information à l’Institut de l’énergie de Moscou (<ar>معهد موسكو للطاقة</ar>).",
+      "work": "Travaille chez Everytag (<ar>إيفري تاغ</ar>)."
+    }
+  },
+  "Music": {
+    "title": "À l'écoute",
+    "lastPlayed": "Dernière écoute"
+  },
+  "ProfileHeader": {
+    "role": "Développeur front-end",
+    "photoAlt": "Portrait de {name}"
+  },
+  "LocaleSwitcher": {
+    "label": "Langue"
+  },
+  "ThemeToggle": {
+    "label": "Changer de thème"
+  },
+  "SiteHeader": {
+    "navLabel": "Principal",
+    "source": "Code source"
+  },
+  "SiteFooter": {
+    "copyright": "© {year} {name}. Tous droits réservés.",
+    "modelCredit": "Modèle 3D <model>Helmet with Grotesque Visor</model> par <author>The Royal Armoury (Livrustkammaren)</author>, <license>CC BY-SA 4.0</license>, simplifié et réencodé."
+  },
+  "NotFound": {
+    "title": "Page introuvable",
+    "description": "Cette adresse ne figure pas dans l'armorial.",
+    "home": "Retour à l'accueil",
+    "armsCredit": "Armoiries <arms>de Souabe</arms> par <author>Ssolbergj et The White Lion</author>, <license>CC BY-SA 4.0</license>."
+  },
+  "ErrorPage": {
+    "title": "Quelque chose s'est mal passé",
+    "description": "La page n'a pas pu être affichée.",
+    "retry": "Réessayer"
+  }
+}

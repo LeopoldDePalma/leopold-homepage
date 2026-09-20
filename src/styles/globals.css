@@ -36,17 +36,29 @@
 }
 
 /*
- * Font stacks are chosen by the language of the text, so an element marked `lang="ar"`
- * inside an English page (and vice versa) gets the right typeface.
+ * Font stacks follow the language of the text, so a fragment marked `lang="ar"` inside a Latin
+ * page (and a Latin one inside an Arabic page) gets the right typeface. Latin is the default,
+ * so adding another Latin locale needs nothing here.
  */
-:lang(en) {
-  --font-body: var(--font-jetbrains-mono), ui-monospace, monospace;
-  --font-display: var(--font-eb-garamond), ui-serif, serif;
+:root {
+  --font-latin-body: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-latin-display: var(--font-eb-garamond), ui-serif, serif;
+  --font-arabic-body: var(--font-noto-kufi-arabic), ui-sans-serif, sans-serif;
+  --font-arabic-display: var(--font-amiri), ui-serif, serif;
+
+  --font-body: var(--font-latin-body);
+  --font-display: var(--font-latin-display);
 }
 
 :lang(ar) {
-  --font-body: var(--font-noto-kufi-arabic), ui-sans-serif, sans-serif;
-  --font-display: var(--font-amiri), ui-serif, serif;
+  --font-body: var(--font-arabic-body);
+  --font-display: var(--font-arabic-display);
+}
+
+/* Any other language, including a Latin fragment quoted inside an Arabic page. */
+[lang]:not(:lang(ar)) {
+  --font-body: var(--font-latin-body);
+  --font-display: var(--font-latin-display);
 }
 
 @theme {
