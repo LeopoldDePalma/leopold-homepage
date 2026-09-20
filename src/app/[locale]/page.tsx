@@ -9,8 +9,8 @@ import {Bio} from '@/features/home/Bio';
 import {ContactButton} from '@/features/home/ContactButton';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {SocialLinks} from '@/features/home/SocialLinks';
-import {getListening} from '@/features/spotify/api';
-import {MUSIC_POPOVER_ID} from '@/features/spotify/MusicToggle';
+import {MUSIC_POPOVER_ID} from '@/features/music/MusicToggle';
+import {getListening} from '@/features/music/spotify';
 
 const homePage = tv({
   slots: {

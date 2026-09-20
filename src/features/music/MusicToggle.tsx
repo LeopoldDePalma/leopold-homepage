@@ -7,7 +7,7 @@ import {tv} from 'tailwind-variants';
 
 import {IconButton} from '@/components/ui/IconButton';
 
-import type {Listening} from './api';
+import type {Listening} from './spotify';
 
 /** The "Music" word on the home page opens this same popover. */
 export const MUSIC_POPOVER_ID = 'music';

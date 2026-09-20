@@ -3,8 +3,8 @@ import {getTranslations} from 'next-intl/server';
 import {tv} from 'tailwind-variants';
 
 import {site} from '@/content/site';
-import {getListening} from '@/features/spotify/api';
-import {MusicToggle} from '@/features/spotify/MusicToggle';
+import {MusicToggle} from '@/features/music/MusicToggle';
+import {getListening} from '@/features/music/spotify';
 import {ThemeToggle} from '@/features/theme/ThemeToggle';
 
 import {LocaleSwitcher} from './LocaleSwitcher';
