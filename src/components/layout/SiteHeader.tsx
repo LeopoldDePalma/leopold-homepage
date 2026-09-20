@@ -1,4 +1,4 @@
-import {SiGithub} from '@icons-pack/react-simple-icons';
+import {IconBrandGithub} from '@tabler/icons-react';
 import {useTranslations} from 'next-intl';
 import {tv} from 'tailwind-variants';
 
@@ -42,7 +42,7 @@ export const SiteHeader = () => {
             rel="noopener noreferrer"
             className={sourceLink()}
           >
-            <SiGithub aria-hidden className={sourceIcon()} />
+            <IconBrandGithub aria-hidden className={sourceIcon()} />
             <span className={sourceLabel()}>{t('source')}</span>
           </a>
         </nav>

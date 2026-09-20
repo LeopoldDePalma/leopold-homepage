@@ -1,6 +1,5 @@
 'use client';
 
-import {map} from 'lodash-es';
 import {useLocale} from 'next-intl';
 import {useEffect, useState} from 'react';
 import {tv} from 'tailwind-variants';
@@ -30,10 +29,8 @@ const {root, placeholder, typed, caret} = typewriter();
 export const Typewriter = ({text, className}: {text: string; className?: string}) => {
   const locale = useLocale();
   // Graphemes, not code units: keeps Arabic letters together with their diacritics.
-  const graphemes = map(
-    Array.from(new Intl.Segmenter(locale, {granularity: 'grapheme'}).segment(text)),
-    'segment',
-  );
+  const segments = new Intl.Segmenter(locale, {granularity: 'grapheme'}).segment(text);
+  const graphemes = Array.from(segments, (segment) => segment.segment);
   const [typedCount, setTypedCount] = useState(0);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -56,9 +53,7 @@ export const Typewriter = ({text, className}: {text: string; className?: string}
   return (
     <p className={root({className})}>
       <span className="sr-only">{text}</span>
-      <span aria-hidden className={placeholder()}>
-        {text}
-      </span>
+      <span className={placeholder()}>{text}</span>
       <span aria-hidden className={typed()}>
         {prefersReducedMotion ? text : graphemes.slice(0, typedCount).join('')}
         {!prefersReducedMotion && <span className={caret()} />}

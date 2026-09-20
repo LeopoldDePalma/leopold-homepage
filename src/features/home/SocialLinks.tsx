@@ -1,4 +1,4 @@
-import {SiGithub, SiInstagram, SiTelegram} from '@icons-pack/react-simple-icons';
+import {IconBrandGithub, IconBrandInstagram, IconBrandTelegram} from '@tabler/icons-react';
 import {map} from 'lodash-es';
 import {tv} from 'tailwind-variants';
 
@@ -20,9 +20,9 @@ const socialLinks = tv({
 const {list, link, icon} = socialLinks();
 
 const PROFILES = [
-  {name: 'GitHub', Icon: SiGithub, ...site.profiles.github},
-  {name: 'Telegram', Icon: SiTelegram, ...site.profiles.telegram},
-  {name: 'Instagram', Icon: SiInstagram, ...site.profiles.instagram},
+  {name: 'GitHub', Icon: IconBrandGithub, ...site.profiles.github},
+  {name: 'Telegram', Icon: IconBrandTelegram, ...site.profiles.telegram},
+  {name: 'Instagram', Icon: IconBrandInstagram, ...site.profiles.instagram},
 ];
 
 export const SocialLinks = () => {

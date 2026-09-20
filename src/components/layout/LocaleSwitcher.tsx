@@ -23,13 +23,7 @@ export const LocaleSwitcher = () => {
       <ul className="flex gap-3">
         {map(otherLocales, (locale) => (
           <li key={locale}>
-            <Link
-              href={pathname}
-              locale={locale}
-              lang={locale}
-              hrefLang={locale}
-              className={localeLink()}
-            >
+            <Link href={pathname} locale={locale} lang={locale} className={localeLink()}>
               {localeNames[locale]}
             </Link>
           </li>

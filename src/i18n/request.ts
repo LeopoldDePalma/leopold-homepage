@@ -5,8 +5,9 @@ import {getRequestConfig} from 'next-intl/server';
 
 import {routing} from './routing';
 
-export default getRequestConfig(async () => {
-  const locale = await rootParams.locale();
+export default getRequestConfig(async ({locale: requestedLocale}) => {
+  // An explicit locale, as in `getTranslations({locale: 'ar'})`, wins over the route segment.
+  const locale = requestedLocale ?? (await rootParams.locale());
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
