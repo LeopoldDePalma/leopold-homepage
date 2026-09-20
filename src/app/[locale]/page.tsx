@@ -10,7 +10,7 @@ import {ContactButton} from '@/features/home/ContactButton';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {SocialLinks} from '@/features/home/SocialLinks';
 import {getListening} from '@/features/spotify/api';
-import {NOW_PLAYING_POPOVER_ID} from '@/features/spotify/NowPlayingPanel';
+import {NOW_PLAYING_POPOVER_ID} from '@/features/spotify/NowPlayingToggle';
 
 const homePage = tv({
   slots: {

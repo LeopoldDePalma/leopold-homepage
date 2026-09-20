@@ -1,8 +1,9 @@
 import {IconBrandGithub} from '@tabler/icons-react';
-import {useTranslations} from 'next-intl';
+import {getTranslations} from 'next-intl/server';
 import {tv} from 'tailwind-variants';
 
 import {site} from '@/content/site';
+import {getListening} from '@/features/spotify/api';
 import {NowPlayingToggle} from '@/features/spotify/NowPlayingToggle';
 import {ThemeToggle} from '@/features/theme/ThemeToggle';
 
@@ -28,8 +29,10 @@ const siteHeader = tv({
 
 const {root, container, nav, sourceLink, sourceIcon, sourceLabel} = siteHeader();
 
-export const SiteHeader = () => {
-  const t = useTranslations('SiteHeader');
+export const SiteHeader = async () => {
+  const t = await getTranslations('SiteHeader');
+  // Fetched here so the token never leaves the server: the toggle itself is a client component.
+  const listening = await getListening();
 
   return (
     <header className={root()}>
@@ -49,7 +52,7 @@ export const SiteHeader = () => {
         </nav>
 
         <LocaleSwitcher />
-        <NowPlayingToggle />
+        {listening ? <NowPlayingToggle initial={listening} /> : null}
         <ThemeToggle />
       </div>
     </header>
