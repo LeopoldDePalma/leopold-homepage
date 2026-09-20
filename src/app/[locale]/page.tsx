@@ -1,5 +1,5 @@
 import {map} from 'lodash-es';
-import {useFormatter, useTranslations} from 'next-intl';
+import {getFormatter, getTranslations} from 'next-intl/server';
 import {tv} from 'tailwind-variants';
 
 import {Section} from '@/components/ui/Section';
@@ -9,24 +9,46 @@ import {Bio} from '@/features/home/Bio';
 import {ContactButton} from '@/features/home/ContactButton';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {SocialLinks} from '@/features/home/SocialLinks';
-import {NowPlaying} from '@/features/spotify/NowPlaying';
+import {getListening} from '@/features/spotify/api';
+import {NOW_PLAYING_POPOVER_ID} from '@/features/spotify/popover';
 
 const homePage = tv({
   slots: {
     root: 'flex flex-col gap-10',
     greeting: ['p-4', 'rounded-lg', 'text-center', 'bg-foreground/5'],
     paragraph: 'leading-relaxed',
+    // Opens the same panel as the header button; the wax-seal red marks it as a control.
+    musicTrigger: [
+      'underline underline-offset-4',
+      'text-seal',
+      'transition-opacity hover:opacity-80',
+    ],
   },
 });
 
-const {root, greeting, paragraph} = homePage();
+const {root, greeting, paragraph, musicTrigger} = homePage();
 
 const INTERESTS = ['programming', 'history', 'books', 'music'] as const;
 
-const HomePage = () => {
-  const t = useTranslations('HomePage');
-  const format = useFormatter();
-  const interests = map(INTERESTS, (interest) => t(`interests.${interest}`));
+const HomePage = async () => {
+  const t = await getTranslations('HomePage');
+  const format = await getFormatter();
+  // The trigger only makes sense while there is a panel to open.
+  const listening = await getListening();
+  const interests = map(INTERESTS, (interest) =>
+    interest === 'music' && listening ? (
+      <button
+        key={interest}
+        type="button"
+        popoverTarget={NOW_PLAYING_POPOVER_ID}
+        className={musicTrigger()}
+      >
+        {t(`interests.${interest}`)}
+      </button>
+    ) : (
+      t(`interests.${interest}`)
+    ),
+  );
 
   return (
     <div className={root()}>
@@ -47,8 +69,6 @@ const HomePage = () => {
       <Section title={t('interests.title')}>
         <p className={paragraph()}>{format.list(interests, {type: 'conjunction'})}</p>
       </Section>
-
-      <NowPlaying />
 
       <Section title={t('contact.title')}>
         <SocialLinks />

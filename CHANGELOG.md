@@ -27,7 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bio section on the home page: a timeline from 1998 to the current job.
 - Mail button in the Get in touch section: leans towards the pointer and opens the visitor's
   mail client.
-- Now playing section on the home page: the current Spotify track, or the last one played.
+- Now playing panel behind a header button: cover, track and artist for what is on Spotify,
+  or the last thing played; the word "Music" in Passions opens the same panel.
 - Error and "page not found" screens in the site's own layout, with translations in both
   locales; the 404 carries the arms of Swabia borne by the Hohenstaufen.
 - Interactive 3D helmet with a grotesque visor (The Royal Armoury scan) on the home page: loads

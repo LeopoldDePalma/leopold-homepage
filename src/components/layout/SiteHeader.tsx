@@ -3,6 +3,7 @@ import {useTranslations} from 'next-intl';
 import {tv} from 'tailwind-variants';
 
 import {site} from '@/content/site';
+import {NowPlayingToggle} from '@/features/spotify/NowPlayingToggle';
 import {ThemeToggle} from '@/features/theme/ThemeToggle';
 
 import {LocaleSwitcher} from './LocaleSwitcher';
@@ -48,6 +49,7 @@ export const SiteHeader = () => {
         </nav>
 
         <LocaleSwitcher />
+        <NowPlayingToggle />
         <ThemeToggle />
       </div>
     </header>

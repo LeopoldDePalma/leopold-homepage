@@ -1,4 +1,4 @@
-import {map} from 'lodash-es';
+import {last, map, sortBy} from 'lodash-es';
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const CURRENTLY_PLAYING_URL = 'https://api.spotify.com/v1/me/player/currently-playing';
@@ -14,12 +14,16 @@ export type Listening = {
   /** Kept as a list so the page can join it the way the locale does. */
   artists: string[];
   url: string;
+  cover?: {url: string; size: number};
 };
+
+type SpotifyImage = {url: string; width: number; height: number};
 
 type SpotifyTrack = {
   name: string;
   artists: {name: string}[];
   external_urls: {spotify: string};
+  album: {images: SpotifyImage[]};
 };
 
 type CurrentlyPlaying = {item: SpotifyTrack | null};
@@ -76,12 +80,20 @@ const getAccessToken = async (credentials: NonNullable<ReturnType<typeof readCre
   return accessToken;
 };
 
+// Spotify sorts covers largest first; the smallest one is still bigger than we draw it.
+const toCover = (images: SpotifyImage[]) => {
+  const smallest = last(sortBy(images, 'width'));
+
+  return smallest ? {url: smallest.url, size: smallest.width} : undefined;
+};
+
 const toListening = (track: SpotifyTrack, isPlaying: boolean): Listening => {
   return {
     isPlaying,
     track: track.name,
     artists: map(track.artists, 'name'),
     url: track.external_urls.spotify,
+    cover: toCover(track.album.images),
   };
 };
 
