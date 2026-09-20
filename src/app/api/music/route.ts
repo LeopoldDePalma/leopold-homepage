@@ -1,9 +1,9 @@
 import {getListening} from '@/features/music/spotify';
 
-// The panel asks for this when it opens, so the answer must be the current one. Rate limiting
-// lives in getListening, which keeps a minute of cache in the server process.
-export const dynamic = 'force-dynamic';
-
+// Route handlers are uncached by default, so no config is needed. The header is explicit for
+// anything between us and the visitor, since one URL answers with whatever is playing now.
 export const GET = async () => {
-  return Response.json((await getListening()) ?? null);
+  return Response.json((await getListening()) ?? null, {
+    headers: {'Cache-Control': 'no-store'},
+  });
 };

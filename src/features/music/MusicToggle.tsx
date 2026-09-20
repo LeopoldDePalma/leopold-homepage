@@ -65,6 +65,12 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
   const refresh = async () => {
     try {
       const response = await fetch(MUSIC_URL);
+
+      // An error page can be valid JSON, and casting it would break the next render.
+      if (!response.ok) {
+        return;
+      }
+
       const fresh = (await response.json()) as Listening | null;
 
       if (fresh) {

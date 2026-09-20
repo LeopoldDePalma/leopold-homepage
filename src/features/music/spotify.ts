@@ -1,4 +1,4 @@
-import {last, map, sortBy} from 'lodash-es';
+import {map, minBy} from 'lodash-es';
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const CURRENTLY_PLAYING_URL = 'https://api.spotify.com/v1/me/player/currently-playing';
@@ -43,12 +43,31 @@ const readCredentials = () => {
   return {clientId, clientSecret, refreshToken};
 };
 
-// Kept in the process so a page render costs one Spotify call, not two.
-let cachedToken: {value: string; expiresAt: number} | undefined;
+type MusicCache = {
+  token?: {value: string; expiresAt: number};
+  track?: {value: Listening; expiresAt: number};
+  pending?: Promise<Listening | undefined>;
+};
 
-const getAccessToken = async (credentials: NonNullable<ReturnType<typeof readCredentials>>) => {
-  if (cachedToken && cachedToken.expiresAt > Date.now()) {
-    return cachedToken.value;
+/*
+ * Pages and route handlers are separate bundles, so this module is instantiated more than once
+ * per server. The cache therefore hangs off globalThis, or each bundle would keep its own and
+ * ask Spotify again for an answer the other one already has.
+ */
+const globalWithCache = globalThis as typeof globalThis & {musicCache?: MusicCache};
+
+const getCache = () => {
+  globalWithCache.musicCache ??= {};
+
+  return globalWithCache.musicCache;
+};
+
+const getAccessToken = async (
+  credentials: NonNullable<ReturnType<typeof readCredentials>>,
+  cache: MusicCache,
+) => {
+  if (cache.token && cache.token.expiresAt > Date.now()) {
+    return cache.token.value;
   }
 
   const basic = btoa(`${credentials.clientId}:${credentials.clientSecret}`);
@@ -73,7 +92,7 @@ const getAccessToken = async (credentials: NonNullable<ReturnType<typeof readCre
     expires_in: number;
   };
 
-  cachedToken = {
+  cache.token = {
     value: accessToken,
     expiresAt: Date.now() + (expiresIn - TOKEN_SAFETY_MARGIN_SECONDS) * 1000,
   };
@@ -83,7 +102,7 @@ const getAccessToken = async (credentials: NonNullable<ReturnType<typeof readCre
 
 // Spotify sorts covers largest first; the smallest one is still bigger than we draw it.
 const toCover = (images: SpotifyImage[]) => {
-  const smallest = last(sortBy(images, 'width'));
+  const smallest = minBy(images, 'width');
 
   return smallest ? {url: smallest.url, size: smallest.width} : undefined;
 };
@@ -104,10 +123,35 @@ const fetchSpotify = async (url: string, accessToken: string) => {
   return fetch(url, {headers: {Authorization: `Bearer ${accessToken}`}, cache: 'no-store'});
 };
 
-// Kept in the process so visitors share one call a minute rather than making one each.
-let cachedListening: {value: Listening | undefined; expiresAt: number} | undefined;
+/** A token can stop working before it expires, so one 401 buys a fresh one and a second try. */
+const requestWithToken = async (
+  url: string,
+  credentials: NonNullable<ReturnType<typeof readCredentials>>,
+  cache: MusicCache,
+) => {
+  const response = await fetchSpotify(url, await getAccessToken(credentials, cache));
 
-const fetchListening = async (): Promise<Listening | undefined> => {
+  if (response.status !== 401) {
+    return response;
+  }
+
+  delete cache.token;
+
+  return fetchSpotify(url, await getAccessToken(credentials, cache));
+};
+
+/** Reads a body that may be absent or broken without losing the fallback to the last track. */
+const readTrack = async (response: Response) => {
+  try {
+    const {item} = (await response.json()) as CurrentlyPlaying;
+
+    return item;
+  } catch {
+    return null;
+  }
+};
+
+const fetchListening = async (cache: MusicCache): Promise<Listening | undefined> => {
   const credentials = readCredentials();
 
   if (!credentials) {
@@ -115,19 +159,18 @@ const fetchListening = async (): Promise<Listening | undefined> => {
   }
 
   try {
-    const accessToken = await getAccessToken(credentials);
-    const playingResponse = await fetchSpotify(CURRENTLY_PLAYING_URL, accessToken);
+    const playingResponse = await requestWithToken(CURRENTLY_PLAYING_URL, credentials, cache);
 
     // 204 means the player is idle; anything else unexpected falls through to the last track.
     if (playingResponse.ok && playingResponse.status !== 204) {
-      const {item} = (await playingResponse.json()) as CurrentlyPlaying;
+      const item = await readTrack(playingResponse);
 
       if (item) {
         return toListening(item, true);
       }
     }
 
-    const recentResponse = await fetchSpotify(RECENTLY_PLAYED_URL, accessToken);
+    const recentResponse = await requestWithToken(RECENTLY_PLAYED_URL, credentials, cache);
 
     if (!recentResponse.ok) {
       return undefined;
@@ -143,17 +186,31 @@ const fetchListening = async (): Promise<Listening | undefined> => {
 };
 
 /**
- * What is playing right now, or the last thing that played. Returns `undefined` when the feature
- * is not configured or Spotify is unreachable, and the music button then stays off the page.
+ * What is playing right now, or the last thing that played. Returns `undefined` only when the
+ * feature is not configured or nothing was ever fetched, so a passing network error does not
+ * make the music button disappear.
  */
 export const getListening = async (): Promise<Listening | undefined> => {
-  if (cachedListening && cachedListening.expiresAt > Date.now()) {
-    return cachedListening.value;
+  const cache = getCache();
+
+  if (cache.track && cache.track.expiresAt > Date.now()) {
+    return cache.track.value;
   }
 
-  const value = await fetchListening();
+  // Concurrent renders (the header and the page) share one request rather than making two.
+  cache.pending ??= fetchListening(cache).finally(() => {
+    delete cache.pending;
+  });
 
-  cachedListening = {value, expiresAt: Date.now() + TRACK_CACHE_SECONDS * 1000};
+  const value = await cache.pending;
+
+  if (!value) {
+    // Failures are not cached: the next caller tries again, and meanwhile the track we already
+    // have is better than hiding the feature. Unlike revalidate, this only happens on error.
+    return cache.track?.value;
+  }
+
+  cache.track = {value, expiresAt: Date.now() + TRACK_CACHE_SECONDS * 1000};
 
   return value;
 };
