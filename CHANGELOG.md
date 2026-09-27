@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   panel is now a Chakra popover that the header button and the word "Music" both open.
 - Presented Konstantin as a software engineer and full-stack developer rather than a frontend
   developer, in the role, the greeting, the about text and the page description.
+- Replaced the portrait and set it in a gilt bezel.
 
 ### Removed
 
