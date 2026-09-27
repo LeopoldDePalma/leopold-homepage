@@ -39,3 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Legacy Vite + React Router + MUI client.
+
+### Security
+
+- Added a Content Security Policy with a fresh nonce on every request, so only the site's own
+  scripts run and the page cannot be framed, and stopped browsers from sniffing file types.
