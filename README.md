@@ -1,6 +1,6 @@
 # leopold-homepage
 
-Personal homepage and portfolio of Konstantin Konyushkin, built with Next.js, React, TypeScript and Tailwind CSS.
+Personal homepage and portfolio of Konstantin Konyushkin, built with Next.js, React, TypeScript and Chakra UI.
 
 ## Getting started
 

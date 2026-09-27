@@ -36,6 +36,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   loads after the page, shows a spinner meanwhile, turns and zooms, rests while it is off screen,
   and leaves vertical swipes to the page. Model credit in the footer.
 
+### Changed
+
+- Rebuilt the interface on Chakra UI in place of Tailwind CSS. The pages look the same; the music
+  panel is now a Chakra popover that the header button and the word "Music" both open.
+
 ### Removed
 
 - Legacy Vite + React Router + MUI client.
