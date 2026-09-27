@@ -21,6 +21,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
+    /* Node runs scripts/*.mts by stripping types, which fails on enums and namespaces. */
+    "erasableSyntaxOnly": true,
 
     "types": ["vitest/globals", "@testing-library/jest-dom"],
     "plugins": [{"name": "next"}],
