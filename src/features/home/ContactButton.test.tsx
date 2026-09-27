@@ -31,17 +31,6 @@ const pointer = (clientX: number, clientY: number) => {
 };
 
 describe('ContactButton', () => {
-  beforeEach(() => {
-    vi.stubGlobal(
-      'matchMedia',
-      vi.fn(() => ({matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn()})),
-    );
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
   it('leans a quarter of the way towards the pointer and lets go on leave', () => {
     const link = renderButton();
 

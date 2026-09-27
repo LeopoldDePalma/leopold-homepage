@@ -42,15 +42,10 @@ const typeGraphemes = (count: number) => {
 describe('Typewriter', () => {
   beforeEach(() => {
     vi.useFakeTimers();
-    vi.stubGlobal(
-      'matchMedia',
-      vi.fn(() => ({matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn()})),
-    );
   });
 
   afterEach(() => {
     vi.useRealTimers();
-    vi.unstubAllGlobals();
   });
 
   it('gives assistive technology the full text immediately', () => {

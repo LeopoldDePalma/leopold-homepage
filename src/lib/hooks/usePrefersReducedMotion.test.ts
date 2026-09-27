@@ -26,10 +26,6 @@ const stubMediaQuery = (initialMatches: boolean) => {
 };
 
 describe('usePrefersReducedMotion', () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
   it('follows the system setting while the page is open', () => {
     const {setMatches} = stubMediaQuery(false);
     const {result} = renderHook(() => usePrefersReducedMotion());

@@ -13,14 +13,6 @@ describe('ThemeToggle', () => {
   beforeEach(() => {
     document.cookie = `${THEME_COOKIE}=;max-age=0;path=/`;
     document.documentElement.removeAttribute('data-theme');
-    vi.stubGlobal(
-      'matchMedia',
-      vi.fn(() => ({matches: false})),
-    );
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
   });
 
   it('switches between light and dark themes and remembers the choice', async () => {
