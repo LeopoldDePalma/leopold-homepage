@@ -1,13 +1,13 @@
 {
   "Site": {
     "name": "Konstantin Konyushkin",
-    "description": "Frontend developer with a love for history and heraldry. Homepage and project collection."
+    "description": "Software engineer and full-stack developer with a love for history and heraldry. Homepage and project collection."
   },
   "HomePage": {
-    "greeting": "Hello. I write interfaces by day and read chronicles by night.",
+    "greeting": "Hello. I build software by day and read chronicles by night.",
     "about": {
       "title": "About",
-      "text": "Konstantin makes interfaces the way a scribe kept a chronicle, one careful line at a time, and with a weakness for the marginalia. React and TypeScript fill his working hours. History and heraldry fill the rest. This page is his armoury, and every piece in it was kept for a reason."
+      "text": "Konstantin builds software the way a scribe kept a chronicle, one careful line at a time, and with a weakness for the marginalia. TypeScript fills his working hours, in the browser and on the server. History and heraldry fill the rest. This page is his armoury, and every piece in it was kept for a reason."
     },
     "interests": {
       "title": "Passions",
@@ -36,7 +36,7 @@
     "lastPlayed": "Last played"
   },
   "ProfileHeader": {
-    "role": "Frontend developer",
+    "role": "Software Engineer & Full Stack Developer",
     "photoAlt": "Portrait of {name}"
   },
   "LocaleSwitcher": {

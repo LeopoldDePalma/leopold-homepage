@@ -1,13 +1,13 @@
 {
   "Site": {
     "name": "Konstantin Konyushkin",
-    "description": "Développeur front-end épris d'histoire et d'héraldique. Page personnelle et collection de projets."
+    "description": "Ingénieur logiciel et développeur full-stack épris d’histoire et d’héraldique. Page personnelle et collection de projets."
   },
   "HomePage": {
-    "greeting": "Bonjour. J'écris des interfaces le jour et je lis des chroniques la nuit.",
+    "greeting": "Bonjour. Je construis des logiciels le jour et je lis des chroniques la nuit.",
     "about": {
       "title": "À propos",
-      "text": "Konstantin façonne des interfaces comme un copiste tenait une chronique, une ligne soignée après l'autre, avec un faible pour les marginalia. React et TypeScript occupent ses heures de travail. L’histoire et l’héraldique occupent le reste. Cette page est son arsenal, et chaque pièce y a été gardée pour une raison."
+      "text": "Konstantin construit des logiciels comme un copiste tenait une chronique, une ligne soignée après l’autre, avec un faible pour les marginalia. TypeScript occupe ses heures de travail, dans le navigateur comme sur le serveur. L’histoire et l’héraldique occupent le reste. Cette page est son arsenal, et chaque pièce y a été gardée pour une raison."
     },
     "interests": {
       "title": "Passions",
@@ -36,7 +36,7 @@
     "lastPlayed": "Dernière écoute"
   },
   "ProfileHeader": {
-    "role": "Développeur front-end",
+    "role": "Ingénieur logiciel et développeur full-stack",
     "photoAlt": "Portrait de {name}"
   },
   "LocaleSwitcher": {

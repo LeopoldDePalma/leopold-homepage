@@ -40,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rebuilt the interface on Chakra UI in place of Tailwind CSS. The pages look the same; the music
   panel is now a Chakra popover that the header button and the word "Music" both open.
+- Presented Konstantin as a software engineer and full-stack developer rather than a frontend
+  developer, in the role, the greeting, the about text and the page description.
 
 ### Removed
 
