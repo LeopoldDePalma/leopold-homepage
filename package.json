@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "eslint --max-warnings=0",
     "lint:fix": "eslint --fix",
-    "typecheck": "next typegen && tsc --noEmit",
+    "typecheck": "next typegen && npm run theme:typegen && tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run --passWithNoTests",
@@ -20,9 +20,13 @@
     "prepare": "husky",
     "model:helmet": "node scripts/build-helmet-model.mts",
     "spotify:auth": "node --env-file=.env.local scripts/spotify-auth.mts",
-    "postinstall": "node scripts/copy-basis-transcoder.mts"
+    "theme:typegen": "chakra typegen src/styles/system.ts",
+    "postinstall": "node scripts/copy-basis-transcoder.mts && npm run theme:typegen"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.37.0",
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
     "@tabler/icons-react": "^3.47.0",
@@ -32,16 +36,16 @@
     "next-intl": "^4.14.5",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "tailwind-variants": "^3.3.1",
-    "three": "^0.182.0"
+    "three": "^0.182.0",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^3.37.0",
     "@gltf-transform/cli": "^4.5.0",
     "@gltf-transform/core": "^4.5.0",
     "@gltf-transform/extensions": "^4.5.0",
     "@gltf-transform/functions": "^4.5.0",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
@@ -61,9 +65,7 @@
     "lint-staged": "^17.5.1",
     "meshoptimizer": "^1.2.0",
     "prettier": "^3.9.8",
-    "prettier-plugin-tailwindcss": "^0.8.1",
     "sharp": "^0.35.4",
-    "tailwindcss": "^4",
     "typescript": "^5",
     "typescript-eslint": "^8.70.0",
     "vitest": "^5.0.1"

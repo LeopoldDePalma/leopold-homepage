@@ -1,23 +1,21 @@
+import {Heading, Stack} from '@chakra-ui/react';
 import type {ReactNode} from 'react';
-import {tv} from 'tailwind-variants';
-
-const section = tv({
-  slots: {
-    root: 'flex flex-col gap-3',
-    heading: [
-      'font-heading text-2xl font-bold',
-      'underline decoration-accent/50 decoration-[0.12em] underline-offset-[0.3em]',
-    ],
-  },
-});
-
-const {root, heading} = section();
 
 export const Section = ({title, children}: {title: string; children: ReactNode}) => {
   return (
-    <section className={root()}>
-      <h2 className={heading()}>{title}</h2>
+    <Stack as="section" gap="3">
+      <Heading
+        as="h2"
+        fontSize="2xl"
+        fontWeight="bold"
+        textDecoration="underline"
+        textDecorationColor="accent/50"
+        textDecorationThickness="0.12em"
+        textUnderlineOffset="0.3em"
+      >
+        {title}
+      </Heading>
       {children}
-    </section>
+    </Stack>
   );
 };

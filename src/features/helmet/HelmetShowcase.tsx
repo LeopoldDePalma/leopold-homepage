@@ -1,34 +1,10 @@
 'use client';
 
+import {AbsoluteCenter, Box, Spinner} from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import {useRef, useState} from 'react';
-import {tv} from 'tailwind-variants';
-
-import {Spinner} from '@/components/ui/Spinner';
 
 import {useIsInViewport} from './useIsInViewport';
-
-const helmetShowcase = tv({
-  slots: {
-    // Pulled up: cancels the page padding and tucks the model under the translucent header.
-    root: ['relative', '-mt-24 aspect-[4/3] w-full'],
-    loader: 'absolute inset-0 flex items-center justify-center',
-    /*
-     * Hidden until the model is there, so the empty canvas never flashes. The important flag
-     * beats the inline touch-action OrbitControls writes on connect, which would otherwise
-     * swallow vertical swipes and trap the page on a phone.
-     */
-    scene: [
-      'absolute inset-0 [&_canvas]:touch-pan-y!',
-      'opacity-0 transition-opacity duration-500',
-    ],
-  },
-  variants: {
-    isModelReady: {
-      true: {loader: 'hidden', scene: 'opacity-100'},
-    },
-  },
-});
 
 // three.js stays out of the page bundle and loads after the page is shown.
 const HelmetScene = dynamic(() => import('./HelmetScene'), {ssr: false});
@@ -38,18 +14,34 @@ export const HelmetShowcase = () => {
   const rootRef = useRef<HTMLDivElement>(null);
   const isInViewport = useIsInViewport(rootRef);
   const [isModelReady, setIsModelReady] = useState(false);
-  const {root, loader, scene} = helmetShowcase({isModelReady});
 
   const handleModelReady = () => {
     setIsModelReady(true);
   };
 
   return (
-    <div ref={rootRef} aria-hidden className={root()}>
-      <div className={loader()}>
-        <Spinner />
-      </div>
-      <HelmetScene className={scene()} isActive={isInViewport} onModelReady={handleModelReady} />
-    </div>
+    // Pulled up: cancels the page padding and tucks the model under the translucent header.
+    <Box ref={rootRef} aria-hidden position="relative" mt="-24" w="full" aspectRatio="4 / 3">
+      {isModelReady ? null : (
+        <AbsoluteCenter>
+          <Spinner size="xl" color="accent" _motionReduce={{animation: 'none'}} />
+        </AbsoluteCenter>
+      )}
+      {/*
+       * Hidden until the model is there, so the empty canvas never flashes. The important flag
+       * beats the inline touch-action OrbitControls writes on connect, which would otherwise
+       * swallow vertical swipes and trap the page on a phone.
+       */}
+      <Box
+        position="absolute"
+        inset="0"
+        opacity={isModelReady ? 1 : 0}
+        transitionProperty="opacity"
+        transitionDuration="slowest"
+        css={{'& canvas': {touchAction: 'pan-y !important'}}}
+      >
+        <HelmetScene isActive={isInViewport} onModelReady={handleModelReady} />
+      </Box>
+    </Box>
   );
 };

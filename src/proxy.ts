@@ -44,6 +44,8 @@ const proxy = (request: NextRequest) => {
   const headers = new Headers(request.headers);
 
   headers.set('Content-Security-Policy', policy);
+  // Read by the root layout for the styles Emotion writes at runtime.
+  headers.set('x-nonce', nonce);
 
   // next-intl copies the request headers into the render, so the nonce reaches Next.js.
   const response = handleI18nRouting(new NextRequest(request, {headers}));

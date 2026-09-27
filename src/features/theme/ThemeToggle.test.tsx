@@ -1,19 +1,13 @@
+import {ChakraProvider} from '@chakra-ui/react';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {NextIntlClientProvider} from 'next-intl';
 
 import messages from '@/messages/en.json';
+import {system} from '@/styles/system';
 
 import {THEME_COOKIE} from './theme';
 import {ThemeToggle} from './ThemeToggle';
-
-const renderToggle = () => {
-  return render(
-    <NextIntlClientProvider locale="en" messages={messages}>
-      <ThemeToggle />
-    </NextIntlClientProvider>,
-  );
-};
 
 describe('ThemeToggle', () => {
   beforeEach(() => {
@@ -31,7 +25,13 @@ describe('ThemeToggle', () => {
 
   it('switches between light and dark themes and remembers the choice', async () => {
     const user = userEvent.setup();
-    renderToggle();
+    render(
+      <ChakraProvider value={system}>
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <ThemeToggle />
+        </NextIntlClientProvider>
+      </ChakraProvider>,
+    );
 
     const button = screen.getByRole('button', {name: 'Toggle theme'});
 

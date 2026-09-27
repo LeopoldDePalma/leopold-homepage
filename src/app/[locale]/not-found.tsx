@@ -1,73 +1,85 @@
+import {Flex, Heading, HStack, Icon, Stack, Text} from '@chakra-ui/react';
 import {Sword} from 'lucide-react';
-import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
 import type {ReactNode} from 'react';
-import {tv} from 'tailwind-variants';
 
-import {outlineButton} from '@/components/ui/OutlineButton';
+import {ExternalLink} from '@/components/ui/ExternalLink';
+import {OptimizedImage} from '@/components/ui/OptimizedImage';
+import {OutlineButton} from '@/components/ui/OutlineButton';
 import {site} from '@/content/site';
 import {Link} from '@/i18n/navigation';
 
-const notFoundPage = tv({
-  slots: {
-    root: 'flex flex-1 flex-col items-center gap-4 py-8 text-center',
-    // Arms of Swabia, borne by the Hohenstaufen: gold and three black lions.
-    emblem: 'h-auto w-[7em]',
-    // The code and the title sit side by side, split by a rule, as on the built-in 404.
-    title: 'flex items-center',
-    code: ['pe-4', 'font-heading text-2xl/none font-bold', 'text-accent'],
-    heading: ['py-2 ps-5', 'font-heading text-2xl font-bold', 'border-s border-border'],
-    description: ['max-w-md', 'text-muted'],
-    blade: ['size-[1.1em]', '-scale-x-100 rtl:scale-x-100'],
-    // Takes the space left over, so the button lands halfway between text and licence line.
-    action: 'flex flex-1 items-center',
-    credit: ['text-xs', 'text-muted/80'],
-    creditLink: 'underline underline-offset-2 hover:text-foreground',
-  },
-});
+const renderCreditLink = (href: string) => {
+  const CreditLink = (chunks: ReactNode) => {
+    return (
+      <ExternalLink
+        href={href}
+        // Inline, not Chakra's inline-flex: a long title has to wrap with the sentence.
+        display="inline"
+        color="inherit"
+        textDecoration="underline"
+        _hover={{color: 'fg'}}
+      >
+        {chunks}
+      </ExternalLink>
+    );
+  };
 
-const {root, emblem, title, code, heading, description, blade, action, credit, creditLink} =
-  notFoundPage();
-
-const CreditLink = ({href, children}: {href: string; children: ReactNode}) => {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={creditLink()}>
-      {children}
-    </a>
-  );
+  return CreditLink;
 };
 
 const NotFoundPage = async () => {
   const t = await getTranslations('NotFound');
 
   return (
-    <div className={root()}>
-      <Image
+    <Stack flex="1" align="center" gap="4" py="8" textAlign="center">
+      {/* Arms of Swabia, borne by the Hohenstaufen: gold and three black lions. */}
+      <OptimizedImage
         src="/images/arms-of-swabia.svg"
         alt=""
         width={220}
         height={260}
-        className={emblem()}
+        w="7em"
+        h="auto"
       />
-      <div className={title()}>
-        <p className={code()}>404</p>
-        <h1 className={heading()}>{t('title')}</h1>
-      </div>
-      <p className={description()}>{t('description')}</p>
-      <div className={action()}>
-        <Link href="/" className={outlineButton()}>
-          <Sword aria-hidden className={blade()} />
-          {t('home')}
-        </Link>
-      </div>
-      <p className={credit()}>
+      {/* The code and the title sit side by side, split by a rule, as on the built-in 404. */}
+      <HStack gap="0">
+        <Text
+          pe="4"
+          fontFamily="heading"
+          fontSize="2xl"
+          lineHeight="1"
+          fontWeight="bold"
+          color="accent"
+        >
+          404
+        </Text>
+        <Heading as="h1" py="2" ps="5" fontSize="2xl" fontWeight="bold" borderStartWidth="1px">
+          {t('title')}
+        </Heading>
+      </HStack>
+      <Text maxW="md" color="fg.muted">
+        {t('description')}
+      </Text>
+      {/* Takes the space left over, so the button lands halfway between text and licence line. */}
+      <Flex flex="1" align="center">
+        <OutlineButton asChild>
+          <Link href="/">
+            <Icon asChild boxSize="1.1em" transform="scaleX(-1)" _rtl={{transform: 'none'}}>
+              <Sword aria-hidden />
+            </Icon>
+            {t('home')}
+          </Link>
+        </OutlineButton>
+      </Flex>
+      <Text textStyle="xs" color="fg.muted/80">
         {t.rich('armsCredit', {
-          arms: (chunks) => <CreditLink href={site.armsCredit.arms}>{chunks}</CreditLink>,
-          author: (chunks) => <CreditLink href={site.armsCredit.author}>{chunks}</CreditLink>,
-          license: (chunks) => <CreditLink href={site.armsCredit.license}>{chunks}</CreditLink>,
+          arms: renderCreditLink(site.armsCredit.arms),
+          author: renderCreditLink(site.armsCredit.author),
+          license: renderCreditLink(site.armsCredit.license),
         })}
-      </p>
-    </div>
+      </Text>
+    </Stack>
   );
 };
 

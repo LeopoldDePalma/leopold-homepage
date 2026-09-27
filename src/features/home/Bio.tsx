@@ -1,21 +1,9 @@
+import {Box, Grid} from '@chakra-ui/react';
 import {map} from 'lodash-es';
 import {useTranslations} from 'next-intl';
 import type {ReactNode} from 'react';
-import {tv} from 'tailwind-variants';
 
 import {BIO_ENTRIES} from '@/content/bio';
-
-const bio = tv({
-  slots: {
-    root: 'grid grid-cols-[auto_1fr] gap-x-3 gap-y-2',
-    // Subgrid keeps every event aligned, however wide the year next to it is.
-    entry: 'col-span-2 grid grid-cols-subgrid',
-    year: ['font-heading font-bold', 'whitespace-nowrap', 'text-accent'],
-    event: 'leading-relaxed',
-  },
-});
-
-const {root, entry: entryRow, year, event} = bio();
 
 // Every name is followed by its spelling in the other locale, as on the reference site.
 // `bdi` isolates the fragment so the brackets around it keep their place in either direction.
@@ -26,17 +14,20 @@ export const Bio = () => {
   const t = useTranslations('HomePage.bio');
 
   return (
-    <dl className={root()}>
+    <Grid as="dl" templateColumns="auto 1fr" columnGap="3" rowGap="2">
       {map(BIO_ENTRIES, (entry) => (
-        <div key={entry.id} className={entryRow()}>
-          <dt className={year()}>
+        // Subgrid keeps every event aligned, however wide the year next to it is.
+        <Grid key={entry.id} gridColumn="span 2" templateColumns="subgrid">
+          <Box as="dt" fontFamily="heading" fontWeight="bold" whiteSpace="nowrap" color="accent">
             {'untilNow' in entry
               ? t('yearRange', {year: String(entry.year), untilNow: t('untilNow')})
               : entry.year}
-          </dt>
-          <dd className={event()}>{t.rich(entry.id, {ar: renderArabic, en: renderEnglish})}</dd>
-        </div>
+          </Box>
+          <Box as="dd" lineHeight="relaxed">
+            {t.rich(entry.id, {ar: renderArabic, en: renderEnglish})}
+          </Box>
+        </Grid>
       ))}
-    </dl>
+    </Grid>
   );
 };

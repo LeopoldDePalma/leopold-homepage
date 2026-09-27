@@ -1,15 +1,11 @@
 'use client';
 
+import {HStack, Link} from '@chakra-ui/react';
 import {map, without} from 'lodash-es';
 import {useLocale, useTranslations} from 'next-intl';
-import {tv} from 'tailwind-variants';
 
-import {Link, usePathname} from '@/i18n/navigation';
+import {Link as IntlLink, usePathname} from '@/i18n/navigation';
 import {localeNames, routing} from '@/i18n/routing';
-
-const localeLink = tv({
-  base: ['text-sm', 'text-muted', 'transition-colors hover:text-foreground'],
-});
 
 /** Links to the same page in every other locale; the current one is implied by the page. */
 export const LocaleSwitcher = () => {
@@ -20,15 +16,22 @@ export const LocaleSwitcher = () => {
 
   return (
     <nav aria-label={t('label')}>
-      <ul className="flex gap-3">
+      <HStack as="ul" gap="3" listStyle="none">
         {map(otherLocales, (locale) => (
           <li key={locale}>
-            <Link href={pathname} locale={locale} lang={locale} className={localeLink()}>
-              {localeNames[locale]}
+            <Link
+              asChild
+              textStyle="sm"
+              color="fg.muted"
+              _hover={{color: 'fg', textDecoration: 'none'}}
+            >
+              <IntlLink href={pathname} locale={locale} lang={locale}>
+                {localeNames[locale]}
+              </IntlLink>
             </Link>
           </li>
         ))}
-      </ul>
+      </HStack>
     </nav>
   );
 };

@@ -1,32 +1,18 @@
 'use client';
 
+import {chakra, Text, type TextProps} from '@chakra-ui/react';
 import {useLocale} from 'next-intl';
 import {useEffect, useState} from 'react';
-import {tv} from 'tailwind-variants';
 
 import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
 
 const TYPING_DELAY_MS = 45;
 
-const typewriter = tv({
-  slots: {
-    // Both layers share one grid cell, so the full text reserves the final size up front.
-    root: 'grid',
-    placeholder: ['col-start-1 row-start-1', 'invisible'],
-    typed: 'col-start-1 row-start-1',
-    caret: [
-      'inline-block',
-      'ms-[0.05em] h-[1em] w-[0.1em]',
-      'bg-accent align-[-0.1em]',
-      'animate-caret',
-    ],
-  },
-});
-
-const {root, placeholder, typed, caret} = typewriter();
+// Both layers share one grid cell, so the full text reserves the final size up front.
+const SHARED_CELL = {gridColumn: '1', gridRow: '1'} as const;
 
 /** Types the text out once. Screen readers and reduced-motion users get it in full right away. */
-export const Typewriter = ({text, className}: {text: string; className?: string}) => {
+export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'children'>) => {
   const locale = useLocale();
   // Graphemes, not code units: keeps Arabic letters together with their diacritics.
   const segments = new Intl.Segmenter(locale, {granularity: 'grapheme'}).segment(text);
@@ -58,13 +44,25 @@ export const Typewriter = ({text, className}: {text: string; className?: string}
   }, [typedCount, graphemes.length, prefersReducedMotion]);
 
   return (
-    <p className={root({className})}>
-      <span className="sr-only">{text}</span>
-      <span className={placeholder()}>{text}</span>
-      <span aria-hidden className={typed()}>
+    <Text display="grid" {...props}>
+      <chakra.span srOnly>{text}</chakra.span>
+      <chakra.span {...SHARED_CELL} visibility="hidden">
+        {text}
+      </chakra.span>
+      <chakra.span aria-hidden {...SHARED_CELL}>
         {prefersReducedMotion ? text : graphemes.slice(0, typedCount).join('')}
-        {!prefersReducedMotion && <span className={caret()} />}
-      </span>
-    </p>
+        {!prefersReducedMotion && (
+          <chakra.span
+            display="inline-block"
+            ms="0.05em"
+            h="1em"
+            w="0.1em"
+            verticalAlign="-0.1em"
+            bg="accent"
+            animation="caret 1s steps(1) infinite"
+          />
+        )}
+      </chakra.span>
+    </Text>
   );
 };

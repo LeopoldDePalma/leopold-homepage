@@ -1,38 +1,35 @@
-import Image from 'next/image';
+import {Box, Flex, Heading, Text} from '@chakra-ui/react';
 import {useTranslations} from 'next-intl';
-import {tv} from 'tailwind-variants';
 
-const profileHeader = tv({
-  slots: {
-    root: ['flex items-center', 'gap-6'],
-    details: 'flex-1',
-    name: 'text-4xl font-bold',
-    role: ['mt-1', 'text-muted'],
-    photo: ['size-28 shrink-0', 'rounded-full border-2 border-accent'],
-  },
-});
-
-const {root, details, name, role, photo} = profileHeader();
+import {OptimizedImage} from '@/components/ui/OptimizedImage';
 
 export const ProfileHeader = () => {
   const tSite = useTranslations('Site');
   const t = useTranslations('ProfileHeader');
 
   return (
-    <div className={root()}>
-      <div className={details()}>
-        <h1 className={name()}>{tSite('name')}</h1>
-        <p className={role()}>{t('role')}</p>
-      </div>
-      <Image
+    <Flex align="center" gap="6">
+      <Box flex="1">
+        <Heading as="h1" fontSize="4xl" fontWeight="bold">
+          {tSite('name')}
+        </Heading>
+        <Text mt="1" color="fg.muted">
+          {t('role')}
+        </Text>
+      </Box>
+      <OptimizedImage
         src="/images/avatar.jpg"
         alt={t('photoAlt', {name: tSite('name')})}
         width={640}
         height={640}
         sizes="7rem"
         loading="eager"
-        className={photo()}
+        boxSize="28"
+        flexShrink="0"
+        rounded="full"
+        borderWidth="2px"
+        borderColor="accent"
       />
-    </div>
+    </Flex>
   );
 };

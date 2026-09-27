@@ -1,32 +1,15 @@
 'use client';
 
+import {Icon, Link} from '@chakra-ui/react';
 import {Mail} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 import {type PointerEvent, useRef} from 'react';
-import {tv} from 'tailwind-variants';
 
 import {site} from '@/content/site';
 import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
 
 // How far the button follows the pointer, as a share of the distance from its centre.
 const MAGNET_PULL = 0.25;
-
-const contactButton = tv({
-  slots: {
-    root: [
-      'inline-flex items-center gap-[0.5em] self-center',
-      'px-[1.25em] py-[0.6em]',
-      'font-medium',
-      'rounded-md border border-ink/10',
-      'bg-paper text-ink',
-      'transition hover:brightness-95 active:scale-[0.97] motion-reduce:transition-none',
-      'focus-ring',
-    ],
-    icon: ['size-[1.25em]', 'text-seal'],
-  },
-});
-
-const {root, icon} = contactButton();
 
 /** Opens the visitor's mail client. Leans towards the pointer, the way a seal draws the hand. */
 export const ContactButton = () => {
@@ -81,16 +64,32 @@ export const ContactButton = () => {
   };
 
   return (
-    <a
+    <Link
       ref={buttonRef}
       href={`mailto:${site.email}`}
-      className={root()}
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      alignSelf="center"
+      gap="0.5em"
+      px="1.25em"
+      py="0.6em"
+      fontWeight="medium"
+      rounded="md"
+      borderWidth="1px"
+      borderColor="ink/10"
+      bg="paper"
+      color="ink"
+      transitionProperty="filter, transform"
+      transitionDuration="moderate"
+      _hover={{filter: 'brightness(0.95)', textDecoration: 'none'}}
+      _active={{transform: 'scale(0.97)'}}
+      _motionReduce={{transition: 'none'}}
     >
-      <Mail aria-hidden className={icon()} />
+      <Icon asChild boxSize="1.25em" color="seal">
+        <Mail aria-hidden />
+      </Icon>
       {t('action')}
-    </a>
+    </Link>
   );
 };

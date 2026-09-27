@@ -1,7 +1,9 @@
+import {ChakraProvider} from '@chakra-ui/react';
 import {fireEvent, render, screen} from '@testing-library/react';
 import {NextIntlClientProvider} from 'next-intl';
 
 import messages from '@/messages/en.json';
+import {system} from '@/styles/system';
 
 import {ContactButton} from './ContactButton';
 
@@ -10,9 +12,11 @@ const BOX = {left: 100, top: 100, width: 200, height: 40} as const;
 
 const renderButton = () => {
   render(
-    <NextIntlClientProvider locale="en" messages={messages}>
-      <ContactButton />
-    </NextIntlClientProvider>,
+    <ChakraProvider value={system}>
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <ContactButton />
+      </NextIntlClientProvider>
+    </ChakraProvider>,
   );
 
   const link = screen.getByRole('link', {name: 'Write to me'});

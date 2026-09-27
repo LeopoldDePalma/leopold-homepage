@@ -1,31 +1,30 @@
+import {Stack, Text} from '@chakra-ui/react';
 import {useTranslations} from 'next-intl';
 import type {ReactNode} from 'react';
-import {tv} from 'tailwind-variants';
 
+import {ExternalLink} from '@/components/ui/ExternalLink';
 import {site} from '@/content/site';
 
-const siteFooter = tv({
-  slots: {
-    root: [
-      'mx-auto flex w-full max-w-2xl flex-col',
-      'gap-2 px-4 py-8',
-      'text-center text-sm',
-      'text-muted',
-    ],
-    credit: 'text-xs',
-    link: ['underline underline-offset-2', 'transition-colors hover:text-foreground'],
-  },
-});
-
-const {root, credit, link} = siteFooter();
-
 // Latin titles keep their own direction inside Arabic text.
-const ExternalLink = ({href, children}: {href: string; children: ReactNode}) => {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" dir="ltr" className={link()}>
-      {children}
-    </a>
-  );
+const renderCreditLink = (href: string) => {
+  const CreditLink = (chunks: ReactNode) => {
+    return (
+      <ExternalLink
+        href={href}
+        dir="ltr"
+        // Inline, not Chakra's inline-flex: a long title has to wrap with the sentence.
+        display="inline"
+        color="inherit"
+        textDecoration="underline"
+        textUnderlineOffset="0.15em"
+        _hover={{color: 'fg'}}
+      >
+        {chunks}
+      </ExternalLink>
+    );
+  };
+
+  return CreditLink;
 };
 
 export const SiteFooter = () => {
@@ -35,17 +34,26 @@ export const SiteFooter = () => {
   const year = String(new Date().getFullYear());
 
   return (
-    <footer className={root()}>
-      <p>{t('copyright', {year, name: tSite('name')})}</p>
-      <p className={credit()}>
+    <Stack
+      as="footer"
+      gap="2"
+      w="full"
+      maxW="2xl"
+      mx="auto"
+      px="4"
+      py="8"
+      textAlign="center"
+      textStyle="sm"
+      color="fg.muted"
+    >
+      <Text>{t('copyright', {year, name: tSite('name')})}</Text>
+      <Text textStyle="xs">
         {t.rich('modelCredit', {
-          model: (chunks) => <ExternalLink href={site.modelCredit.model}>{chunks}</ExternalLink>,
-          author: (chunks) => <ExternalLink href={site.modelCredit.author}>{chunks}</ExternalLink>,
-          license: (chunks) => (
-            <ExternalLink href={site.modelCredit.license}>{chunks}</ExternalLink>
-          ),
+          model: renderCreditLink(site.modelCredit.model),
+          author: renderCreditLink(site.modelCredit.author),
+          license: renderCreditLink(site.modelCredit.license),
         })}
-      </p>
-    </footer>
+      </Text>
+    </Stack>
   );
 };

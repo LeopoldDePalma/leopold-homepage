@@ -99,13 +99,7 @@ const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
   );
 };
 
-type HelmetSceneProps = {
-  isActive: boolean;
-  onModelReady: () => void;
-  className: string;
-};
-
-const HelmetScene = ({isActive, onModelReady, className}: HelmetSceneProps) => {
+const HelmetScene = ({isActive, onModelReady}: {isActive: boolean; onModelReady: () => void}) => {
   const prefersReducedMotion = usePrefersReducedMotion();
   // Rotation is what keeps the loop awake: OrbitControls fires "change" on every turn and drei
   // answers with invalidate(), so "demand" idles only once the turning stops.
@@ -113,7 +107,6 @@ const HelmetScene = ({isActive, onModelReady, className}: HelmetSceneProps) => {
 
   return (
     <Canvas
-      className={className}
       frameloop={isTurning ? 'always' : 'demand'}
       dpr={[1, 2]}
       camera={{fov: 30, position: CAMERA_POSITION}}

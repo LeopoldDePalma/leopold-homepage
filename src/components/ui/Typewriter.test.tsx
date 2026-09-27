@@ -1,29 +1,36 @@
-import {act, render, screen} from '@testing-library/react';
+import {ChakraProvider} from '@chakra-ui/react';
+import {act, render} from '@testing-library/react';
 import {NextIntlClientProvider} from 'next-intl';
+import type {ReactNode} from 'react';
+
+import {system} from '@/styles/system';
 
 import {Typewriter} from './Typewriter';
 
 const TEXT = 'مطوّر';
 
-const renderTypewriter = () => {
-  const {container, rerender} = render(
-    <NextIntlClientProvider locale="ar" messages={{}}>
-      <Typewriter text={TEXT} />
-    </NextIntlClientProvider>,
+// A wrapper rather than inline providers, so `rerender` keeps them.
+const Providers = ({children}: {children: ReactNode}) => {
+  return (
+    <ChakraProvider value={system}>
+      <NextIntlClientProvider locale="ar" messages={{}}>
+        {children}
+      </NextIntlClientProvider>
+    </ChakraProvider>
   );
+};
 
-  // The visually typed layer is the last child of the paragraph.
+const renderTypewriter = () => {
+  const {container, rerender} = render(<Typewriter text={TEXT} />, {wrapper: Providers});
+
+  // The hidden full text comes first; the visually typed layer is the last child.
   const typedLayer = container.querySelector('p > span:last-child');
 
   const retype = (text: string) => {
-    rerender(
-      <NextIntlClientProvider locale="ar" messages={{}}>
-        <Typewriter text={text} />
-      </NextIntlClientProvider>,
-    );
+    rerender(<Typewriter text={text} />);
   };
 
-  return {typedText: () => typedLayer?.textContent, retype};
+  return {container, typedText: () => typedLayer?.textContent, retype};
 };
 
 // Each tick schedules the next one after re-rendering, so ticks are advanced one at a time.
@@ -50,9 +57,9 @@ describe('Typewriter', () => {
   });
 
   it('gives assistive technology the full text immediately', () => {
-    renderTypewriter();
+    const {container} = renderTypewriter();
 
-    expect(screen.getByText(TEXT, {selector: '.sr-only'})).toBeInTheDocument();
+    expect(container.querySelector('p > span:first-child')).toHaveTextContent(TEXT);
   });
 
   it('types grapheme by grapheme, keeping letters with their diacritics', () => {
