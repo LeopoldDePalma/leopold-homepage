@@ -1,12 +1,4 @@
-/**
- * One-off: turns a Spotify login into a refresh token for `SPOTIFY_REFRESH_TOKEN`.
- *
- * Run it with the client credentials already in `.env.local`:
- *   npm run spotify:auth
- *
- * It serves the redirect URI locally, so the app in the Spotify dashboard must list
- * `http://127.0.0.1:8888/callback` — `localhost` is rejected by Spotify.
- */
+// Prints a refresh token for SPOTIFY_REFRESH_TOKEN. The Spotify app must list REDIRECT_URI.
 import {createServer} from 'node:http';
 
 const PORT = 8888;
@@ -22,10 +14,9 @@ if (!clientId || !clientSecret) {
 }
 
 const exchangeCode = async (code: string) => {
-  const basic = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
   const response = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
-    headers: {Authorization: `Basic ${basic}`, 'Content-Type': 'application/x-www-form-urlencoded'},
+    headers: {Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`},
     body: new URLSearchParams({
       grant_type: 'authorization_code',
       code,

@@ -14,7 +14,6 @@ import {SocialLinks} from '@/features/home/SocialLinks';
 import {MusicMention} from '@/features/music/MusicMention';
 import {getListening} from '@/features/music/spotify';
 
-// Wax-seal red marks the two interests that do something when clicked.
 const INTEREST_LINK = {
   display: 'inline',
   color: 'seal',
@@ -42,7 +41,6 @@ const HomePage = async () => {
       );
     }
 
-    // The trigger only makes sense while there is a panel to open.
     if (interest === 'music' && listening) {
       return (
         <MusicMention key={interest} {...INTEREST_LINK}>

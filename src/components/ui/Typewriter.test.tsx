@@ -9,7 +9,6 @@ import {Typewriter} from './Typewriter';
 
 const TEXT = 'مطوّر';
 
-// A wrapper rather than inline providers, so `rerender` keeps them.
 const Providers = ({children}: {children: ReactNode}) => {
   return (
     <ChakraProvider value={system}>
@@ -23,7 +22,6 @@ const Providers = ({children}: {children: ReactNode}) => {
 const renderTypewriter = () => {
   const {container, rerender} = render(<Typewriter text={TEXT} />, {wrapper: Providers});
 
-  // The hidden full text comes first; the visually typed layer is the last child.
   const typedLayer = container.querySelector('p > span:last-child');
 
   const retype = (text: string) => {
@@ -33,7 +31,6 @@ const renderTypewriter = () => {
   return {container, typedText: () => typedLayer?.textContent, retype};
 };
 
-// Each tick schedules the next one after re-rendering, so ticks are advanced one at a time.
 const typeGraphemes = (count: number) => {
   for (let tick = 0; tick < count; tick++) {
     act(() => {

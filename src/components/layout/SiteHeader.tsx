@@ -1,4 +1,4 @@
-import {Box, Flex, Icon, Text} from '@chakra-ui/react';
+import {Box, Container, Flex, Icon, Text} from '@chakra-ui/react';
 import {IconBrandGithub} from '@tabler/icons-react';
 import {getTranslations} from 'next-intl/server';
 
@@ -13,7 +13,6 @@ import {Logo} from './Logo';
 
 export const SiteHeader = async () => {
   const t = await getTranslations('SiteHeader');
-  // Fetched here so the token never leaves the server: the toggle itself is a client component.
   const listening = await getListening();
 
   return (
@@ -26,22 +25,14 @@ export const SiteHeader = async () => {
       backdropFilter="auto"
       backdropBlur="md"
     >
-      <Flex align="center" gap="4" w="full" maxW="2xl" mx="auto" px="4" py="3">
+      <Container display="flex" alignItems="center" gap="4" py="3">
         <Logo />
 
-        {/* A flex box, so the link sits centred in the row instead of on a text baseline. */}
         <Flex as="nav" aria-label={t('navLabel')} ms="auto">
-          <ExternalLink
-            href={site.links.source}
-            gap="0.4em"
-            textStyle="sm"
-            color="fg.muted"
-            _hover={{color: 'fg', textDecoration: 'none'}}
-          >
+          <ExternalLink href={site.links.source} variant="muted" gap="0.4em" textStyle="sm">
             <Icon asChild boxSize="1.2em">
               <IconBrandGithub aria-hidden />
             </Icon>
-            {/* Hidden visually on narrow screens but kept as the link's accessible name. */}
             <Text as="span" srOnly={{base: true, sm: false}}>
               {t('source')}
             </Text>
@@ -51,7 +42,7 @@ export const SiteHeader = async () => {
         <LocaleSwitcher />
         {listening ? <MusicToggle initial={listening} /> : null}
         <ThemeToggle />
-      </Flex>
+      </Container>
     </Box>
   );
 };

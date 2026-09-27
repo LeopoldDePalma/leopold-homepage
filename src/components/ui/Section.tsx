@@ -7,7 +7,6 @@ export const Section = ({title, children}: {title: string; children: ReactNode})
       <Heading
         as="h2"
         fontSize="2xl"
-        fontWeight="bold"
         textDecoration="underline"
         textDecorationColor="accent/50"
         textDecorationThickness="0.12em"

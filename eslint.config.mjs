@@ -47,7 +47,6 @@ export default defineConfig([
     },
   },
   {
-    // Config files are plain JS/ESM and not part of the TS project.
     files: ['**/*.{js,mjs,cjs}'],
     extends: [tseslint.configs.disableTypeChecked],
   },
@@ -58,15 +57,12 @@ export default defineConfig([
       '@stylistic': stylistic,
     },
     rules: {
-      // Always use braces for if/else/for/while, even around a single statement.
       curly: ['error', 'all'],
-      // Blank lines around control blocks and before return, so each step of a function stands out.
       '@stylistic/padding-line-between-statements': [
         'error',
         {blankLine: 'always', prev: '*', next: ['block-like', 'return']},
         {blankLine: 'always', prev: 'block-like', next: '*'},
       ],
-      // Prettier wraps code at 100 but can't split long strings; this catches those.
       'max-len': [
         'error',
         {code: 100, ignoreUrls: true, ignoreRegExpLiterals: true, ignoreComments: false},
@@ -74,7 +70,6 @@ export default defineConfig([
     },
   },
   {
-    // Command-line scripts talk to the terminal; printing is their interface, not a stray log.
     files: ['scripts/**'],
     rules: {
       'no-console': 'off',
@@ -83,7 +78,6 @@ export default defineConfig([
   {
     files: ['**/*.{ts,tsx,mts}'],
     rules: {
-      // Arrow functions only: components, handlers, helpers and callbacks.
       'func-style': ['error', 'expression'],
       'prefer-arrow-callback': 'error',
       'no-restricted-imports': [
@@ -120,7 +114,6 @@ export default defineConfig([
       ],
     },
   },
-  // Vendored three.js Basis transcoder (minified third-party code).
   globalIgnores([
     '.next/**',
     'out/**',

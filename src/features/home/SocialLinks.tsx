@@ -20,7 +20,6 @@ export const SocialLinks = () => {
             <Icon asChild boxSize="1.1em">
               <BrandIcon aria-hidden />
             </Icon>
-            {/* Latin either way: kept together and left to right, whatever the page direction. */}
             <bdi dir="ltr" lang="en">
               {name} {handle}
             </bdi>

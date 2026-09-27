@@ -16,8 +16,7 @@ import fr from './fr.json';
 
 type MessageTree = {[key: string]: string | MessageTree};
 
-// `{year}` and the like. Tags are left out on purpose: every locale marks its own foreign
-// fragments, so `<en>` appears where that language needs it and nowhere else.
+// Placeholders only: each locale marks its own foreign fragments with tags.
 const PLACEHOLDER = /\{(\w+)[^}]*\}/g;
 
 const flatten = (messages: MessageTree, prefix = ''): [string, string][] => {
@@ -32,8 +31,6 @@ const placeholders = (message: string) => {
   return sortBy(map(Array.from(message.matchAll(PLACEHOLDER)), 1));
 };
 
-// English is the source of truth: it types the messages, so a key missing from another locale
-// only shows up at runtime, in that language.
 const source = fromPairs(flatten(en));
 
 forEach({ar, fr}, (messages, locale) => {

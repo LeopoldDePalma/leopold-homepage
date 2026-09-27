@@ -17,8 +17,6 @@ export const ThemeToggle = () => {
 
   return (
     <IconButton aria-label={t('label')} variant="outline" size="sm" onClick={handleClick}>
-      {/* The server can't know the visitor's theme, so both icons are rendered and CSS shows
-          the one for the theme in effect. */}
       <Icon asChild css={whenDark({display: 'none'})}>
         <Moon aria-hidden />
       </Icon>

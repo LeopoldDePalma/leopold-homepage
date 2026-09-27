@@ -1,4 +1,3 @@
-/** Timeline entries; the texts live in `HomePage.bio` in the message files. */
 export const BIO_ENTRIES = [
   {id: 'born', year: 1998},
   {id: 'moscow', year: 2014},

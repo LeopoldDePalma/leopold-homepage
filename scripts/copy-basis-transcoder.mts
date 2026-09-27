@@ -1,10 +1,3 @@
-/**
- * Copies the Basis transcoder that ships inside three into `public/basis`.
- *
- * KTX2Loader needs the transcoder served from our own origin, and its version has to match the
- * three build using it. Copying on install keeps the two in step instead of relying on someone
- * remembering to do it by hand, so `public/basis` stays out of git.
- */
 import {cp, mkdir} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {dirname, join} from 'node:path';
@@ -13,7 +6,7 @@ const TRANSCODER_ENTRY = 'basis_transcoder.js';
 const TRANSCODER_FILES = [TRANSCODER_ENTRY, 'basis_transcoder.wasm'];
 const TARGET_DIRECTORY = 'public/basis';
 
-// three does not expose its package.json, so the directory comes from the transcoder itself.
+// three does not export its package.json, so the directory is found through the transcoder.
 const require = createRequire(import.meta.url);
 const sourceDirectory = dirname(require.resolve(`three/addons/libs/basis/${TRANSCODER_ENTRY}`));
 

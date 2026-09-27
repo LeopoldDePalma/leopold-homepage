@@ -8,7 +8,6 @@ const stubMediaQuery = (initialMatches: boolean) => {
 
   vi.stubGlobal(
     'matchMedia',
-    // matchMedia is called again on every read, so the current value is picked up.
     vi.fn(() => ({
       matches,
       addEventListener: (_type: string, listener: () => void) => listeners.add(listener),

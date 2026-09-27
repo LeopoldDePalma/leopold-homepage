@@ -11,29 +11,24 @@ import {KTX2Loader} from 'three/addons/loaders/KTX2Loader.js';
 import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
 
 const MODEL_URL = '/models/helmet-4k.glb';
-// Basis transcoder shipped with three (node_modules/three/examples/jsm/libs/basis).
 const BASIS_TRANSCODER_PATH = '/basis/';
 
 // The scan faces +X; turn it towards the camera.
 const FACE_CAMERA: [number, number, number] = [0, -Math.PI / 2, 0];
-// Framing for the ~2.2-unit-tall helmet.
 const CAMERA_POSITION: [number, number, number] = [0, 0, 4.6];
-// Keeps the camera outside the helmet and the helmet from shrinking to a dot.
 const ZOOM = {min: 2.4, max: 7};
-// Speeds in the units OrbitControls counts in, where 1 is about a turn a minute: the camera
-// arrives with a fast sweep and settles into the idle turn.
+// In OrbitControls units, where 1 is about a turn a minute.
 const SPIN = {intro: 400, idle: 1, introSeconds: 1.6};
 
 let ktx2Loader: KTX2Loader | undefined;
 
-// One loader for the page: it owns the transcoding workers, which live as long as the page.
+// One loader for the page: it owns the transcoding workers.
 const getKtx2Loader = (renderer: WebGLRenderer) => {
   ktx2Loader ??= new KTX2Loader().setTranscoderPath(BASIS_TRANSCODER_PATH).detectSupport(renderer);
 
   return ktx2Loader;
 };
 
-// A dark studio with a few soft boxes: polished steel reads dark, with bright highlights.
 const StudioLighting = () => {
   return (
     <Environment>
@@ -46,12 +41,10 @@ const StudioLighting = () => {
   );
 };
 
-// Circular ease-out: fastest on the first frame, gliding into the idle speed.
 const easeOutCirc = (progress: number) => {
   return Math.sqrt(1 - (progress - 1) ** 2);
 };
 
-/** Orbit controls whose rotation arrives as a fast sweep and eases into the idle turn. */
 const OrbitingCamera = ({autoRotate}: {autoRotate: boolean}) => {
   const controlsRef = useRef<ComponentRef<typeof OrbitControls>>(null);
   const elapsedSeconds = useRef(0);
@@ -86,8 +79,6 @@ const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
     loader.setMeshoptDecoder(MeshoptDecoder).setKTX2Loader(getKtx2Loader(renderer));
   });
 
-  // The scan's pivot is slightly off its bounding box, which would wobble while rotating.
-  // The showcase keeps its spinner until the model is on screen.
   useEffect(() => {
     onModelReady();
   }, [onModelReady]);
@@ -101,8 +92,6 @@ const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
 
 const HelmetScene = ({isActive, onModelReady}: {isActive: boolean; onModelReady: () => void}) => {
   const prefersReducedMotion = usePrefersReducedMotion();
-  // Rotation is what keeps the loop awake: OrbitControls fires "change" on every turn and drei
-  // answers with invalidate(), so "demand" idles only once the turning stops.
   const isTurning = isActive && !prefersReducedMotion;
 
   return (
@@ -114,7 +103,6 @@ const HelmetScene = ({isActive, onModelReady}: {isActive: boolean; onModelReady:
       <StudioLighting />
       <Suspense fallback={null}>
         <Helmet onModelReady={onModelReady} />
-        {/* Mounted with the model, so the sweep starts the moment the helmet appears. */}
         <OrbitingCamera autoRotate={isTurning} />
       </Suspense>
     </Canvas>

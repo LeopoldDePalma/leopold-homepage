@@ -10,7 +10,7 @@ export const ProfileHeader = () => {
   return (
     <Flex align="center" gap="6">
       <Box flex="1">
-        <Heading as="h1" fontSize="4xl" fontWeight="bold">
+        <Heading as="h1" fontSize="4xl">
           {tSite('name')}
         </Heading>
         <Text mt="1" color="fg.muted">

@@ -19,7 +19,6 @@ export const Logo = () => {
       _hover={{textDecoration: 'none'}}
     >
       <IntlLink href="/">
-        {/* The eagle tilts towards the reading direction on hover. */}
         <OptimizedImage
           src="/images/eagle.svg"
           alt=""
@@ -31,7 +30,6 @@ export const Logo = () => {
           _groupHover={{rotate: '-12deg', _rtl: {rotate: '12deg'}}}
           _motionReduce={{transition: 'none'}}
         />
-        {/* Hidden visually on narrow screens but kept as the link's accessible name. */}
         <Text as="span" srOnly={{base: true, sm: false}}>
           {t('name')}
         </Text>

@@ -1,4 +1,4 @@
-import {Flex} from '@chakra-ui/react';
+import {Container} from '@chakra-ui/react';
 import type {Metadata} from 'next';
 import {cookies, headers} from 'next/headers';
 import {NextIntlClientProvider} from 'next-intl';
@@ -27,11 +27,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const LocaleLayout = async ({children}: LayoutProps<'/[locale]'>) => {
-  // Validated in `src/i18n/request.ts`: unknown locales end in notFound().
   const locale = await getLocale();
-  // Rendered by the server so the theme is right in the first paint and React owns the attribute.
   const chosenTheme = (await cookies()).get(THEME_COOKIE)?.value;
-  // Set by the proxy together with the Content-Security-Policy it belongs to.
   const nonce = (await headers()).get('x-nonce') ?? undefined;
 
   return (
@@ -45,19 +42,9 @@ const LocaleLayout = async ({children}: LayoutProps<'/[locale]'>) => {
         <StyleProvider locale={locale} nonce={nonce}>
           <NextIntlClientProvider>
             <SiteHeader />
-            {/* A column, so a page can stretch and push its own footnotes to the bottom. */}
-            <Flex
-              as="main"
-              direction="column"
-              flex="1"
-              w="full"
-              maxW="2xl"
-              mx="auto"
-              px="4"
-              py="12"
-            >
+            <Container as="main" display="flex" flexDirection="column" flex="1" py="12">
               {children}
-            </Flex>
+            </Container>
             <SiteFooter />
           </NextIntlClientProvider>
         </StyleProvider>

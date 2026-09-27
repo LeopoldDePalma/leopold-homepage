@@ -9,18 +9,12 @@ import {type ReactNode, useState} from 'react';
 
 import {system} from './system';
 
-/*
- * Emotion writes Chakra's styles at runtime. On the server the styles each render produces are
- * collected here and streamed as a <style> tag ahead of the markup that uses them, so the first
- * paint is already styled. Every tag carries the request's CSP nonce, both these and the ones the
- * browser adds later.
- */
+// Streams the styles Emotion writes during a server render into the HTML, with the CSP nonce.
 const createStyleCache = (nonce: string | undefined) => {
   const cache = createCache({key: 'css', nonce});
   const insert = cache.insert;
   let insertedNames: string[] = [];
 
-  // Stops Emotion from writing its own <style> tags into the markup; the registry does that.
   cache.compat = true;
 
   cache.insert = (...args) => {
@@ -45,7 +39,6 @@ const createStyleCache = (nonce: string | undefined) => {
 };
 
 type StyleProviderProps = {
-  /** Tells Chakra's positioned parts (popovers and the like) which way the text runs. */
   locale: string;
   nonce: string | undefined;
   children: ReactNode;
@@ -70,7 +63,6 @@ export const StyleProvider = ({locale, nonce, children}: StyleProviderProps) => 
       <style
         nonce={nonce}
         data-emotion={`${cache.key} ${names.join(' ')}`}
-        // Serialised CSS from our own styles, not user input.
         dangerouslySetInnerHTML={{__html: styles}}
       />
     );

@@ -9,7 +9,6 @@ export const isTheme = (value: string | undefined): value is Theme => {
   return value === 'light' || value === 'dark';
 };
 
-/** The theme in effect: an explicit choice if there is one, otherwise the system preference. */
 export const getTheme = (): Theme => {
   const chosenTheme = document.documentElement.getAttribute(THEME_ATTRIBUTE) ?? undefined;
 
@@ -20,10 +19,6 @@ export const getTheme = (): Theme => {
   return window.matchMedia(DARK_QUERY).matches ? 'dark' : 'light';
 };
 
-/**
- * Stores the choice in a cookie so the server can render `data-theme` on the next request,
- * and applies it right away for this page.
- */
 export const setTheme = (theme: Theme) => {
   const attributes = `path=/;max-age=${String(COOKIE_MAX_AGE_SECONDS)};samesite=lax`;
 
