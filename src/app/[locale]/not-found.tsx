@@ -2,8 +2,8 @@ import {Button, Flex, Heading, HStack, Icon, Stack, Text} from '@chakra-ui/react
 import {Sword} from 'lucide-react';
 import {getTranslations} from 'next-intl/server';
 
+import {externalLinkTags} from '@/components/ui/ExternalLink';
 import {OptimizedImage} from '@/components/ui/OptimizedImage';
-import {renderCreditLink} from '@/components/ui/renderCreditLink';
 import {site} from '@/content/site';
 import {Link} from '@/i18n/navigation';
 
@@ -49,11 +49,7 @@ const NotFoundPage = async () => {
         </Button>
       </Flex>
       <Text textStyle="xs" color="fg.muted/80">
-        {t.rich('armsCredit', {
-          arms: renderCreditLink(site.armsCredit.arms),
-          author: renderCreditLink(site.armsCredit.author),
-          license: renderCreditLink(site.armsCredit.license),
-        })}
+        {t.rich('armsCredit', externalLinkTags(site.armsCredit, {variant: 'credit'}))}
       </Text>
     </Stack>
   );

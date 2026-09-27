@@ -1,7 +1,7 @@
 import {Container, Text} from '@chakra-ui/react';
 import {useTranslations} from 'next-intl';
 
-import {renderCreditLink} from '@/components/ui/renderCreditLink';
+import {externalLinkTags} from '@/components/ui/ExternalLink';
 import {site} from '@/content/site';
 
 export const SiteFooter = () => {
@@ -14,11 +14,7 @@ export const SiteFooter = () => {
     <Container as="footer" py="8" textAlign="center" textStyle="sm" color="fg.muted">
       <Text>{t('copyright', {year, name: tSite('name')})}</Text>
       <Text mt="2" textStyle="xs">
-        {t.rich('modelCredit', {
-          model: renderCreditLink(site.modelCredit.model, 'ltr'),
-          author: renderCreditLink(site.modelCredit.author, 'ltr'),
-          license: renderCreditLink(site.modelCredit.license, 'ltr'),
-        })}
+        {t.rich('modelCredit', externalLinkTags(site.modelCredit, {variant: 'credit', dir: 'ltr'}))}
       </Text>
     </Container>
   );

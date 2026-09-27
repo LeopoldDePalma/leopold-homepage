@@ -105,6 +105,13 @@ const siteTheme = defineConfig({
         variants: {
           variant: {
             muted: {color: 'fg.muted', _hover: {color: 'fg'}},
+            // Inline, so a long title wraps with the sentence around it.
+            credit: {
+              display: 'inline',
+              color: 'inherit',
+              textDecoration: 'underline',
+              _hover: {color: 'fg'},
+            },
           },
         },
       },
