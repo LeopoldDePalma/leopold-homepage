@@ -1,7 +1,0 @@
-package-lock.json
-AGENTS.md
-# Vendored three.js Basis transcoder
-public/basis
-
-# Not a format Prettier parses.
-.env.example
