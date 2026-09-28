@@ -48,6 +48,6 @@ const proxy = (request: NextRequest) => {
 export default proxy;
 
 export const config = {
-  // Skips route handlers, Next internals and files; the slashes and `$` keep /apiary and /v1.2 in.
-  matcher: '/((?!api/|_next/|.*\\.[a-z0-9]+$).*)',
+  // Skips route handlers, Next internals and any path that ends in a file extension.
+  matcher: '/((?!api/|_next/|.*\\.[a-zA-Z0-9]+$).*)',
 };
