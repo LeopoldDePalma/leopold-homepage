@@ -7,6 +7,7 @@ import {site} from '@/content/site';
 export const SiteFooter = () => {
   const tSite = useTranslations('Site');
   const t = useTranslations('SiteFooter');
+
   // A string, so locales with digit grouping don't render "2,026".
   const year = String(new Date().getFullYear());
 

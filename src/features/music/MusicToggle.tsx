@@ -25,9 +25,11 @@ const MUSIC_URL = '/api/music';
 export const MusicToggle = ({initial}: {initial: Listening}) => {
   const t = useTranslations('Music');
   const format = useFormatter();
-  const [listening, setListening] = useState(initial);
   const open = useMusicPanelStore((state) => state.open);
   const setOpen = useMusicPanelStore((state) => state.setOpen);
+  const [listening, setListening] = useState(initial);
+
+  const status = listening.playing ? t('title') : t('lastPlayed');
 
   useEffect(() => {
     if (!open) {
@@ -47,8 +49,6 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
   }, [open]);
 
   const handleOpenChange = (details: Popover.OpenChangeDetails) => setOpen(details.open);
-
-  const status = listening.playing ? t('title') : t('lastPlayed');
 
   return (
     <Popover.Root

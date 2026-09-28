@@ -30,6 +30,7 @@ const HomePage = async () => {
   const t = await getTranslations('HomePage');
   const format = await getFormatter();
   const listening = await getListening();
+
   const interests = map(INTERESTS, (interest) => {
     const label = t(`interests.${interest}`);
 

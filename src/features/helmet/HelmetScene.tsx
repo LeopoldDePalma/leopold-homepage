@@ -88,6 +88,7 @@ const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
 
 const HelmetScene = ({active, onModelReady}: {active: boolean; onModelReady: () => void}) => {
   const prefersReducedMotion = usePrefersReducedMotion();
+
   const turning = active && !prefersReducedMotion;
 
   return (

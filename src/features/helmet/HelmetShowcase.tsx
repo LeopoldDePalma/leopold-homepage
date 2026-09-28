@@ -10,8 +10,8 @@ const HelmetScene = dynamic(() => import('./HelmetScene'), {ssr: false});
 
 export const HelmetShowcase = () => {
   const rootRef = useRef<HTMLDivElement>(null);
-  const onScreen = useOnScreen(rootRef);
   const [modelReady, setModelReady] = useState(false);
+  const onScreen = useOnScreen(rootRef);
 
   const handleModelReady = () => setModelReady(true);
 

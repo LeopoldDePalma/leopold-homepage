@@ -11,6 +11,7 @@ export const LocaleSwitcher = () => {
   const t = useTranslations('LocaleSwitcher');
   const currentLocale = useLocale();
   const pathname = usePathname();
+
   const otherLocales = without(routing.locales, currentLocale);
 
   return (

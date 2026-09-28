@@ -13,12 +13,13 @@ const SHARED_CELL = {gridColumn: '1', gridRow: '1'} as const;
 
 export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'children'>) => {
   const locale = useLocale();
-  // Graphemes keep Arabic letters together with their diacritics.
-  const segments = new Intl.Segmenter(locale, {granularity: 'grapheme'}).segment(text);
-  const graphemes = Array.from(segments, (segment) => segment.segment);
   const [typedCount, setTypedCount] = useState(0);
   const [typedText, setTypedText] = useState(text);
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Graphemes keep Arabic letters together with their diacritics.
+  const segments = new Intl.Segmenter(locale, {granularity: 'grapheme'}).segment(text);
+  const graphemes = Array.from(segments, (segment) => segment.segment);
 
   if (typedText !== text) {
     setTypedText(text);
