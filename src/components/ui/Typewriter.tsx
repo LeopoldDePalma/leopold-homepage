@@ -26,9 +26,9 @@ export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'c
   }
 
   useEffect(() => {
-    const isDone = typedCount >= graphemes.length;
+    const done = typedCount >= graphemes.length;
 
-    if (isDone || prefersReducedMotion) {
+    if (done || prefersReducedMotion) {
       return;
     }
 

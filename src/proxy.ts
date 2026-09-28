@@ -5,7 +5,7 @@ import {routing} from './i18n/routing';
 
 const handleI18nRouting = createMiddleware(routing);
 
-const isDev = process.env.NODE_ENV === 'development';
+const development = process.env.NODE_ENV === 'development';
 const SPOTIFY_COVERS = 'https://i.scdn.co';
 
 const getContentSecurityPolicy = (nonce: string) => {
@@ -14,7 +14,7 @@ const getContentSecurityPolicy = (nonce: string) => {
     // 'unsafe-eval': three's Basis transcoder builds functions from strings in a blob worker,
     // which inherits this policy. Injected markup still cannot run without the nonce.
     `script-src 'nonce-${nonce}' 'strict-dynamic' 'wasm-unsafe-eval' 'unsafe-eval'`,
-    `style-src 'self' ${isDev ? "'unsafe-inline'" : `'nonce-${nonce}'`}`,
+    `style-src 'self' ${development ? "'unsafe-inline'" : `'nonce-${nonce}'`}`,
     // next/image writes a style attribute; attributes cannot run code.
     "style-src-attr 'unsafe-inline'",
     `img-src 'self' blob: data: ${SPOTIFY_COVERS}`,

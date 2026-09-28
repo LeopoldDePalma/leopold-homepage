@@ -36,6 +36,15 @@ export default defineConfig([
       ],
       '@typescript-eslint/no-import-type-side-effects': 'error',
       '@typescript-eslint/switch-exhaustiveness-check': 'error',
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: ['variable', 'parameter', 'property', 'accessor'],
+          types: ['boolean'],
+          format: null,
+          custom: {regex: '^(is|has|can|should)[A-Z]', match: false},
+        },
+      ],
       '@typescript-eslint/no-confusing-void-expression': ['error', {ignoreArrowShorthand: true}],
       '@typescript-eslint/no-unused-vars': [
         'error',

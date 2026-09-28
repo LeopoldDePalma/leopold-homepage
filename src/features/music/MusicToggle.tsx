@@ -26,11 +26,11 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
   const t = useTranslations('Music');
   const format = useFormatter();
   const [listening, setListening] = useState(initial);
-  const isOpen = useMusicPanelStore((state) => state.isOpen);
+  const open = useMusicPanelStore((state) => state.open);
   const setOpen = useMusicPanelStore((state) => state.setOpen);
 
   useEffect(() => {
-    if (!isOpen) {
+    if (!open) {
       return;
     }
 
@@ -44,15 +44,15 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
     };
 
     refresh().catch(console.warn);
-  }, [isOpen]);
+  }, [open]);
 
-  const handleOpenChange = ({open}: Popover.OpenChangeDetails) => setOpen(open);
+  const handleOpenChange = (details: Popover.OpenChangeDetails) => setOpen(details.open);
 
-  const status = listening.isPlaying ? t('title') : t('lastPlayed');
+  const status = listening.playing ? t('title') : t('lastPlayed');
 
   return (
     <Popover.Root
-      open={isOpen}
+      open={open}
       onOpenChange={handleOpenChange}
       positioning={{placement: 'bottom-end'}}
     >
@@ -92,7 +92,7 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
                 >
                   <Status.Indicator
                     bg="accent"
-                    animation={listening.isPlaying ? 'pulse' : undefined}
+                    animation={listening.playing ? 'pulse' : undefined}
                     _motionReduce={{animation: 'none'}}
                   />
                   {status}

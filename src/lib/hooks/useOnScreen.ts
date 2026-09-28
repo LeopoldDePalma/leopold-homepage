@@ -1,7 +1,7 @@
 import {type RefObject, useEffect, useState} from 'react';
 
-export const useIsInViewport = (ref: RefObject<Element | null>) => {
-  const [isInViewport, setIsInViewport] = useState(false);
+export const useOnScreen = (ref: RefObject<Element | null>) => {
+  const [onScreen, setOnScreen] = useState(false);
 
   useEffect(() => {
     const element = ref.current;
@@ -11,7 +11,7 @@ export const useIsInViewport = (ref: RefObject<Element | null>) => {
     }
 
     const observer = new IntersectionObserver(([entry]) => {
-      setIsInViewport(entry?.isIntersecting ?? false);
+      setOnScreen(entry?.isIntersecting ?? false);
     });
 
     observer.observe(element);
@@ -19,5 +19,5 @@ export const useIsInViewport = (ref: RefObject<Element | null>) => {
     return () => observer.disconnect();
   }, [ref]);
 
-  return isInViewport;
+  return onScreen;
 };

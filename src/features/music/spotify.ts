@@ -8,7 +8,7 @@ const TRACK_TTL_MS = 60_000;
 const TOKEN_MARGIN_MS = 60_000;
 
 export type Listening = {
-  isPlaying: boolean;
+  playing: boolean;
   track: string;
   artists: string[];
   url: string;
@@ -56,12 +56,12 @@ const getAccessToken = async (clientId: string, clientSecret: string, refreshTok
   return value;
 };
 
-const toListening = (track: SpotifyTrack, isPlaying: boolean): Listening => {
+const toListening = (track: SpotifyTrack, playing: boolean): Listening => {
   // The smallest cover is still bigger than we draw it.
   const cover = minBy(track.album.images, 'width');
 
   return {
-    isPlaying,
+    playing,
     track: track.name,
     artists: map(track.artists, 'name'),
     url: track.external_urls.spotify,
@@ -74,10 +74,10 @@ const fetchListening = async (accessToken: string) => {
     fetch(url, {headers: {Authorization: `Bearer ${accessToken}`}, cache: 'no-store'});
 
   // 204 means the player is idle.
-  const playing = await request(CURRENTLY_PLAYING_URL);
+  const current = await request(CURRENTLY_PLAYING_URL);
 
-  if (playing.status === 200) {
-    const {item} = (await playing.json()) as {item: SpotifyTrack | null};
+  if (current.status === 200) {
+    const {item} = (await current.json()) as {item: SpotifyTrack | null};
 
     if (item) {
       return toListening(item, true);

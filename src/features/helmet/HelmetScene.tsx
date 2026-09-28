@@ -86,20 +86,20 @@ const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
   );
 };
 
-const HelmetScene = ({isActive, onModelReady}: {isActive: boolean; onModelReady: () => void}) => {
+const HelmetScene = ({active, onModelReady}: {active: boolean; onModelReady: () => void}) => {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const isTurning = isActive && !prefersReducedMotion;
+  const turning = active && !prefersReducedMotion;
 
   return (
     <Canvas
-      frameloop={isTurning ? 'always' : 'demand'}
+      frameloop={turning ? 'always' : 'demand'}
       dpr={[1, 2]}
       camera={{fov: 30, position: CAMERA_POSITION}}
     >
       <StudioLighting />
       <Suspense fallback={null}>
         <Helmet onModelReady={onModelReady} />
-        <OrbitingCamera autoRotate={isTurning} />
+        <OrbitingCamera autoRotate={turning} />
       </Suspense>
     </Canvas>
   );
