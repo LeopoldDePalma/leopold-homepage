@@ -13,13 +13,11 @@ const ebGaramond = EB_Garamond({
 
 const notoKufiArabic = Noto_Kufi_Arabic({
   variable: '--font-noto-kufi-arabic',
-  subsets: ['arabic', 'latin'],
   preload: false,
 });
 
 const amiri = Amiri({
   variable: '--font-amiri',
-  subsets: ['arabic', 'latin'],
   weight: '700',
   preload: false,
 });
