@@ -38,6 +38,18 @@ const createStyleCache = (nonce: string | undefined) => {
   return {cache, flush};
 };
 
+let browserStyleCache: ReturnType<typeof createStyleCache> | undefined;
+
+const getStyleCache = (nonce: string | undefined) => {
+  if (typeof window === 'undefined') {
+    return createStyleCache(nonce);
+  }
+
+  browserStyleCache ??= createStyleCache(nonce);
+
+  return browserStyleCache;
+};
+
 type StyleProviderProps = {
   locale: string;
   nonce: string | undefined;
@@ -45,7 +57,7 @@ type StyleProviderProps = {
 };
 
 export const StyleProvider = ({locale, nonce, children}: StyleProviderProps) => {
-  const [{cache, flush}] = useState(() => createStyleCache(nonce));
+  const [{cache, flush}] = useState(() => getStyleCache(nonce));
 
   useServerInsertedHTML(() => {
     const names = flush();

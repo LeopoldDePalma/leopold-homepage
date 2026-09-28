@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Switching the language no longer pushes the page to one side or leaves new styles blocked by the
+  Content-Security-Policy.
+
 ## [1.0.0] - 2026-09-28
 
 ### Added
