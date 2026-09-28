@@ -41,8 +41,8 @@ const NotFoundPage = async () => {
       <Flex flex="1" align="center">
         <Button asChild variant="quiet">
           <Link href="/">
-            <Icon asChild boxSize="1.1em" transform="scaleX(-1)" _rtl={{transform: 'none'}}>
-              <Sword aria-hidden />
+            <Icon boxSize="1.1em" transform="scaleX(-1)" _rtl={{transform: 'none'}}>
+              <Sword />
             </Icon>
             {t('home')}
           </Link>

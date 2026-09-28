@@ -65,8 +65,8 @@ export const ContactButton = () => {
       _active={{transform: 'scale(0.97)'}}
       _motionReduce={{transition: 'none'}}
     >
-      <Icon asChild boxSize="1.25em" color="seal">
-        <Mail aria-hidden />
+      <Icon boxSize="1.25em" color="seal">
+        <Mail />
       </Icon>
       {t('action')}
     </Link>

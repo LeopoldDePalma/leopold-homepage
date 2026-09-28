@@ -30,8 +30,8 @@ export const SiteHeader = async () => {
 
         <Flex as="nav" aria-label={t('navLabel')} ms="auto">
           <ExternalLink href={site.links.source} variant="muted" gap="0.4em" textStyle="sm">
-            <Icon asChild boxSize="1.2em">
-              <IconBrandGithub aria-hidden />
+            <Icon boxSize="1.2em">
+              <IconBrandGithub />
             </Icon>
             <Text as="span" srOnly={{base: true, sm: false}}>
               {t('source')}

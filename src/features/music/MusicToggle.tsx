@@ -39,8 +39,8 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
     >
       <Popover.Trigger asChild>
         <IconButton aria-label={status} variant="outline" size="sm">
-          <Icon asChild>
-            <IconBrandSpotify aria-hidden />
+          <Icon>
+            <IconBrandSpotify />
           </Icon>
         </IconButton>
       </Popover.Trigger>
@@ -51,15 +51,12 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
             <HStack gap="3">
               {listening.cover ? (
                 <Image
-                  src={listening.cover.url}
+                  src={listening.cover}
                   alt=""
-                  width={listening.cover.size}
-                  height={listening.cover.size}
                   boxSize="14"
                   flexShrink="0"
                   rounded="md"
                   borderWidth="1px"
-                  objectFit="cover"
                 />
               ) : null}
 

@@ -12,7 +12,7 @@ export type Listening = {
   track: string;
   artists: string[];
   url: string;
-  cover?: {url: string; size: number};
+  cover?: string;
 };
 
 type SpotifyTrack = {
@@ -65,7 +65,7 @@ const toListening = (track: SpotifyTrack, playing: boolean): Listening => {
     track: track.name,
     artists: map(track.artists, 'name'),
     url: track.external_urls.spotify,
-    cover: cover && {url: cover.url, size: cover.width},
+    cover: cover?.url,
   };
 };
 

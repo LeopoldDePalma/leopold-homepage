@@ -16,8 +16,8 @@ export const SocialLinks = () => (
     {map(PROFILES, ({name, url, handle, BrandIcon}) => (
       <li key={name}>
         <ExternalLink href={url} gap="0.5em" textUnderlineOffset="0.25em">
-          <Icon asChild boxSize="1.1em">
-            <BrandIcon aria-hidden />
+          <Icon boxSize="1.1em">
+            <BrandIcon />
           </Icon>
           <bdi dir="ltr" lang="en">
             {name} {handle}

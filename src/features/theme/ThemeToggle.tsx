@@ -15,11 +15,11 @@ export const ThemeToggle = () => {
 
   return (
     <IconButton aria-label={t('label')} variant="outline" size="sm" onClick={handleClick}>
-      <Icon asChild css={whenDark({display: 'none'})}>
-        <Moon aria-hidden />
+      <Icon css={whenDark({display: 'none'})}>
+        <Moon />
       </Icon>
-      <Icon asChild display="none" css={whenDark({display: 'block'})}>
-        <Sun aria-hidden />
+      <Icon display="none" css={whenDark({display: 'block'})}>
+        <Sun />
       </Icon>
     </IconButton>
   );
