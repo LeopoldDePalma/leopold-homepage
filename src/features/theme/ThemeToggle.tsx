@@ -4,7 +4,7 @@ import {Icon, IconButton} from '@chakra-ui/react';
 import {Moon, Sun} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 
-import {whenDark} from '@/styles/system';
+import {whenDark} from '@/styles/shared';
 
 import {getTheme, setTheme} from './theme';
 

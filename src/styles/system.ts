@@ -1,4 +1,4 @@
-import {createSystem, defaultConfig, defineConfig, type SystemStyleObject} from '@chakra-ui/react';
+import {createSystem, defaultConfig, defineConfig} from '@chakra-ui/react';
 import {has, isPlainObject, mapValues} from 'lodash-es';
 
 type ColorModeValue = {_light: string; _dark: string};
@@ -122,8 +122,3 @@ const siteTheme = defineConfig({
 });
 
 export const system = createSystem(defaultConfig, colorModeColors, siteTheme);
-
-export const whenDark = (styles: SystemStyleObject): SystemStyleObject => ({
-  _themeDark: styles,
-  _osDark: {_themeUnset: styles},
-});
