@@ -19,17 +19,14 @@ type MessageTree = {[key: string]: string | MessageTree};
 // Placeholders only: each locale marks its own foreign fragments with tags.
 const PLACEHOLDER = /\{(\w+)[^}]*\}/g;
 
-const flatten = (messages: MessageTree, prefix = ''): [string, string][] => {
-  return flatMap(toPairs(messages), ([key, value]) => {
+const flatten = (messages: MessageTree, prefix = ''): [string, string][] =>
+  flatMap(toPairs(messages), ([key, value]) => {
     const path = `${prefix}${key}`;
 
     return isString(value) ? [[path, value] as [string, string]] : flatten(value, `${path}.`);
   });
-};
 
-const placeholders = (message: string) => {
-  return sortBy(map(Array.from(message.matchAll(PLACEHOLDER)), 1));
-};
+const placeholders = (message: string) => sortBy(map(Array.from(message.matchAll(PLACEHOLDER)), 1));
 
 const source = fromPairs(flatten(en));
 

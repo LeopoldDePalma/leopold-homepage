@@ -8,14 +8,12 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@chakra-ui/react'],
   },
-  headers: () => {
-    return [
-      {
-        source: '/:path*',
-        headers: [{key: 'X-Content-Type-Options', value: 'nosniff'}],
-      },
-    ];
-  },
+  headers: () => [
+    {
+      source: '/:path*',
+      headers: [{key: 'X-Content-Type-Options', value: 'nosniff'}],
+    },
+  ],
 };
 
 export default withNextIntl(nextConfig);

@@ -5,11 +5,7 @@ type MusicPanelState = {
   setOpen: (isOpen: boolean) => void;
 };
 
-export const useMusicPanelStore = create<MusicPanelState>()((set) => {
-  return {
-    isOpen: false,
-    setOpen: (isOpen) => {
-      set({isOpen});
-    },
-  };
-});
+export const useMusicPanelStore = create<MusicPanelState>()((set) => ({
+  isOpen: false,
+  setOpen: (isOpen) => set({isOpen}),
+}));

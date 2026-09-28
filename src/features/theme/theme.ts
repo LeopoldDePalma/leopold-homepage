@@ -5,9 +5,8 @@ const THEME_ATTRIBUTE = 'data-theme';
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
 
-export const isTheme = (value: string | undefined): value is Theme => {
-  return value === 'light' || value === 'dark';
-};
+export const isTheme = (value: string | undefined): value is Theme =>
+  value === 'light' || value === 'dark';
 
 export const getTheme = (): Theme => {
   const chosenTheme = document.documentElement.getAttribute(THEME_ATTRIBUTE) ?? undefined;

@@ -9,24 +9,20 @@ import {Typewriter} from './Typewriter';
 
 const TEXT = 'مطوّر';
 
-const Providers = ({children}: {children: ReactNode}) => {
-  return (
-    <ChakraProvider value={system}>
-      <NextIntlClientProvider locale="ar" messages={{}}>
-        {children}
-      </NextIntlClientProvider>
-    </ChakraProvider>
-  );
-};
+const Providers = ({children}: {children: ReactNode}) => (
+  <ChakraProvider value={system}>
+    <NextIntlClientProvider locale="ar" messages={{}}>
+      {children}
+    </NextIntlClientProvider>
+  </ChakraProvider>
+);
 
 const renderTypewriter = () => {
   const {container, rerender} = render(<Typewriter text={TEXT} />, {wrapper: Providers});
 
   const typedLayer = container.querySelector('p > span:last-child');
 
-  const retype = (text: string) => {
-    rerender(<Typewriter text={text} />);
-  };
+  const retype = (text: string) => rerender(<Typewriter text={text} />);
 
   return {container, typedText: () => typedLayer?.textContent, retype};
 };
@@ -40,13 +36,9 @@ const typeGraphemes = (count: number) => {
 };
 
 describe('Typewriter', () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
+  beforeEach(() => vi.useFakeTimers());
 
-  afterEach(() => {
-    vi.useRealTimers();
-  });
+  afterEach(() => vi.useRealTimers());
 
   it('gives assistive technology the full text immediately', () => {
     const {container} = renderTypewriter();

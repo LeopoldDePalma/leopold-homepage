@@ -16,9 +16,7 @@ export const useIsInViewport = (ref: RefObject<Element | null>) => {
 
     observer.observe(element);
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [ref]);
 
   return isInViewport;

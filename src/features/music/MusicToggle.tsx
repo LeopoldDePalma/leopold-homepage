@@ -46,9 +46,7 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
     refresh().catch(console.warn);
   }, [isOpen]);
 
-  const handleOpenChange = ({open}: Popover.OpenChangeDetails) => {
-    setOpen(open);
-  };
+  const handleOpenChange = ({open}: Popover.OpenChangeDetails) => setOpen(open);
 
   const status = listening.isPlaying ? t('title') : t('lastPlayed');
 

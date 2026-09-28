@@ -11,21 +11,19 @@ const PROFILES = [
   {name: 'Instagram', BrandIcon: IconBrandInstagram, ...site.profiles.instagram},
 ];
 
-export const SocialLinks = () => {
-  return (
-    <Stack as="ul" gap="2" listStyle="none">
-      {map(PROFILES, ({name, url, handle, BrandIcon}) => (
-        <li key={name}>
-          <ExternalLink href={url} gap="0.5em" textUnderlineOffset="0.25em">
-            <Icon asChild boxSize="1.1em">
-              <BrandIcon aria-hidden />
-            </Icon>
-            <bdi dir="ltr" lang="en">
-              {name} {handle}
-            </bdi>
-          </ExternalLink>
-        </li>
-      ))}
-    </Stack>
-  );
-};
+export const SocialLinks = () => (
+  <Stack as="ul" gap="2" listStyle="none">
+    {map(PROFILES, ({name, url, handle, BrandIcon}) => (
+      <li key={name}>
+        <ExternalLink href={url} gap="0.5em" textUnderlineOffset="0.25em">
+          <Icon asChild boxSize="1.1em">
+            <BrandIcon aria-hidden />
+          </Icon>
+          <bdi dir="ltr" lang="en">
+            {name} {handle}
+          </bdi>
+        </ExternalLink>
+      </li>
+    ))}
+  </Stack>
+);

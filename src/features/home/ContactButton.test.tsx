@@ -26,9 +26,7 @@ const renderButton = () => {
   return link;
 };
 
-const pointer = (clientX: number, clientY: number) => {
-  return {pointerType: 'mouse', clientX, clientY};
-};
+const pointer = (clientX: number, clientY: number) => ({pointerType: 'mouse', clientX, clientY});
 
 describe('ContactButton', () => {
   it('leans a quarter of the way towards the pointer and lets go on leave', () => {

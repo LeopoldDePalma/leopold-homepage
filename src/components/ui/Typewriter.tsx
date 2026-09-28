@@ -32,13 +32,9 @@ export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'c
       return;
     }
 
-    const timer = setTimeout(() => {
-      setTypedCount(typedCount + 1);
-    }, TYPING_DELAY_MS);
+    const timer = setTimeout(() => setTypedCount(typedCount + 1), TYPING_DELAY_MS);
 
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [typedCount, graphemes.length, prefersReducedMotion]);
 
   return (

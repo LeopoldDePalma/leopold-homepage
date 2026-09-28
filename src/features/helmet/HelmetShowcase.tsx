@@ -13,9 +13,7 @@ export const HelmetShowcase = () => {
   const isInViewport = useIsInViewport(rootRef);
   const [isModelReady, setIsModelReady] = useState(false);
 
-  const handleModelReady = () => {
-    setIsModelReady(true);
-  };
+  const handleModelReady = () => setIsModelReady(true);
 
   return (
     <Box ref={rootRef} aria-hidden position="relative" mt="-24" aspectRatio="4 / 3">

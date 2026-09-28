@@ -3,9 +3,8 @@ import {has, isPlainObject, mapValues} from 'lodash-es';
 
 type ColorModeValue = {_light: string; _dark: string};
 
-const isColorModeValue = (value: unknown): value is ColorModeValue => {
-  return isPlainObject(value) && has(value, '_light') && has(value, '_dark');
-};
+const isColorModeValue = (value: unknown): value is ColorModeValue =>
+  isPlainObject(value) && has(value, '_light') && has(value, '_dark');
 
 // Chakra's `_dark` needs a `.dark` class set by a client script. Our theme lives in
 // `color-scheme`, so every `{_light, _dark}` colour becomes `light-dark()` instead.
@@ -124,6 +123,7 @@ const siteTheme = defineConfig({
 
 export const system = createSystem(defaultConfig, colorModeColors, siteTheme);
 
-export const whenDark = (styles: SystemStyleObject): SystemStyleObject => {
-  return {_themeDark: styles, _osDark: {_themeUnset: styles}};
-};
+export const whenDark = (styles: SystemStyleObject): SystemStyleObject => ({
+  _themeDark: styles,
+  _osDark: {_themeUnset: styles},
+});

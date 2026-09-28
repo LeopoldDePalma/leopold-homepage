@@ -7,9 +7,7 @@ const subscribe = (onChange: () => void) => {
 
   media.addEventListener('change', onChange);
 
-  return () => {
-    media.removeEventListener('change', onChange);
-  };
+  return () => media.removeEventListener('change', onChange);
 };
 
 const getSnapshot = () => window.matchMedia(QUERY).matches;
@@ -17,6 +15,5 @@ const getSnapshot = () => window.matchMedia(QUERY).matches;
 // The server can't know: assume reduced motion so nothing animates before hydration.
 const getServerSnapshot = () => true;
 
-export const usePrefersReducedMotion = () => {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-};
+export const usePrefersReducedMotion = () =>
+  useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);

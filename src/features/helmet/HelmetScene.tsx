@@ -29,21 +29,17 @@ const getKtx2Loader = (renderer: WebGLRenderer) => {
   return ktx2Loader;
 };
 
-const StudioLighting = () => {
-  return (
-    <Environment>
-      <color attach="background" args={['#7a7a7a']} />
-      <Lightformer intensity={4} position={[0, 3, 3]} scale={[5, 2, 1]} />
-      <Lightformer intensity={3} position={[-4, 1, 1]} scale={[2, 4, 1]} />
-      <Lightformer intensity={2} position={[4, 0, -2]} scale={[2, 4, 1]} />
-      <Lightformer intensity={1.5} position={[0, -0.5, 5]} scale={[6, 3, 1]} />
-    </Environment>
-  );
-};
+const StudioLighting = () => (
+  <Environment>
+    <color attach="background" args={['#7a7a7a']} />
+    <Lightformer intensity={4} position={[0, 3, 3]} scale={[5, 2, 1]} />
+    <Lightformer intensity={3} position={[-4, 1, 1]} scale={[2, 4, 1]} />
+    <Lightformer intensity={2} position={[4, 0, -2]} scale={[2, 4, 1]} />
+    <Lightformer intensity={1.5} position={[0, -0.5, 5]} scale={[6, 3, 1]} />
+  </Environment>
+);
 
-const easeOutCirc = (progress: number) => {
-  return Math.sqrt(1 - (progress - 1) ** 2);
-};
+const easeOutCirc = (progress: number) => Math.sqrt(1 - (progress - 1) ** 2);
 
 const OrbitingCamera = ({autoRotate}: {autoRotate: boolean}) => {
   const controlsRef = useRef<ComponentRef<typeof OrbitControls>>(null);

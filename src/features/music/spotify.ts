@@ -27,9 +27,8 @@ type Cached<T> = {value: T; expiresAt: number};
 let token: Cached<string> | undefined;
 let lastTrack: Cached<Listening> | undefined;
 
-const isFresh = <T>(entry: Cached<T> | undefined): entry is Cached<T> => {
-  return entry !== undefined && entry.expiresAt > Date.now();
-};
+const isFresh = <T>(entry: Cached<T> | undefined): entry is Cached<T> =>
+  entry !== undefined && entry.expiresAt > Date.now();
 
 const getAccessToken = async (clientId: string, clientSecret: string, refreshToken: string) => {
   if (isFresh(token)) {
@@ -71,9 +70,8 @@ const toListening = (track: SpotifyTrack, isPlaying: boolean): Listening => {
 };
 
 const fetchListening = async (accessToken: string) => {
-  const request = (url: string) => {
-    return fetch(url, {headers: {Authorization: `Bearer ${accessToken}`}, cache: 'no-store'});
-  };
+  const request = (url: string) =>
+    fetch(url, {headers: {Authorization: `Bearer ${accessToken}`}, cache: 'no-store'});
 
   // 204 means the player is idle.
   const playing = await request(CURRENTLY_PLAYING_URL);

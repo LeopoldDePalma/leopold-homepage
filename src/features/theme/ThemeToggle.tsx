@@ -11,9 +11,7 @@ import {getTheme, setTheme} from './theme';
 export const ThemeToggle = () => {
   const t = useTranslations('ThemeToggle');
 
-  const handleClick = () => {
-    setTheme(getTheme() === 'dark' ? 'light' : 'dark');
-  };
+  const handleClick = () => setTheme(getTheme() === 'dark' ? 'light' : 'dark');
 
   return (
     <IconButton aria-label={t('label')} variant="outline" size="sm" onClick={handleClick}>

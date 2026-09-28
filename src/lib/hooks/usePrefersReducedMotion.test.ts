@@ -18,9 +18,7 @@ const stubMediaQuery = (initialMatches: boolean) => {
   return {
     setMatches: (value: boolean) => {
       matches = value;
-      listeners.forEach((listener) => {
-        listener();
-      });
+      listeners.forEach((listener) => listener());
     },
   };
 };
@@ -32,9 +30,7 @@ describe('usePrefersReducedMotion', () => {
 
     expect(result.current).toBe(false);
 
-    act(() => {
-      setMatches(true);
-    });
+    act(() => setMatches(true));
 
     expect(result.current).toBe(true);
   });
