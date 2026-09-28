@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Switching the language no longer pushes the page to one side or leaves new styles blocked by the
   Content-Security-Policy.
 - The chosen language is remembered after the browser is closed, as the theme already was.
+- The credits name the helmet's scanner and link each author of the Swabian arms, and the README
+  marks the CC-licensed files as exceptions to MIT.
 
 ## [1.0.0] - 2026-09-28
 

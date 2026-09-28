@@ -51,13 +51,13 @@
   },
   "SiteFooter": {
     "copyright": "© {year} {name}. جميع الحقوق محفوظة.",
-    "modelCredit": "نموذج ثلاثي الأبعاد <model>Helmet with Grotesque Visor</model> من <author>The Royal Armoury (Livrustkammaren)</author>، بترخيص <license>CC BY-SA 4.0</license>، مع التبسيط وإعادة الترميز."
+    "modelCredit": "نموذج ثلاثي الأبعاد <model>Helmet with Grotesque Visor</model> من <author>The Royal Armoury (Livrustkammaren)</author>، مسح Erik Lernestål، بترخيص <license>CC BY-SA 4.0</license>، مع التبسيط وإعادة الترميز."
   },
   "NotFound": {
     "title": "الصفحة غير موجودة",
     "description": "هذا العنوان غير مُدرج في سجل الشعارات.",
     "home": "العودة إلى الصفحة الرئيسية",
-    "armsCredit": "<arms>شعار شوابيا</arms> بريشة <author>Ssolbergj و The White Lion</author>، <license>CC BY-SA 4.0</license>."
+    "armsCredit": "<arms>شعار شوابيا</arms> بريشة <ssolbergj>Ssolbergj</ssolbergj> و<whiteLion>The White Lion</whiteLion>، <license>CC BY-SA 4.0</license>."
   },
   "ErrorPage": {
     "title": "حدث خطأ ما",

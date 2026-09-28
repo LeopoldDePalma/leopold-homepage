@@ -14,7 +14,8 @@ export const site = {
   },
   armsCredit: {
     arms: 'https://commons.wikimedia.org/wiki/File:Arms_of_Swabia_(lions_passant_guardant).svg',
-    author: 'https://commons.wikimedia.org/wiki/User:Ssolbergj',
+    ssolbergj: 'https://commons.wikimedia.org/wiki/User:Ssolbergj',
+    whiteLion: 'https://commons.wikimedia.org/wiki/User:The_White_Lion',
     license: 'https://creativecommons.org/licenses/by-sa/4.0/',
   },
   modelCredit: {

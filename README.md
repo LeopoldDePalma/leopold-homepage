@@ -26,4 +26,5 @@ Open http://localhost:3000.
 
 ## License
 
-MIT
+MIT, except where otherwise noted: the 3D model in `public/models/` and
+`public/images/arms-of-swabia.svg` are CC BY-SA 4.0, see the `LICENSE.md` next to them.

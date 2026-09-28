@@ -51,13 +51,13 @@
   },
   "SiteFooter": {
     "copyright": "© {year} {name}. All rights reserved.",
-    "modelCredit": "3D model <model>Helmet with Grotesque Visor</model> by <author>The Royal Armoury (Livrustkammaren)</author>, <license>CC BY-SA 4.0</license>, simplified and re-encoded."
+    "modelCredit": "3D model <model>Helmet with Grotesque Visor</model> by <author>The Royal Armoury (Livrustkammaren)</author>, scan by Erik Lernestål, <license>CC BY-SA 4.0</license>, simplified and re-encoded."
   },
   "NotFound": {
     "title": "Page not found",
     "description": "This address is not listed in the armorial.",
     "home": "Back to the homepage",
-    "armsCredit": "<arms>Arms of Swabia</arms> by <author>Ssolbergj and The White Lion</author>, <license>CC BY-SA 4.0</license>."
+    "armsCredit": "<arms>Arms of Swabia</arms> by <ssolbergj>Ssolbergj</ssolbergj> and <whiteLion>The White Lion</whiteLion>, <license>CC BY-SA 4.0</license>."
   },
   "ErrorPage": {
     "title": "Something went wrong",
