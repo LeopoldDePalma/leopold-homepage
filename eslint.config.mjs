@@ -132,5 +132,6 @@ export default defineConfig([
     'coverage/**',
     'next-env.d.ts',
     'public/basis/**',
+    'src/messages/*.d.json.ts',
   ]),
 ]);

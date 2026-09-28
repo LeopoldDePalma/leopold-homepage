@@ -11,4 +11,5 @@ npm-debug.log*
 /public/basis
 
 *.tsbuildinfo
+/src/messages/*.d.json.ts
 next-env.d.ts

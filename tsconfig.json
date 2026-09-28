@@ -12,6 +12,7 @@
     "incremental": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "allowArbitraryExtensions": true,
     "isolatedModules": true,
 
     /* Type safety */

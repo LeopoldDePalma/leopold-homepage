@@ -9,7 +9,10 @@ export const ExternalLink = (props: ExternalLinkProps) => (
 );
 
 /** Turns `{tag: href}` into `t.rich` renderers, so each tag in a message becomes a link. */
-export const externalLinkTags = (hrefs: Record<string, string>, props?: ExternalLinkProps) =>
+export const externalLinkTags = <Tag extends string>(
+  hrefs: Record<Tag, string>,
+  props?: ExternalLinkProps,
+) =>
   mapValues(hrefs, (href) => {
     const Tag = (chunks: ReactNode) => (
       <ExternalLink href={href} {...props}>

@@ -1,10 +1,10 @@
 import {Box, Grid} from '@chakra-ui/react';
-import {keyBy, map, mapValues} from 'lodash-es';
+import {map, mapValues} from 'lodash-es';
 import {useTranslations} from 'next-intl';
 import type {ReactNode} from 'react';
 
 import {BIO_ENTRIES} from '@/content/bio';
-import {routing} from '@/i18n/routing';
+import {localeNames} from '@/i18n/routing';
 
 const renderInLanguage = (lang: string) => {
   const Quote = (chunks: ReactNode) => <bdi lang={lang}>{chunks}</bdi>;
@@ -13,7 +13,7 @@ const renderInLanguage = (lang: string) => {
 };
 
 // `<ar>…</ar>` in a message quotes a name in that language's script.
-const LANGUAGE_TAGS = mapValues(keyBy(routing.locales), renderInLanguage);
+const LANGUAGE_TAGS = mapValues(localeNames, (_name, locale) => renderInLanguage(locale));
 
 export const Bio = () => {
   const t = useTranslations('HomePage.bio');
