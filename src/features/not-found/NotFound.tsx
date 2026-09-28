@@ -9,7 +9,7 @@ import {JoustGame} from '@/features/joust/components/JoustGame';
 import {Link} from '@/i18n/navigation';
 import {TILT_ON_GROUP_HOVER} from '@/styles/shared';
 
-const NotFoundPage = async () => {
+export const NotFound = async () => {
   const t = await getTranslations('NotFound');
 
   return (
@@ -65,5 +65,3 @@ const NotFoundPage = async () => {
     </Stack>
   );
 };
-
-export default NotFoundPage;

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     optimizePackageImports: ['@chakra-ui/react'],
+    globalNotFound: true,
   },
   headers: () => [
     {

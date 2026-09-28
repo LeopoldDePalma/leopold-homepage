@@ -5,8 +5,18 @@ import {getRequestConfig} from 'next-intl/server';
 
 import {routing} from './routing';
 
-export default getRequestConfig(async ({locale: requestedLocale}) => {
-  const locale = requestedLocale ?? (await rootParams.locale());
+const getSegmentLocale = async () => {
+  const locale = await rootParams.locale();
+
+  return hasLocale(routing.locales, locale) ? locale : undefined;
+};
+
+export default getRequestConfig(async (params) => {
+  const locale =
+    params.locale ??
+    (await getSegmentLocale()) ??
+    // eslint-disable-next-line @typescript-eslint/no-deprecated -- global-not-found has no segment
+    (await params.requestLocale);
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
