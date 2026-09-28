@@ -13,40 +13,21 @@ import {
 } from '@chakra-ui/react';
 import {IconBrandSpotify} from '@tabler/icons-react';
 import {useFormatter, useTranslations} from 'next-intl';
-import {useEffect, useState} from 'react';
+import {useShallow} from 'zustand/shallow';
 
 import {ExternalLink} from '@/components/ui/ExternalLink';
+import {useMusicPanelStore} from '@/features/music/store/musicPanelStore';
 
-import {useMusicPanelStore} from './musicPanelStore';
 import type {Listening} from './spotify';
-
-const MUSIC_URL = '/api/music';
+import {useListening} from './useListening';
 
 export const MusicToggle = ({initial}: {initial: Listening}) => {
   const t = useTranslations('Music');
   const format = useFormatter();
-  const open = useMusicPanelStore((state) => state.open);
-  const setOpen = useMusicPanelStore((state) => state.setOpen);
-  const [listening, setListening] = useState(initial);
+  const [open, setOpen] = useMusicPanelStore(useShallow((state) => [state.open, state.setOpen]));
+  const listening = useListening(initial, open);
 
   const status = listening.playing ? t('title') : t('lastPlayed');
-
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-
-    const refresh = async () => {
-      const response = await fetch(MUSIC_URL);
-      const fresh = response.ok ? ((await response.json()) as Listening | null) : null;
-
-      if (fresh) {
-        setListening(fresh);
-      }
-    };
-
-    refresh().catch(console.warn);
-  }, [open]);
 
   const handleOpenChange = (details: Popover.OpenChangeDetails) => setOpen(details.open);
 

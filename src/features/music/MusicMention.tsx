@@ -2,7 +2,7 @@
 
 import {chakra, type HTMLChakraProps} from '@chakra-ui/react';
 
-import {useMusicPanelStore} from './musicPanelStore';
+import {useMusicPanelStore} from '@/features/music/store/musicPanelStore';
 
 export const MusicMention = (props: Omit<HTMLChakraProps<'button'>, 'type' | 'onClick'>) => {
   const setOpen = useMusicPanelStore((state) => state.setOpen);
