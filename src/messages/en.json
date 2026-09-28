@@ -57,7 +57,15 @@
     "title": "Page not found",
     "description": "This address is not listed in the armorial.",
     "home": "Back to the homepage",
-    "armsCredit": "<arms>Arms of Swabia</arms> by <ssolbergj>Ssolbergj</ssolbergj> and <whiteLion>The White Lion</whiteLion>, <license>CC BY-SA 4.0</license>."
+    "armsCredit": "<arms>Arms of Swabia</arms> by <ssolbergj>Ssolbergj</ssolbergj> and <whiteLion>The White Lion</whiteLion>, <license>CC BY-SA 4.0</license>.",
+    "gameArtCredit": "Game art: <knight>Mounted knight</knight> by Skoll; <barrel>Barrel</barrel>, <stakes>Stakes fence</stakes> and <caltrops>Caltrops</caltrops> by Delapouite, from <source>game-icons.net</source>, <license>CC BY 3.0</license>."
+  },
+  "JoustGame": {
+    "label": "Jousting game",
+    "hint": "Press Space or tap to ride",
+    "slain": "Thou art slain",
+    "best": "Best",
+    "result": "Score: {score}."
   },
   "ErrorPage": {
     "title": "Something went wrong",

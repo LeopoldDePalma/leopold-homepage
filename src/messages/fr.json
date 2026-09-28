@@ -57,7 +57,15 @@
     "title": "Page introuvable",
     "description": "Cette adresse ne figure pas dans l'armorial.",
     "home": "Retour à l'accueil",
-    "armsCredit": "Armoiries <arms>de Souabe</arms> par <ssolbergj>Ssolbergj</ssolbergj> et <whiteLion>The White Lion</whiteLion>, <license>CC BY-SA 4.0</license>."
+    "armsCredit": "Armoiries <arms>de Souabe</arms> par <ssolbergj>Ssolbergj</ssolbergj> et <whiteLion>The White Lion</whiteLion>, <license>CC BY-SA 4.0</license>.",
+    "gameArtCredit": "Illustrations du jeu : <knight>Mounted knight</knight> par Skoll ; <barrel>Barrel</barrel>, <stakes>Stakes fence</stakes> et <caltrops>Caltrops</caltrops> par Delapouite, sur <source>game-icons.net</source>, <license>CC BY 3.0</license>."
+  },
+  "JoustGame": {
+    "label": "Jeu de joute",
+    "hint": "Appuyez sur Espace ou touchez pour partir",
+    "slain": "Vous voilà occis",
+    "best": "Record",
+    "result": "Score : {score}."
   },
   "ErrorPage": {
     "title": "Quelque chose s'est mal passé",

@@ -5,6 +5,7 @@ import {getTranslations} from 'next-intl/server';
 import {externalLinkTags} from '@/components/ui/ExternalLink';
 import {OptimizedImage} from '@/components/ui/OptimizedImage';
 import {site} from '@/content/site';
+import {JoustGame} from '@/features/joust/components/JoustGame';
 import {Link} from '@/i18n/navigation';
 import {TILT_ON_GROUP_HOVER} from '@/styles/shared';
 
@@ -39,6 +40,7 @@ const NotFoundPage = async () => {
       <Text maxW="md" color="fg.muted">
         {t('description')}
       </Text>
+      <JoustGame />
       <Flex flex="1" align="center">
         <Button asChild variant="quiet" className="group">
           <Link href="/">
@@ -54,9 +56,12 @@ const NotFoundPage = async () => {
           </Link>
         </Button>
       </Flex>
-      <Text textStyle="xs" color="fg.muted/80">
-        {t.rich('armsCredit', externalLinkTags(site.armsCredit, {variant: 'credit'}))}
-      </Text>
+      <Stack gap="1" textStyle="xs" color="fg.muted/80">
+        <Text>{t.rich('armsCredit', externalLinkTags(site.armsCredit, {variant: 'credit'}))}</Text>
+        <Text>
+          {t.rich('gameArtCredit', externalLinkTags(site.gameArtCredit, {variant: 'credit'}))}
+        </Text>
+      </Stack>
     </Stack>
   );
 };

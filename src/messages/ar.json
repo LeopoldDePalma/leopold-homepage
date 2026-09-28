@@ -57,7 +57,15 @@
     "title": "الصفحة غير موجودة",
     "description": "هذا العنوان غير مُدرج في سجل الشعارات.",
     "home": "العودة إلى الصفحة الرئيسية",
-    "armsCredit": "<arms>شعار شوابيا</arms> بريشة <ssolbergj>Ssolbergj</ssolbergj> و<whiteLion>The White Lion</whiteLion>، <license>CC BY-SA 4.0</license>."
+    "armsCredit": "<arms>شعار شوابيا</arms> بريشة <ssolbergj>Ssolbergj</ssolbergj> و<whiteLion>The White Lion</whiteLion>، <license>CC BY-SA 4.0</license>.",
+    "gameArtCredit": "رسوم اللعبة: <knight>Mounted knight</knight> بريشة Skoll؛ <barrel>Barrel</barrel> و<stakes>Stakes fence</stakes> و<caltrops>Caltrops</caltrops> بريشة Delapouite، من <source>game-icons.net</source>، <license>CC BY 3.0</license>."
+  },
+  "JoustGame": {
+    "label": "لعبة المبارزة",
+    "hint": "اضغط المسافة أو المس للانطلاق",
+    "slain": "لقد سقطتَ عن جوادك",
+    "best": "الأفضل",
+    "result": "النتيجة: {score}."
   },
   "ErrorPage": {
     "title": "حدث خطأ ما",
