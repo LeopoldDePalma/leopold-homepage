@@ -4,7 +4,7 @@ import {AbsoluteCenter, Box, Spinner} from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import {useRef, useState} from 'react';
 
-import {useIsInViewport} from './useIsInViewport';
+import {useIsInViewport} from '@/lib/hooks/useIsInViewport';
 
 const HelmetScene = dynamic(() => import('./HelmetScene'), {ssr: false});
 
