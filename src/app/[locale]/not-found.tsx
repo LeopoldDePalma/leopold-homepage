@@ -6,6 +6,7 @@ import {externalLinkTags} from '@/components/ui/ExternalLink';
 import {OptimizedImage} from '@/components/ui/OptimizedImage';
 import {site} from '@/content/site';
 import {Link} from '@/i18n/navigation';
+import {TILT_ON_GROUP_HOVER} from '@/styles/shared';
 
 const NotFoundPage = async () => {
   const t = await getTranslations('NotFound');
@@ -39,9 +40,14 @@ const NotFoundPage = async () => {
         {t('description')}
       </Text>
       <Flex flex="1" align="center">
-        <Button asChild variant="quiet">
+        <Button asChild variant="quiet" className="group">
           <Link href="/">
-            <Icon boxSize="1.1em" transform="scaleX(-1)" _rtl={{transform: 'none'}}>
+            <Icon
+              boxSize="1.1em"
+              transform="scaleX(-1)"
+              _rtl={{transform: 'none'}}
+              {...TILT_ON_GROUP_HOVER}
+            >
               <Sword />
             </Icon>
             {t('home')}

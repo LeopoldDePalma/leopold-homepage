@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- The sword on the 404 page's home button tilts on hover, like the eagle in the logo.
+
 ### Fixed
 
 - Switching the language no longer pushes the page to one side or leaves new styles blocked by the
