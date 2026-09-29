@@ -1,4 +1,5 @@
 import {map, minBy} from 'lodash-es';
+import {unstable_rethrow} from 'next/navigation';
 import {cache} from 'react';
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
@@ -126,6 +127,7 @@ export const getListening = cache(async (): Promise<Listening | undefined> => {
 
     return value ?? lastTrack?.value;
   } catch (error) {
+    unstable_rethrow(error);
     token = undefined;
     console.error('Could not read the Spotify track', error);
 
