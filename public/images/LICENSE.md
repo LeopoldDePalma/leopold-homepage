@@ -10,5 +10,7 @@ Changes: none to the artwork; the file was only minified with SVGO.
 The arms (Or, three lions passant guardant sable) were borne by the Dukes of Swabia and the
 House of Hohenstaufen. They are shown on the 404 page.
 
-This file is distributed under CC BY-SA 4.0. `eagle.svg`, `eagle.png` and `avatar.jpg` are not
-covered by it; the rest of the repository is under the MIT licence (see `/LICENSE`).
+This file is distributed under CC BY-SA 4.0.
+
+`eagle.svg` and `eagle.png` (the logo) and `avatar.jpg` (a personal photo) are covered neither by
+it nor by the MIT licence of the rest of the repository, and may not be reused.
