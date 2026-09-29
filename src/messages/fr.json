@@ -19,7 +19,8 @@
     },
     "contact": {
       "title": "Me contacter",
-      "action": "Écrivez-moi"
+      "text": "Ouvert aux nouveaux projets et à une bonne conversation sur l’histoire. Chaque lettre reçoit une réponse.",
+      "action": "Envoyez-moi un e-mail"
     },
     "bio": {
       "title": "Parcours",
@@ -29,9 +30,6 @@
       "moscow": "Installé à Moscou (<en>Moscow</en>).",
       "university": "Débute des études en sécurité de l’information à l’Institut de l’énergie de Moscou (<en>Moscow Power Engineering Institute</en>).",
       "work": "Travaille chez <en>Everytag</en>."
-    },
-    "github": {
-      "title": "GitHub"
     }
   },
   "ContributionGraph": {

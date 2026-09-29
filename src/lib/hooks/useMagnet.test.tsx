@@ -1,25 +1,24 @@
-import {ChakraProvider} from '@chakra-ui/react';
 import {fireEvent, render, screen} from '@testing-library/react';
-import {NextIntlClientProvider} from 'next-intl';
 
-import messages from '@/messages/en.json';
-import {system} from '@/styles/system';
+import {useMagnet} from './useMagnet';
 
-import {ContactButton} from './ContactButton';
-
-// The button sits at 100..300 across and 100..140 down, so its resting centre is 200 / 120.
+// The link sits at 100..300 across and 100..140 down, so its resting centre is 200 / 120.
 const BOX = {left: 100, top: 100, width: 200, height: 40} as const;
 
-const renderButton = () => {
-  render(
-    <ChakraProvider value={system}>
-      <NextIntlClientProvider locale="en" messages={messages}>
-        <ContactButton />
-      </NextIntlClientProvider>
-    </ChakraProvider>,
-  );
+const MagneticLink = () => {
+  const magnet = useMagnet();
 
-  const link = screen.getByRole('link', {name: 'Write to me'});
+  return (
+    <a href="#top" {...magnet}>
+      Target
+    </a>
+  );
+};
+
+const renderLink = () => {
+  render(<MagneticLink />);
+
+  const link = screen.getByRole('link', {name: 'Target'});
 
   link.getBoundingClientRect = vi.fn(() => ({...BOX, right: 300, bottom: 140}) as DOMRect);
 
@@ -28,9 +27,9 @@ const renderButton = () => {
 
 const pointer = (clientX: number, clientY: number) => ({pointerType: 'mouse', clientX, clientY});
 
-describe('ContactButton', () => {
+describe('useMagnet', () => {
   it('leans a quarter of the way towards the pointer and lets go on leave', () => {
-    const link = renderButton();
+    const link = renderLink();
 
     fireEvent.pointerEnter(link, pointer(200, 120));
     fireEvent.pointerMove(link, pointer(240, 140));
@@ -42,7 +41,7 @@ describe('ContactButton', () => {
   });
 
   it('measures the centre once, so repeated moves do not drift', () => {
-    const link = renderButton();
+    const link = renderLink();
 
     fireEvent.pointerEnter(link, pointer(200, 120));
     fireEvent.pointerMove(link, pointer(240, 120));
@@ -51,8 +50,8 @@ describe('ContactButton', () => {
     expect(link.style.translate).toBe('10px 0px');
   });
 
-  it('stays put for touch, which lands on the button anyway', () => {
-    const link = renderButton();
+  it('stays put for touch, which lands on the link anyway', () => {
+    const link = renderLink();
 
     fireEvent.pointerEnter(link, pointer(200, 120));
     fireEvent.pointerMove(link, {pointerType: 'touch', clientX: 240, clientY: 140});

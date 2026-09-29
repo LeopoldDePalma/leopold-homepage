@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A GitHub section on the home page shows the year's contributions as a grid of gold lozenges;
   phones show the last six months.
 
+### Changed
+
+- “Get in touch” opens with a line of invitation and shows LinkedIn and GitHub buttons that follow
+  the pointer like the email button, now labelled “Email Me”, instead of the list of profiles; the
+  Telegram and Instagram links are gone.
+
 ### Fixed
 
 - Switching the language no longer pushes the page to one side or leaves new styles blocked by the

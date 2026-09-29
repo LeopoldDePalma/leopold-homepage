@@ -19,7 +19,8 @@
     },
     "contact": {
       "title": "Get in touch",
-      "action": "Write to me"
+      "text": "Open to new projects and to a good conversation about history. Every letter gets an answer.",
+      "action": "Email Me"
     },
     "bio": {
       "title": "Bio",
@@ -29,9 +30,6 @@
       "moscow": "Settled in Moscow (<ar>موسكو</ar>).",
       "university": "Started studying information security at Moscow Power Engineering Institute (<ar>معهد موسكو للطاقة</ar>).",
       "work": "Working at Everytag (<ar>إيفري تاغ</ar>)."
-    },
-    "github": {
-      "title": "GitHub"
     }
   },
   "ContributionGraph": {

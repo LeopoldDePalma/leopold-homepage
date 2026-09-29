@@ -19,7 +19,8 @@
     },
     "contact": {
       "title": "تواصل معي",
-      "action": "اكتب لي"
+      "text": "منفتح على المشاريع الجديدة وعلى حديث طيب عن التاريخ. كل رسالة تلقى ردًا.",
+      "action": "راسلني عبر البريد"
     },
     "bio": {
       "title": "السيرة",
@@ -29,9 +30,6 @@
       "moscow": "استقر في موسكو (<en>Moscow</en>).",
       "university": "بدأ دراسة أمن المعلومات في معهد موسكو للطاقة (<en>Moscow Power Engineering Institute</en>).",
       "work": "يعمل في شركة <en>Everytag</en> (إيفري تاغ)."
-    },
-    "github": {
-      "title": "GitHub"
     }
   },
   "ContributionGraph": {

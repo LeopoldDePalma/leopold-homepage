@@ -91,8 +91,8 @@ export const ContributionGraph = async ({calendar}: {calendar: ContributionCalen
     });
 
   return (
-    <Stack gap="3">
-      <Flex wrap="wrap" justify="space-between" gap="2" fontFamily="heading">
+    <Stack gap="3" fontFamily="heading">
+      <Flex wrap="wrap" justify="space-between" gap="2">
         <Text>{summary}</Text>
         <ExternalLink href={site.profiles.github.url} variant="muted">
           <Span as="bdi" dir="ltr" lang="en" fontFamily="heading">
@@ -105,7 +105,6 @@ export const ContributionGraph = async ({calendar}: {calendar: ContributionCalen
           aria-hidden
           templateColumns={templateColumns}
           columnGap="0.75"
-          fontFamily="heading"
           textStyle="xs"
           color="fg.muted"
           whiteSpace="nowrap"

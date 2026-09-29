@@ -4,9 +4,9 @@ import type {ReactNode} from 'react';
 
 type ExternalLinkProps = Omit<LinkProps, 'target' | 'rel'>;
 
-export const ExternalLink = (props: ExternalLinkProps) => (
-  <Link target="_blank" rel="noopener noreferrer" {...props} />
-);
+export const EXTERNAL_LINK = {target: '_blank', rel: 'noopener noreferrer'} as const;
+
+export const ExternalLink = (props: ExternalLinkProps) => <Link {...EXTERNAL_LINK} {...props} />;
 
 /** Turns `{tag: href}` into `t.rich` renderers, so each tag in a message becomes a link. */
 export const externalLinkTags = <Tag extends string>(

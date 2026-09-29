@@ -1,8 +1,11 @@
-import {Stack, type SystemStyleObject, Text} from '@chakra-ui/react';
+import {Flex, Icon, Stack, type SystemStyleObject, Text} from '@chakra-ui/react';
+import {IconBrandGithub, IconBrandLinkedin} from '@tabler/icons-react';
 import {map} from 'lodash-es';
+import {Mail} from 'lucide-react';
 import {getFormatter, getTranslations} from 'next-intl/server';
 
-import {ExternalLink} from '@/components/ui/ExternalLink';
+import {BrandButton} from '@/components/ui/BrandButton';
+import {EXTERNAL_LINK, ExternalLink} from '@/components/ui/ExternalLink';
 import {Section} from '@/components/ui/Section';
 import {Typewriter} from '@/components/ui/Typewriter';
 import {site} from '@/content/site';
@@ -10,9 +13,7 @@ import {ContributionGraph} from '@/features/github/ContributionGraph';
 import {getContributionCalendar} from '@/features/github/github';
 import {HelmetShowcase} from '@/features/helmet/HelmetShowcase';
 import {Bio} from '@/features/home/Bio';
-import {ContactButton} from '@/features/home/ContactButton';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
-import {SocialLinks} from '@/features/home/SocialLinks';
 import {MusicMention} from '@/features/music/MusicMention';
 import {getListening} from '@/features/music/spotify';
 
@@ -25,6 +26,11 @@ const INTEREST_LINK = {
   transitionDuration: 'moderate',
   _hover: {opacity: 0.8},
 } satisfies SystemStyleObject;
+
+const PROFILE_BUTTONS = [
+  {palette: 'linkedin', BrandIcon: IconBrandLinkedin, ...site.profiles.linkedin},
+  {palette: 'github', BrandIcon: IconBrandGithub, ...site.profiles.github},
+] as const;
 
 const INTERESTS = ['programming', 'history', 'heraldry', 'books', 'music'] as const;
 
@@ -76,14 +82,31 @@ const HomePage = async () => {
       </Section>
 
       {contributions ? (
-        <Section title={t('github.title')}>
+        <Section title={site.profiles.github.name}>
           <ContributionGraph calendar={contributions} />
         </Section>
       ) : null}
 
       <Section title={t('contact.title')}>
-        <SocialLinks />
-        <ContactButton />
+        <Stack gap="20">
+          <Text lineHeight="relaxed">{t('contact.text')}</Text>
+          <Flex wrap="wrap" justify="center" gap="3">
+            <BrandButton href={`mailto:${site.email}`} colorPalette="mail" borderColor="ink/10">
+              <Icon color="seal">
+                <Mail />
+              </Icon>
+              {t('contact.action')}
+            </BrandButton>
+            {map(PROFILE_BUTTONS, ({name, url, palette, BrandIcon}) => (
+              <BrandButton key={name} href={url} {...EXTERNAL_LINK} colorPalette={palette}>
+                <Icon>
+                  <BrandIcon />
+                </Icon>
+                <bdi lang="en">{name}</bdi>
+              </BrandButton>
+            ))}
+          </Flex>
+        </Stack>
       </Section>
     </Stack>
   );

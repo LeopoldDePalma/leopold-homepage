@@ -1,4 +1,4 @@
-import {createSystem, defaultConfig, defineConfig} from '@chakra-ui/react';
+import {createSystem, defaultConfig, defineConfig, type SystemStyleObject} from '@chakra-ui/react';
 import {has, isPlainObject, mapValues} from 'lodash-es';
 
 type ColorModeValue = {_light: string; _dark: string};
@@ -21,6 +21,11 @@ const toLightDark = <T>(tokens: T): T => {
     return toLightDark(node);
   }) as T;
 };
+
+const SHRINK_ON_PRESS = {
+  _active: {transform: 'scale(0.97)'},
+  _motionReduce: {transition: 'none', _active: {transform: 'none'}},
+} satisfies SystemStyleObject;
 
 const colorModeColors = defineConfig({
   theme: {semanticTokens: {colors: toLightDark(defaultConfig.theme?.semanticTokens?.colors)}},
@@ -81,6 +86,21 @@ const siteTheme = defineConfig({
           border: {value: '{colors.border}'},
           focusRing: {value: '{colors.accent}'},
         },
+        mail: {
+          solid: {value: '{colors.paper}'},
+          contrast: {value: '{colors.ink}'},
+          emphasized: {value: 'color-mix(in srgb, {colors.paper} 95%, black)'},
+        },
+        linkedin: {
+          solid: {value: '#0a66c2'},
+          contrast: {value: '#ffffff'},
+          emphasized: {value: '#084e96'},
+        },
+        github: {
+          solid: {value: '#2d2d31'},
+          contrast: {value: '#ffffff'},
+          emphasized: {value: '#38383d'},
+        },
       },
     },
     recipes: {
@@ -94,8 +114,7 @@ const siteTheme = defineConfig({
               borderColor: 'border',
               color: 'fg',
               _hover: {color: 'accent', borderColor: 'accent'},
-              _active: {transform: 'scale(0.97)'},
-              _motionReduce: {transition: 'none', _active: {transform: 'none'}},
+              ...SHRINK_ON_PRESS,
             },
           },
         },
@@ -110,6 +129,23 @@ const siteTheme = defineConfig({
               color: 'inherit',
               textDecoration: 'underline',
               _hover: {color: 'fg'},
+            },
+            brand: {
+              gap: '0.5em',
+              px: '1.25em',
+              py: '0.6em',
+              fontWeight: 'medium',
+              borderWidth: '1px',
+              borderColor: 'transparent',
+              rounded: 'md',
+              bg: 'colorPalette.solid',
+              color: 'colorPalette.contrast',
+              transitionProperty: 'background-color, transform',
+              transitionDuration: 'moderate',
+              focusRingColor: 'accent',
+              _icon: {boxSize: '1.25em'},
+              _hover: {bg: 'colorPalette.emphasized'},
+              ...SHRINK_ON_PRESS,
             },
           },
         },
