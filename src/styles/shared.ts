@@ -5,7 +5,7 @@ export const whenDark = (styles: SystemStyleObject): SystemStyleObject => ({
   _osDark: {_themeUnset: styles},
 });
 
-export const TILT_ON_GROUP_HOVER = {
+export const tiltOnGroupHover = {
   transitionProperty: 'rotate',
   transitionDuration: 'slow',
   _groupHover: {rotate: '-12deg', _rtl: {rotate: '12deg'}},

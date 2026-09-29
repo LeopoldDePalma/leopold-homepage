@@ -7,9 +7,9 @@ import {dedup, flatten, join, meshopt, prune, simplify, weld} from '@gltf-transf
 import {MeshoptEncoder, MeshoptSimplifier} from 'meshoptimizer';
 import sharp from 'sharp';
 
-const SIMPLIFY = {ratio: 0.2, error: 0.01};
-const TEXTURE = {mode: Mode.ETC1S, quality: 255, compression: 4};
-const OUTPUT = {path: 'public/models/helmet-4k.glb', size: 4096};
+const simplification = {ratio: 0.2, error: 0.01};
+const texture = {mode: Mode.ETC1S, quality: 255, compression: 4};
+const output = {path: 'public/models/helmet-4k.glb', size: 4096};
 
 const sourcePath = process.argv[2];
 
@@ -28,10 +28,10 @@ await document.transform(
   flatten(),
   join(),
   weld(),
-  simplify({simplifier: MeshoptSimplifier, ...SIMPLIFY}),
-  toktx({encoder: sharp, resize: [OUTPUT.size, OUTPUT.size], ...TEXTURE}),
+  simplify({simplifier: MeshoptSimplifier, ...simplification}),
+  toktx({encoder: sharp, resize: [output.size, output.size], ...texture}),
   prune(),
   meshopt({encoder: MeshoptEncoder, level: 'medium'}),
 );
-await io.write(OUTPUT.path, document);
-console.log(`Written ${OUTPUT.path}`);
+await io.write(output.path, document);
+console.log(`Written ${output.path}`);

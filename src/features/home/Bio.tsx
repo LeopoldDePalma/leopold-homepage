@@ -3,7 +3,7 @@ import {map, mapValues} from 'lodash-es';
 import {useTranslations} from 'next-intl';
 import type {ReactNode} from 'react';
 
-import {BIO_ENTRIES} from '@/content/bio';
+import {bioEntries} from '@/content/bio';
 import {localeNames} from '@/i18n/routing';
 
 const renderInLanguage = (lang: string) => {
@@ -13,14 +13,14 @@ const renderInLanguage = (lang: string) => {
 };
 
 // `<ar>…</ar>` in a message quotes a name in that language's script.
-const LANGUAGE_TAGS = mapValues(localeNames, (_name, locale) => renderInLanguage(locale));
+const languageTags = mapValues(localeNames, (_name, locale) => renderInLanguage(locale));
 
 export const Bio = () => {
   const t = useTranslations('HomePage.bio');
 
   return (
     <Grid as="dl" templateColumns="auto 1fr" columnGap="3" rowGap="2">
-      {map(BIO_ENTRIES, (entry) => (
+      {map(bioEntries, (entry) => (
         <Grid key={entry.id} gridColumn="span 2" templateColumns="subgrid">
           <Box as="dt" fontFamily="heading" fontWeight="bold" whiteSpace="nowrap" color="accent">
             {'untilNow' in entry
@@ -28,7 +28,7 @@ export const Bio = () => {
               : entry.year}
           </Box>
           <Box as="dd" lineHeight="relaxed">
-            {t.rich(entry.id, LANGUAGE_TAGS)}
+            {t.rich(entry.id, languageTags)}
           </Box>
         </Grid>
       ))}

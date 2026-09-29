@@ -3,7 +3,7 @@ import {createRequire} from 'node:module';
 import {dirname, join} from 'node:path';
 
 const TRANSCODER_ENTRY = 'basis_transcoder.js';
-const TRANSCODER_FILES = [TRANSCODER_ENTRY, 'basis_transcoder.wasm'];
+const transcoderFiles = [TRANSCODER_ENTRY, 'basis_transcoder.wasm'];
 const TARGET_DIRECTORY = 'public/basis';
 
 // three does not export its package.json, so the directory is found through the transcoder.
@@ -12,7 +12,7 @@ const sourceDirectory = dirname(require.resolve(`three/addons/libs/basis/${TRANS
 
 await mkdir(TARGET_DIRECTORY, {recursive: true});
 
-for (const file of TRANSCODER_FILES) {
+for (const file of transcoderFiles) {
   await cp(join(sourceDirectory, file), join(TARGET_DIRECTORY, file));
 }
 

@@ -44,6 +44,23 @@ export default defineConfig([
           format: null,
           custom: {regex: '^(is|has|can|should)[A-Z]', match: false},
         },
+        {
+          selector: 'variable',
+          modifiers: ['const', 'global'],
+          format: ['camelCase', 'StrictPascalCase'],
+        },
+        {
+          selector: 'variable',
+          modifiers: ['const', 'global'],
+          types: ['function'],
+          format: ['camelCase', 'PascalCase'],
+        },
+        {
+          selector: 'variable',
+          modifiers: ['const', 'global'],
+          types: ['string', 'number'],
+          format: ['UPPER_CASE', 'camelCase'],
+        },
       ],
       '@typescript-eslint/no-confusing-void-expression': ['error', {ignoreArrowShorthand: true}],
       '@typescript-eslint/no-unused-vars': [

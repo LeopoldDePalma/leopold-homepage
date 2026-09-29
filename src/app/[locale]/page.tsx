@@ -5,7 +5,7 @@ import {Mail} from 'lucide-react';
 import {getFormatter, getTranslations} from 'next-intl/server';
 
 import {BrandButton} from '@/components/ui/BrandButton';
-import {EXTERNAL_LINK, ExternalLink} from '@/components/ui/ExternalLink';
+import {ExternalLink, externalLinkProps} from '@/components/ui/ExternalLink';
 import {Section} from '@/components/ui/Section';
 import {Typewriter} from '@/components/ui/Typewriter';
 import {site} from '@/content/site';
@@ -17,7 +17,7 @@ import {ProfileHeader} from '@/features/home/ProfileHeader';
 import {MusicMention} from '@/features/music/MusicMention';
 import {getListening} from '@/features/music/spotify';
 
-const INTEREST_LINK = {
+const interestLink = {
   display: 'inline',
   color: 'seal',
   textDecoration: 'underline',
@@ -27,24 +27,24 @@ const INTEREST_LINK = {
   _hover: {opacity: 0.8},
 } satisfies SystemStyleObject;
 
-const PROFILE_BUTTONS = [
+const profileButtons = [
   {palette: 'linkedin', BrandIcon: IconBrandLinkedin, ...site.profiles.linkedin},
   {palette: 'github', BrandIcon: IconBrandGithub, ...site.profiles.github},
 ] as const;
 
-const INTERESTS = ['programming', 'history', 'heraldry', 'books', 'music'] as const;
+const interestKeys = ['programming', 'history', 'heraldry', 'books', 'music'] as const;
 
 const HomePage = async () => {
   const t = await getTranslations('HomePage');
   const format = await getFormatter();
   const [listening, contributions] = await Promise.all([getListening(), getContributionCalendar()]);
 
-  const interests = map(INTERESTS, (interest) => {
+  const interests = map(interestKeys, (interest) => {
     const label = t(`interests.${interest}`);
 
     if (interest === 'heraldry') {
       return (
-        <ExternalLink key={interest} href={site.links.heraldry} {...INTEREST_LINK}>
+        <ExternalLink key={interest} href={site.links.heraldry} {...interestLink}>
           {label}
         </ExternalLink>
       );
@@ -52,7 +52,7 @@ const HomePage = async () => {
 
     if (interest === 'music' && listening) {
       return (
-        <MusicMention key={interest} {...INTEREST_LINK}>
+        <MusicMention key={interest} {...interestLink}>
           {label}
         </MusicMention>
       );
@@ -97,8 +97,8 @@ const HomePage = async () => {
               </Icon>
               {t('contact.action')}
             </BrandButton>
-            {map(PROFILE_BUTTONS, ({name, url, palette, BrandIcon}) => (
-              <BrandButton key={name} href={url} {...EXTERNAL_LINK} colorPalette={palette}>
+            {map(profileButtons, ({name, url, palette, BrandIcon}) => (
+              <BrandButton key={name} href={url} {...externalLinkProps} colorPalette={palette}>
                 <Icon>
                   <BrandIcon />
                 </Icon>

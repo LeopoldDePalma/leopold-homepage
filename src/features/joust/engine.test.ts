@@ -7,22 +7,17 @@ import {
   getObstacleX,
   getScore,
   leap,
-  OBSTACLE_KINDS,
+  obstacleKinds,
   releaseLeap,
-  WORLD,
+  world,
 } from './engine';
 
 const FRAME = 1 / 60;
 const LEAP_SECONDS = 0.5;
 
-const LOWEST_ROLLS = {kind: 0, gap: 0};
+const lowestRolls = {kind: 0, gap: 0};
 
-const ride = (
-  game: Game,
-  seconds: number,
-  onFrame?: (game: Game) => Game,
-  rolls = LOWEST_ROLLS,
-) => {
+const ride = (game: Game, seconds: number, onFrame?: (game: Game) => Game, rolls = lowestRolls) => {
   let current = game;
 
   for (let elapsed = 0; elapsed < seconds; elapsed += FRAME) {
@@ -61,9 +56,9 @@ describe('joust engine', () => {
   });
 
   it('keeps the leap through a frame that took no time', () => {
-    const leaping = advance(leap(createGame()), 0, LOWEST_ROLLS);
+    const leaping = advance(leap(createGame()), 0, lowestRolls);
 
-    expect(advance(leaping, FRAME, LOWEST_ROLLS).height).toBeGreaterThan(0);
+    expect(advance(leaping, FRAME, lowestRolls).height).toBeGreaterThan(0);
   });
 
   it('hops lower when the leap is released early', () => {
@@ -94,7 +89,7 @@ describe('joust engine', () => {
     );
 
     expect(game.obstacles).toHaveLength(2);
-    expect(farther).toBeLessThanOrEqual(WORLD.width);
+    expect(farther).toBeLessThanOrEqual(world.width);
     expect(farther - nearer).toBeGreaterThan(game.speed * LEAP_SECONDS);
   });
 
@@ -102,9 +97,9 @@ describe('joust engine', () => {
     expect(ride(leap(createGame()), 5).phase).toBe('over');
   });
 
-  it.each(OBSTACLE_KINDS)('lets a timely leap clear the %s at the starting speed', (kind) => {
-    const index = indexOf(OBSTACLE_KINDS, kind);
-    const kindRolls = {kind: (index + 0.5) / OBSTACLE_KINDS.length, gap: 0};
+  it.each(obstacleKinds)('lets a timely leap clear the %s at the starting speed', (kind) => {
+    const index = indexOf(obstacleKinds, kind);
+    const kindRolls = {kind: (index + 0.5) / obstacleKinds.length, gap: 0};
 
     const leapNearObstacle = (game: Game) => {
       const [next] = game.obstacles;
@@ -131,8 +126,8 @@ describe('joust engine', () => {
   it('does not move the knight further after a stalled frame', () => {
     const riding = leap(createGame());
 
-    expect(advance(riding, 3, LOWEST_ROLLS).distance).toBe(
-      advance(riding, 0.05, LOWEST_ROLLS).distance,
+    expect(advance(riding, 3, lowestRolls).distance).toBe(
+      advance(riding, 0.05, lowestRolls).distance,
     );
   });
 });

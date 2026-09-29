@@ -3,7 +3,7 @@ import {useTranslations} from 'next-intl';
 
 import {OptimizedImage} from '@/components/ui/OptimizedImage';
 import {Link as IntlLink} from '@/i18n/navigation';
-import {TILT_ON_GROUP_HOVER} from '@/styles/shared';
+import {tiltOnGroupHover} from '@/styles/shared';
 
 export const Logo = () => {
   const t = useTranslations('Site');
@@ -26,7 +26,7 @@ export const Logo = () => {
           width={32}
           height={32}
           boxSize="1.4em"
-          {...TILT_ON_GROUP_HOVER}
+          {...tiltOnGroupHover}
         />
         <Text as="span" srOnly={{base: true, sm: false}}>
           {t('name')}

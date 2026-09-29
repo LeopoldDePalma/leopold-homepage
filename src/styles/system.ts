@@ -22,7 +22,7 @@ const toLightDark = <T>(tokens: T): T => {
   }) as T;
 };
 
-const SHRINK_ON_PRESS = {
+const shrinkOnPress = {
   _active: {transform: 'scale(0.97)'},
   _motionReduce: {transition: 'none', _active: {transform: 'none'}},
 } satisfies SystemStyleObject;
@@ -114,7 +114,7 @@ const siteTheme = defineConfig({
               borderColor: 'border',
               color: 'fg',
               _hover: {color: 'accent', borderColor: 'accent'},
-              ...SHRINK_ON_PRESS,
+              ...shrinkOnPress,
             },
           },
         },
@@ -145,7 +145,7 @@ const siteTheme = defineConfig({
               focusRingColor: 'accent',
               _icon: {boxSize: '1.25em'},
               _hover: {bg: 'colorPalette.emphasized'},
-              ...SHRINK_ON_PRESS,
+              ...shrinkOnPress,
             },
           },
         },

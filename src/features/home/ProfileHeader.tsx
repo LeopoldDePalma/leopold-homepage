@@ -7,8 +7,8 @@ const GOLD = '{colors.accent}';
 const SHINE = `color-mix(in srgb, ${GOLD}, {colors.paper} 55%)`;
 const SHADE = `color-mix(in srgb, ${GOLD}, {colors.ink} 45%)`;
 // Polished gilt: light catches the ring at two points, as on a metal bezel.
-const GILT_STOPS = [GOLD, SHINE, GOLD, SHADE, GOLD, SHINE, GOLD, SHADE, GOLD];
-const GILT_BEZEL = `conic-gradient(from 200deg, ${GILT_STOPS.join(', ')})`;
+const giltStops = [GOLD, SHINE, GOLD, SHADE, GOLD, SHINE, GOLD, SHADE, GOLD];
+const GILT_BEZEL = `conic-gradient(from 200deg, ${giltStops.join(', ')})`;
 
 export const ProfileHeader = () => {
   const tSite = useTranslations('Site');

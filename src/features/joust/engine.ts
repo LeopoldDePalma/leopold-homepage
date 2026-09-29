@@ -1,16 +1,16 @@
 import {reject, some} from 'lodash-es';
 
-import {getDrawnWidth, OBSTACLE_DRAWINGS} from './art';
+import {getDrawnWidth, obstacleDrawings} from './art';
 
-export const WORLD = {width: 240, height: 80, ground: 72};
+export const world = {width: 240, height: 80, ground: 72};
 export const KNIGHT_X = 12;
 export const KNIGHT_HEIGHT = 32;
 
-export const OBSTACLE_KINDS = ['barrel', 'stakes', 'caltrops'] as const;
+export const obstacleKinds = ['barrel', 'stakes', 'caltrops'] as const;
 
-export type ObstacleKind = (typeof OBSTACLE_KINDS)[number];
+export type ObstacleKind = (typeof obstacleKinds)[number];
 
-export const OBSTACLE_HEIGHTS: Record<ObstacleKind, number> = {
+export const obstacleHeights: Record<ObstacleKind, number> = {
   barrel: 15,
   stakes: 16,
   caltrops: 10,
@@ -26,7 +26,7 @@ const LONGEST_TICK = 0.05;
 const SHORTEST_GAP = 0.9;
 const GAP_SPREAD = 1;
 const DISTANCE_PER_POINT = 15;
-const HITBOX = {start: KNIGHT_X + 9, end: KNIGHT_X + 24, forgiveness: 1};
+const hitbox = {start: KNIGHT_X + 9, end: KNIGHT_X + 24, forgiveness: 1};
 
 export type Obstacle = {kind: ObstacleKind; spawnedAt: number};
 
@@ -53,7 +53,7 @@ export const createGame = (): Game => ({
 });
 
 export const getObstacleX = (game: Game, obstacle: Obstacle) =>
-  WORLD.width - (game.distance - obstacle.spawnedAt);
+  world.width - (game.distance - obstacle.spawnedAt);
 
 export const getScore = (game: Game) => Math.floor(game.distance / DISTANCE_PER_POINT);
 
@@ -75,18 +75,18 @@ export const releaseLeap = (game: Game): Game => ({
 });
 
 const getObstacleWidth = ({kind}: Obstacle) =>
-  getDrawnWidth(OBSTACLE_DRAWINGS[kind], OBSTACLE_HEIGHTS[kind]);
+  getDrawnWidth(obstacleDrawings[kind], obstacleHeights[kind]);
 
 const isHit = (game: Game, obstacle: Obstacle) => {
-  const start = getObstacleX(game, obstacle) + HITBOX.forgiveness;
-  const end = start + getObstacleWidth(obstacle) - 2 * HITBOX.forgiveness;
-  const top = OBSTACLE_HEIGHTS[obstacle.kind] - HITBOX.forgiveness;
+  const start = getObstacleX(game, obstacle) + hitbox.forgiveness;
+  const end = start + getObstacleWidth(obstacle) - 2 * hitbox.forgiveness;
+  const top = obstacleHeights[obstacle.kind] - hitbox.forgiveness;
 
-  return start < HITBOX.end && end > HITBOX.start && game.height < top;
+  return start < hitbox.end && end > hitbox.start && game.height < top;
 };
 
 const spawnObstacle = (game: Game, rolls: Rolls): Game => {
-  const kind = OBSTACLE_KINDS[Math.floor(rolls.kind * OBSTACLE_KINDS.length)] ?? 'barrel';
+  const kind = obstacleKinds[Math.floor(rolls.kind * obstacleKinds.length)] ?? 'barrel';
   const gap = game.speed * (SHORTEST_GAP + rolls.gap * GAP_SPREAD);
 
   return {

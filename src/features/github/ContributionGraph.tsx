@@ -13,7 +13,7 @@ import type {
   ContributionWeek,
 } from './github';
 
-const OPACITY: Record<ContributionLevel, number> = {
+const levelOpacity: Record<ContributionLevel, number> = {
   NONE: 0.35,
   FIRST_QUARTILE: 0.4,
   SECOND_QUARTILE: 0.6,
@@ -45,7 +45,7 @@ const Day = ({day, first, recent, describe}: DayProps) => {
         alignItems="center"
         justifyContent="center"
         aspectRatio="square"
-        opacity={OPACITY.NONE}
+        opacity={levelOpacity.NONE}
         _before={{content: '""', boxSize: '0.5', rounded: 'full', bg: 'fg'}}
       />
     );
@@ -58,7 +58,7 @@ const Day = ({day, first, recent, describe}: DayProps) => {
       aspectRatio="square"
       clipPath={DIAMOND}
       bg="accent"
-      opacity={OPACITY[day.contributionLevel]}
+      opacity={levelOpacity[day.contributionLevel]}
     />
   );
 };

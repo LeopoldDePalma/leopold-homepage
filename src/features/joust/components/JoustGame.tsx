@@ -5,32 +5,32 @@ import {clamp, map} from 'lodash-es';
 import {useTranslations} from 'next-intl';
 import {useId} from 'react';
 
-import {KNIGHT_DRAWING, OBSTACLE_DRAWINGS} from '@/features/joust/art';
+import {knightDrawing, obstacleDrawings} from '@/features/joust/art';
 import {PlacedDrawing} from '@/features/joust/components/PlacedDrawing';
 import {
   type Game,
   getObstacleX,
   KNIGHT_HEIGHT,
   KNIGHT_X,
-  OBSTACLE_HEIGHTS,
-  WORLD,
+  obstacleHeights,
+  world,
 } from '@/features/joust/engine';
 import {useJoust} from '@/features/joust/hooks/useJoust';
 
-const PEBBLES = {width: 64, height: 8};
-const STRIDE = {length: 12, bounce: 1.5};
-const PITCH = {perVelocity: 1 / 40, limit: 6};
+const pebbles = {width: 64, height: 8};
+const stride = {length: 12, bounce: 1.5};
+const pitch = {perVelocity: 1 / 40, limit: 6};
 
 const formatScore = (score: number) => String(score).padStart(5, '0');
 
 const getKnightPose = ({phase, height, velocity, distance}: Game) => {
   if (height > 0) {
-    return {lift: height, tilt: clamp(-velocity * PITCH.perVelocity, -PITCH.limit, PITCH.limit)};
+    return {lift: height, tilt: clamp(-velocity * pitch.perVelocity, -pitch.limit, pitch.limit)};
   }
 
-  const stride = Math.abs(Math.sin((distance / STRIDE.length) * Math.PI));
+  const bob = Math.abs(Math.sin((distance / stride.length) * Math.PI));
 
-  return {lift: phase === 'running' ? stride * STRIDE.bounce : 0, tilt: 0};
+  return {lift: phase === 'running' ? bob * stride.bounce : 0, tilt: 0};
 };
 
 export const JoustGame = () => {
@@ -92,7 +92,7 @@ export const JoustGame = () => {
         </Span>
         <Span display="grid">
           <chakra.svg
-            viewBox={`0 0 ${String(WORLD.width)} ${String(WORLD.height)}`}
+            viewBox={`0 0 ${String(world.width)} ${String(world.height)}`}
             display="block"
             w="full"
             fill="currentColor"
@@ -101,11 +101,11 @@ export const JoustGame = () => {
             <defs>
               <pattern
                 id={pebblesId}
-                y={WORLD.ground}
-                width={PEBBLES.width}
-                height={PEBBLES.height}
+                y={world.ground}
+                width={pebbles.width}
+                height={pebbles.height}
                 patternUnits="userSpaceOnUse"
-                patternTransform={`translate(${String(-(game.distance % PEBBLES.width))} 0)`}
+                patternTransform={`translate(${String(-(game.distance % pebbles.width))} 0)`}
               >
                 <rect x="3" y="3" width="2" height="1" />
                 <rect x="19" y="6" width="1" height="1" />
@@ -113,26 +113,26 @@ export const JoustGame = () => {
                 <rect x="51" y="4" width="1" height="1" />
               </pattern>
             </defs>
-            <rect y={WORLD.ground} width={WORLD.width} height="1" />
+            <rect y={world.ground} width={world.width} height="1" />
             <rect
-              y={WORLD.ground}
-              width={WORLD.width}
-              height={PEBBLES.height}
+              y={world.ground}
+              width={world.width}
+              height={pebbles.height}
               fill={`url(#${pebblesId})`}
             />
             {map(game.obstacles, (obstacle) => (
               <PlacedDrawing
                 key={obstacle.spawnedAt}
-                drawing={OBSTACLE_DRAWINGS[obstacle.kind]}
+                drawing={obstacleDrawings[obstacle.kind]}
                 x={getObstacleX(game, obstacle)}
-                bottom={WORLD.ground}
-                height={OBSTACLE_HEIGHTS[obstacle.kind]}
+                bottom={world.ground}
+                height={obstacleHeights[obstacle.kind]}
               />
             ))}
             <PlacedDrawing
-              drawing={KNIGHT_DRAWING}
+              drawing={knightDrawing}
               x={KNIGHT_X}
-              bottom={WORLD.ground - knight.lift}
+              bottom={world.ground - knight.lift}
               height={KNIGHT_HEIGHT}
               tilt={knight.tilt}
             />

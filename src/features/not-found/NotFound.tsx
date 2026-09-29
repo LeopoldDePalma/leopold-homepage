@@ -7,7 +7,7 @@ import {OptimizedImage} from '@/components/ui/OptimizedImage';
 import {site} from '@/content/site';
 import {JoustGame} from '@/features/joust/components/JoustGame';
 import {Link} from '@/i18n/navigation';
-import {TILT_ON_GROUP_HOVER} from '@/styles/shared';
+import {tiltOnGroupHover} from '@/styles/shared';
 
 export const NotFound = async () => {
   const t = await getTranslations('NotFound');
@@ -48,7 +48,7 @@ export const NotFound = async () => {
               boxSize="1.1em"
               transform="scaleX(-1)"
               _rtl={{transform: 'none'}}
-              {...TILT_ON_GROUP_HOVER}
+              {...tiltOnGroupHover}
             >
               <Sword />
             </Icon>

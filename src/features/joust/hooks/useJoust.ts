@@ -6,7 +6,7 @@ import {advance, createGame, type Game, getScore, leap, releaseLeap} from '@/fea
 import {useBestScoreStore} from '@/features/joust/store/bestScoreStore';
 import {useOnScreen} from '@/lib/hooks/useOnScreen';
 
-const LEAP_KEYS = [' ', 'ArrowUp'];
+const leapKeys = [' ', 'ArrowUp'];
 
 const start = (game: Game) => (game.phase === 'running' ? game : leap(game));
 
@@ -53,7 +53,7 @@ export const useJoust = () => {
   }, [running, onScreen]);
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (!includes(LEAP_KEYS, event.key)) {
+    if (!includes(leapKeys, event.key)) {
       return;
     }
 
@@ -65,7 +65,7 @@ export const useJoust = () => {
   };
 
   const handleKeyUp = (event: KeyboardEvent) => {
-    if (includes(LEAP_KEYS, event.key)) {
+    if (includes(leapKeys, event.key)) {
       setGame(releaseLeap);
     }
   };

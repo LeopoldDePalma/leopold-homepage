@@ -1,4 +1,4 @@
-export const BIO_ENTRIES = [
+export const bioEntries = [
   {id: 'born', year: 1998},
   {id: 'moscow', year: 2014},
   {id: 'university', year: 2021},

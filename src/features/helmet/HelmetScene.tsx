@@ -14,11 +14,11 @@ const MODEL_URL = '/models/helmet-4k.glb';
 const BASIS_TRANSCODER_PATH = '/basis/';
 
 // The scan faces +X; turn it towards the camera.
-const FACE_CAMERA: [number, number, number] = [0, -Math.PI / 2, 0];
-const CAMERA_POSITION: [number, number, number] = [0, 0, 4.6];
-const ZOOM = {min: 2.4, max: 7};
+const faceCamera: [number, number, number] = [0, -Math.PI / 2, 0];
+const cameraPosition: [number, number, number] = [0, 0, 4.6];
+const zoom = {min: 2.4, max: 7};
 // In OrbitControls units, where 1 is about a turn a minute.
-const SPIN = {intro: 400, idle: 1, introSeconds: 1.6};
+const spin = {intro: 400, idle: 1, introSeconds: 1.6};
 
 let ktx2Loader: KTX2Loader | undefined;
 
@@ -53,17 +53,17 @@ const OrbitingCamera = ({autoRotate}: {autoRotate: boolean}) => {
     }
 
     elapsedSeconds.current += delta;
-    const progress = Math.min(elapsedSeconds.current / SPIN.introSeconds, 1);
+    const progress = Math.min(elapsedSeconds.current / spin.introSeconds, 1);
 
-    orbit.autoRotateSpeed = MathUtils.lerp(SPIN.intro, SPIN.idle, easeOutCirc(progress));
+    orbit.autoRotateSpeed = MathUtils.lerp(spin.intro, spin.idle, easeOutCirc(progress));
   });
 
   return (
     <OrbitControls
       ref={controlsRef}
       enablePan={false}
-      minDistance={ZOOM.min}
-      maxDistance={ZOOM.max}
+      minDistance={zoom.min}
+      maxDistance={zoom.max}
       autoRotate={autoRotate}
     />
   );
@@ -81,7 +81,7 @@ const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
 
   return (
     <Center>
-      <primitive object={scene} rotation={FACE_CAMERA} />
+      <primitive object={scene} rotation={faceCamera} />
     </Center>
   );
 };
@@ -95,7 +95,7 @@ const HelmetScene = ({active, onModelReady}: {active: boolean; onModelReady: () 
     <Canvas
       frameloop={turning ? 'always' : 'demand'}
       dpr={[1, 2]}
-      camera={{fov: 30, position: CAMERA_POSITION}}
+      camera={{fov: 30, position: cameraPosition}}
     >
       <StudioLighting />
       <Suspense fallback={null}>

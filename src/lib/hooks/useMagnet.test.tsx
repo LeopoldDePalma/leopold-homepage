@@ -3,7 +3,7 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import {useMagnet} from './useMagnet';
 
 // The link sits at 100..300 across and 100..140 down, so its resting centre is 200 / 120.
-const BOX = {left: 100, top: 100, width: 200, height: 40} as const;
+const linkBox = {left: 100, top: 100, width: 200, height: 40} as const;
 
 const MagneticLink = () => {
   const magnet = useMagnet();
@@ -20,7 +20,7 @@ const renderLink = () => {
 
   const link = screen.getByRole('link', {name: 'Target'});
 
-  link.getBoundingClientRect = vi.fn(() => ({...BOX, right: 300, bottom: 140}) as DOMRect);
+  link.getBoundingClientRect = vi.fn(() => ({...linkBox, right: 300, bottom: 140}) as DOMRect);
 
   return link;
 };

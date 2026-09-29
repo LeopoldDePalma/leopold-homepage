@@ -9,7 +9,7 @@ import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
 const TYPING_DELAY_MS = 45;
 
 // Both layers share one grid cell, so the full text reserves the final size.
-const SHARED_CELL = {gridColumn: '1', gridRow: '1'} as const;
+const sharedCell = {gridColumn: '1', gridRow: '1'} as const;
 
 export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'children'>) => {
   const locale = useLocale();
@@ -41,10 +41,10 @@ export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'c
   return (
     <Text display="grid" {...props}>
       <Span srOnly>{text}</Span>
-      <Span {...SHARED_CELL} visibility="hidden">
+      <Span {...sharedCell} visibility="hidden">
         {text}
       </Span>
-      <Span aria-hidden {...SHARED_CELL}>
+      <Span aria-hidden {...sharedCell}>
         {prefersReducedMotion ? text : graphemes.slice(0, typedCount).join('')}
         {!prefersReducedMotion && (
           <Span
