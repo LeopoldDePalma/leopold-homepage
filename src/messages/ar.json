@@ -29,7 +29,14 @@
       "moscow": "استقر في موسكو (<en>Moscow</en>).",
       "university": "بدأ دراسة أمن المعلومات في معهد موسكو للطاقة (<en>Moscow Power Engineering Institute</en>).",
       "work": "يعمل في شركة <en>Everytag</en> (إيفري تاغ)."
+    },
+    "github": {
+      "title": "GitHub"
     }
+  },
+  "ContributionGraph": {
+    "total": "{count, plural, zero {لا مساهمات} one {مساهمة واحدة} two {مساهمتان} few {# مساهمات} many {# مساهمة} other {# مساهمة}} خلال العام الماضي",
+    "day": "{count, plural, one {مساهمة واحدة} two {مساهمتان} few {# مساهمات} many {# مساهمة} other {# مساهمة}} في {date}"
   },
   "Music": {
     "title": "يُشغَّل الآن",

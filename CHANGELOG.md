@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A jousting mini-game on the 404 page: a knight on horseback leaps over barrels, stakes and
   caltrops. It follows the theme, mirrors in Arabic and keeps the best score in the browser.
 - The sword on the 404 page's home button tilts on hover, like the eagle in the logo.
+- A GitHub section on the home page shows the year's contributions as a grid of gold lozenges;
+  phones show the last six months.
 
 ### Fixed
 

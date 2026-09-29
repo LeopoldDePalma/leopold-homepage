@@ -6,6 +6,8 @@ import {ExternalLink} from '@/components/ui/ExternalLink';
 import {Section} from '@/components/ui/Section';
 import {Typewriter} from '@/components/ui/Typewriter';
 import {site} from '@/content/site';
+import {ContributionGraph} from '@/features/github/ContributionGraph';
+import {getContributionCalendar} from '@/features/github/github';
 import {HelmetShowcase} from '@/features/helmet/HelmetShowcase';
 import {Bio} from '@/features/home/Bio';
 import {ContactButton} from '@/features/home/ContactButton';
@@ -29,7 +31,7 @@ const INTERESTS = ['programming', 'history', 'heraldry', 'books', 'music'] as co
 const HomePage = async () => {
   const t = await getTranslations('HomePage');
   const format = await getFormatter();
-  const listening = await getListening();
+  const [listening, contributions] = await Promise.all([getListening(), getContributionCalendar()]);
 
   const interests = map(INTERESTS, (interest) => {
     const label = t(`interests.${interest}`);
@@ -72,6 +74,12 @@ const HomePage = async () => {
       <Section title={t('interests.title')}>
         <Text lineHeight="relaxed">{format.list(interests, {type: 'conjunction'})}</Text>
       </Section>
+
+      {contributions ? (
+        <Section title={t('github.title')}>
+          <ContributionGraph calendar={contributions} />
+        </Section>
+      ) : null}
 
       <Section title={t('contact.title')}>
         <SocialLinks />

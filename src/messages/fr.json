@@ -29,7 +29,14 @@
       "moscow": "Installé à Moscou (<en>Moscow</en>).",
       "university": "Débute des études en sécurité de l’information à l’Institut de l’énergie de Moscou (<en>Moscow Power Engineering Institute</en>).",
       "work": "Travaille chez <en>Everytag</en>."
+    },
+    "github": {
+      "title": "GitHub"
     }
+  },
+  "ContributionGraph": {
+    "total": "{count, plural, one {# contribution} other {# contributions}} sur l’année écoulée",
+    "day": "{count, plural, one {# contribution} other {# contributions}} le {date}"
   },
   "Music": {
     "title": "À l'écoute",
