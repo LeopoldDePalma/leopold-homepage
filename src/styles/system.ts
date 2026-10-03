@@ -1,7 +1,13 @@
 import {createSystem, defaultConfig, defineConfig, type SystemStyleObject} from '@chakra-ui/react';
 import {has, isPlainObject, mapValues} from 'lodash-es';
 
+import {palette} from './palette';
+
 type ColorModeValue = {_light: string; _dark: string};
+
+// `alpha` is a hex alpha appended to both colours.
+const lightDark = ({light, dark}: {light: string; dark: string}, alpha = '') =>
+  `light-dark(${light}${alpha}, ${dark}${alpha})`;
 
 const isColorModeValue = (value: unknown): value is ColorModeValue =>
   isPlainObject(value) && has(value, '_light') && has(value, '_dark');
@@ -15,7 +21,7 @@ const toLightDark = <T>(tokens: T): T => {
 
   return mapValues(tokens as Record<string, unknown>, (node, key) => {
     if (key === 'value' && isColorModeValue(node)) {
-      return `light-dark(${node._light}, ${node._dark})`;
+      return lightDark({light: node._light, dark: node._dark});
     }
 
     return toLightDark(node);
@@ -59,7 +65,7 @@ const siteTheme = defineConfig({
     tokens: {
       colors: {
         paper: {value: '#faf7f2'},
-        ink: {value: '#2b2118'},
+        ink: {value: palette.fg.light},
         seal: {value: '#9b2226'},
       },
       fonts: {
@@ -70,19 +76,19 @@ const siteTheme = defineConfig({
     semanticTokens: {
       colors: {
         bg: {
-          DEFAULT: {value: 'light-dark(#f0e7db, #202023)'},
+          DEFAULT: {value: lightDark(palette.bg)},
           panel: {value: '{colors.bg}'},
         },
         fg: {
-          DEFAULT: {value: 'light-dark(#2b2118, #ede6d9)'},
-          muted: {value: 'light-dark(#6b5a48, #a79e90)'},
+          DEFAULT: {value: lightDark(palette.fg)},
+          muted: {value: lightDark(palette.fgMuted)},
         },
-        border: {DEFAULT: {value: 'light-dark(#2b21181f, #ede6d91f)'}},
+        border: {DEFAULT: {value: lightDark(palette.fg, '1f')}},
         accent: {
-          DEFAULT: {value: 'light-dark(#7d5a10, #d4a93a)'},
+          DEFAULT: {value: lightDark(palette.accent)},
           fg: {value: '{colors.accent}'},
-          subtle: {value: 'light-dark(#2b21180d, #ede6d90d)'},
-          emphasized: {value: 'light-dark(#7d5a1040, #d4a93a40)'},
+          subtle: {value: lightDark(palette.fg, '0d')},
+          emphasized: {value: lightDark(palette.accent, '40')},
           border: {value: '{colors.border}'},
           focusRing: {value: '{colors.accent}'},
         },
