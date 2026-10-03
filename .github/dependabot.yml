@@ -1,0 +1,24 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    # Waits a week after a release, so a compromised version is usually pulled before it lands.
+    cooldown:
+      default-days: 7
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    ignore:
+      # React Three Fiber 9 still uses THREE.Clock, deprecated with a warning from 0.183.
+      - dependency-name: three
+        versions: ['>=0.183.0']
+      - dependency-name: '@types/three'
+        versions: ['>=0.183.0']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
