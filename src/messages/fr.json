@@ -56,13 +56,13 @@
   },
   "SiteFooter": {
     "copyright": "© {year} {name}. Tous droits réservés.",
-    "modelCredit": "Modèle 3D <model>Helmet with Grotesque Visor</model> par <author>The Royal Armoury (Livrustkammaren)</author>, numérisé par Erik Lernestål, <license>CC BY-SA 4.0</license>, simplifié et réencodé."
+    "modelCredit": "Modèle 3D <model>Helmet with Grotesque Visor</model> par <author>The Royal Armoury (Livrustkammaren)</author>, numérisé par Erik Lernestål, <license>CC BY-SA 4.0</license>, simplifié et réencodé.",
+    "armsCredit": "Armoiries <arms>de Souabe</arms> par <ssolbergj>Ssolbergj</ssolbergj> et <whiteLion>The White Lion</whiteLion>, <license>CC BY-SA 4.0</license>."
   },
   "NotFound": {
     "title": "Page introuvable",
     "description": "Cette adresse ne figure pas dans l'armorial.",
     "home": "Retour à l'accueil",
-    "armsCredit": "Armoiries <arms>de Souabe</arms> par <ssolbergj>Ssolbergj</ssolbergj> et <whiteLion>The White Lion</whiteLion>, <license>CC BY-SA 4.0</license>.",
     "gameArtCredit": "Illustrations du jeu : <knight>Mounted knight</knight> par Skoll ; <barrel>Barrel</barrel>, <stakes>Stakes fence</stakes> et <caltrops>Caltrops</caltrops> par Delapouite, sur <source>game-icons.net</source>, <license>CC BY 3.0</license>."
   },
   "JoustGame": {

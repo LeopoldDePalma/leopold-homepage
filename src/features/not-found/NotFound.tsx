@@ -56,12 +56,9 @@ export const NotFound = async () => {
           </Link>
         </Button>
       </Flex>
-      <Stack gap="1" textStyle="xs" color="fg.muted/80">
-        <Text>{t.rich('armsCredit', externalLinkTags(site.armsCredit, {variant: 'credit'}))}</Text>
-        <Text>
-          {t.rich('gameArtCredit', externalLinkTags(site.gameArtCredit, {variant: 'credit'}))}
-        </Text>
-      </Stack>
+      <Text textStyle="xs" color="fg.muted/80">
+        {t.rich('gameArtCredit', externalLinkTags(site.gameArtCredit, {variant: 'credit'}))}
+      </Text>
     </Stack>
   );
 };

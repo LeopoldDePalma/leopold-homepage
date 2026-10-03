@@ -56,13 +56,13 @@
   },
   "SiteFooter": {
     "copyright": "© {year} {name}. جميع الحقوق محفوظة.",
-    "modelCredit": "نموذج ثلاثي الأبعاد <model>Helmet with Grotesque Visor</model> من <author>The Royal Armoury (Livrustkammaren)</author>، مسح Erik Lernestål، بترخيص <license>CC BY-SA 4.0</license>، مع التبسيط وإعادة الترميز."
+    "modelCredit": "نموذج ثلاثي الأبعاد <model>Helmet with Grotesque Visor</model> من <author>The Royal Armoury (Livrustkammaren)</author>، مسح Erik Lernestål، بترخيص <license>CC BY-SA 4.0</license>، مع التبسيط وإعادة الترميز.",
+    "armsCredit": "<arms>شعار شوابيا</arms> بريشة <ssolbergj>Ssolbergj</ssolbergj> و<whiteLion>The White Lion</whiteLion>، <license>CC BY-SA 4.0</license>."
   },
   "NotFound": {
     "title": "الصفحة غير موجودة",
     "description": "هذا العنوان غير مُدرج في سجل الشعارات.",
     "home": "العودة إلى الصفحة الرئيسية",
-    "armsCredit": "<arms>شعار شوابيا</arms> بريشة <ssolbergj>Ssolbergj</ssolbergj> و<whiteLion>The White Lion</whiteLion>، <license>CC BY-SA 4.0</license>.",
     "gameArtCredit": "رسوم اللعبة: <knight>Mounted knight</knight> بريشة Skoll؛ <barrel>Barrel</barrel> و<stakes>Stakes fence</stakes> و<caltrops>Caltrops</caltrops> بريشة Delapouite، من <source>game-icons.net</source>، <license>CC BY 3.0</license>."
   },
   "JoustGame": {

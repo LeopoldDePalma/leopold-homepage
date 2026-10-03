@@ -14,12 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The sword on the 404 page's home button tilts on hover, like the eagle in the logo.
 - A GitHub section on the home page shows the year's contributions as a grid of gold lozenges;
   phones show the last six months.
+- Links to the site unfurl with a preview card: the name and role in EB Garamond beside the
+  Swabian arms, in the dark theme's colours.
 
 ### Changed
 
 - “Get in touch” opens with a line of invitation and shows LinkedIn and GitHub buttons that follow
   the pointer like the email button, now labelled “Email Me”, instead of the list of profiles; the
   Telegram and Instagram links are gone.
+- The credit for the Swabian arms moved from the 404 page to the footer, since the preview card
+  shows the arms too.
 
 ### Fixed
 

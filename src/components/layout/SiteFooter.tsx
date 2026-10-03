@@ -1,4 +1,4 @@
-import {Container, Text} from '@chakra-ui/react';
+import {Container, Stack, Text} from '@chakra-ui/react';
 import {useTranslations} from 'next-intl';
 
 import {externalLinkTags} from '@/components/ui/ExternalLink';
@@ -12,11 +12,26 @@ export const SiteFooter = () => {
   const year = String(new Date().getFullYear());
 
   return (
-    <Container as="footer" py="8" textAlign="center" textStyle="sm" color="fg.muted">
+    <Container
+      as="footer"
+      display="flex"
+      flexDirection="column"
+      gap="2"
+      py="8"
+      textAlign="center"
+      textStyle="sm"
+      color="fg.muted"
+    >
       <Text>{t('copyright', {year, name: tSite('name')})}</Text>
-      <Text mt="2" textStyle="xs">
-        {t.rich('modelCredit', externalLinkTags(site.modelCredit, {variant: 'credit', dir: 'ltr'}))}
-      </Text>
+      <Stack gap="1" textStyle="xs">
+        <Text>
+          {t.rich(
+            'modelCredit',
+            externalLinkTags(site.modelCredit, {variant: 'credit', dir: 'ltr'}),
+          )}
+        </Text>
+        <Text>{t.rich('armsCredit', externalLinkTags(site.armsCredit, {variant: 'credit'}))}</Text>
+      </Stack>
     </Container>
   );
 };

@@ -48,6 +48,7 @@ const proxy = (request: NextRequest) => {
 export default proxy;
 
 export const config = {
-  // Skips route handlers, Next internals and any path that ends in a file extension.
-  matcher: '/((?!api/|_next/|.*\\.[a-zA-Z0-9]+$).*)',
+  // Skips route handlers, Next internals, the share card and any path that ends in a file
+  // extension.
+  matcher: '/((?!api/|_next/|opengraph-image$|.*\\.[a-zA-Z0-9]+$).*)',
 };
