@@ -18,7 +18,7 @@ import {useShallow} from 'zustand/shallow';
 import {ExternalLink} from '@/components/ui/ExternalLink';
 import {useMusicPanelStore} from '@/features/music/store/musicPanelStore';
 
-import type {Listening} from './spotify';
+import type {Listening} from './listening';
 import {useListening} from './useListening';
 
 export const MusicToggle = ({initial}: {initial: Listening}) => {

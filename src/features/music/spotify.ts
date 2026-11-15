@@ -1,6 +1,9 @@
 import {map, minBy} from 'lodash-es';
 import {unstable_rethrow} from 'next/navigation';
 import {cache} from 'react';
+import * as z from 'zod/mini';
+
+import type {Listening} from './listening';
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const CURRENTLY_PLAYING_URL = 'https://api.spotify.com/v1/me/player/currently-playing';
@@ -8,20 +11,18 @@ const RECENTLY_PLAYED_URL = 'https://api.spotify.com/v1/me/player/recently-playe
 const TRACK_TTL_MS = 60_000;
 const TOKEN_MARGIN_MS = 60_000;
 
-export type Listening = {
-  playing: boolean;
-  track: string;
-  artists: string[];
-  url: string;
-  cover?: string;
-};
+const trackSchema = z.object({
+  name: z.string(),
+  artists: z.array(z.object({name: z.string()})),
+  external_urls: z.object({spotify: z.string()}),
+  album: z.object({images: z.array(z.object({url: z.string(), width: z.number()}))}),
+});
 
-type SpotifyTrack = {
-  name: string;
-  artists: {name: string}[];
-  external_urls: {spotify: string};
-  album: {images: {url: string; width: number}[]};
-};
+const tokenSchema = z.object({access_token: z.string(), expires_in: z.number()});
+const currentlyPlayingSchema = z.object({item: z.nullable(trackSchema)});
+const recentlyPlayedSchema = z.object({items: z.array(z.object({track: trackSchema}))});
+
+type SpotifyTrack = z.infer<typeof trackSchema>;
 
 type Cached<T> = {value: T; expiresAt: number};
 
@@ -47,10 +48,7 @@ const getAccessToken = async (clientId: string, clientSecret: string, refreshTok
     throw new Error(`Spotify refused the refresh token: ${String(response.status)}`);
   }
 
-  const {access_token: value, expires_in: expiresIn} = (await response.json()) as {
-    access_token: string;
-    expires_in: number;
-  };
+  const {access_token: value, expires_in: expiresIn} = tokenSchema.parse(await response.json());
 
   token = {value, expiresAt: Date.now() + expiresIn * 1000 - TOKEN_MARGIN_MS};
 
@@ -78,7 +76,7 @@ const fetchListening = async (accessToken: string) => {
   const current = await request(CURRENTLY_PLAYING_URL);
 
   if (current.status === 200) {
-    const {item} = (await current.json()) as {item: SpotifyTrack | null};
+    const {item} = currentlyPlayingSchema.parse(await current.json());
 
     if (item) {
       return toListening(item, true);
@@ -93,7 +91,7 @@ const fetchListening = async (accessToken: string) => {
 
   const {
     items: [last],
-  } = (await recent.json()) as {items: {track: SpotifyTrack}[]};
+  } = recentlyPlayedSchema.parse(await recent.json());
 
   return last && toListening(last.track, false);
 };

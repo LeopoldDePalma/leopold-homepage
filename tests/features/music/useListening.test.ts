@@ -1,6 +1,6 @@
 import {renderHook, waitFor} from '@testing-library/react';
 
-import type {Listening} from '@/features/music/spotify';
+import type {Listening} from '@/features/music/listening';
 import {useListening} from '@/features/music/useListening';
 
 const lastPlayed: Listening = {
@@ -54,6 +54,7 @@ describe('useListening', () => {
     ['the request fails', () => Promise.reject(new TypeError('Failed to fetch'))],
     ['the server could not read Spotify', () => Promise.resolve(Response.json(null))],
     ['the server answers an error', () => Promise.resolve(new Response(null, {status: 500}))],
+    ['the answer has the wrong shape', () => Promise.resolve(Response.json({track: 42}))],
   ])('keeps the track and says it is stale when %s', async (_reason, answer) => {
     vi.stubGlobal('fetch', vi.fn(answer));
 

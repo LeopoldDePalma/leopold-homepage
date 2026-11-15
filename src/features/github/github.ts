@@ -1,4 +1,5 @@
 import {unstable_rethrow} from 'next/navigation';
+import * as z from 'zod/mini';
 
 const GRAPHQL_URL = 'https://api.github.com/graphql';
 const REVALIDATE_SECONDS = 60 * 60;
@@ -13,24 +14,43 @@ const QUERY = `query {
   }
 }`;
 
-export type ContributionLevel =
-  'NONE' | 'FIRST_QUARTILE' | 'SECOND_QUARTILE' | 'THIRD_QUARTILE' | 'FOURTH_QUARTILE';
+const levelSchema = z.enum([
+  'NONE',
+  'FIRST_QUARTILE',
+  'SECOND_QUARTILE',
+  'THIRD_QUARTILE',
+  'FOURTH_QUARTILE',
+]);
 
-export type ContributionDay = {
-  date: string;
-  weekday: number;
-  contributionCount: number;
-  contributionLevel: ContributionLevel;
-};
+const daySchema = z.object({
+  date: z.string(),
+  weekday: z.number(),
+  contributionCount: z.number(),
+  contributionLevel: levelSchema,
+});
 
-export type ContributionWeek = {contributionDays: ContributionDay[]};
+const weekSchema = z.object({contributionDays: z.array(daySchema)});
 
-export type ContributionCalendar = {totalContributions: number; weeks: ContributionWeek[]};
+const calendarSchema = z.object({totalContributions: z.number(), weeks: z.array(weekSchema)});
 
-type CalendarResponse = {
-  data?: {viewer: {contributionsCollection: {contributionCalendar: ContributionCalendar}}} | null;
-  errors?: {message: string}[];
-};
+// GraphQL answers 200 with `data: null` and `errors` when the query fails.
+const responseSchema = z.object({
+  data: z.optional(
+    z.nullable(
+      z.object({
+        viewer: z.object({
+          contributionsCollection: z.object({contributionCalendar: calendarSchema}),
+        }),
+      }),
+    ),
+  ),
+  errors: z.optional(z.array(z.object({message: z.string()}))),
+});
+
+export type ContributionLevel = z.infer<typeof levelSchema>;
+export type ContributionDay = z.infer<typeof daySchema>;
+export type ContributionWeek = z.infer<typeof weekSchema>;
+export type ContributionCalendar = z.infer<typeof calendarSchema>;
 
 export const getContributionCalendar = async () => {
   const {GITHUB_TOKEN} = process.env;
@@ -52,7 +72,7 @@ export const getContributionCalendar = async () => {
       throw new Error(`GitHub refused the request: ${String(response.status)}`);
     }
 
-    const {data, errors} = (await response.json()) as CalendarResponse;
+    const {data, errors} = responseSchema.parse(await response.json());
 
     if (!data) {
       throw new Error(`GitHub could not answer the query: ${JSON.stringify(errors)}`);

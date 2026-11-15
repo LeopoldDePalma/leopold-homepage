@@ -22,6 +22,8 @@ export default getRequestConfig(async (params) => {
     notFound();
   }
 
+  // next-intl types messages with en.json's literal strings, which no other locale can match;
+  // messages.test.ts checks that every locale has the same keys and placeholders.
   const {default: messages} = (await import(`@/messages/${locale}.json`)) as {
     default: Messages;
   };

@@ -1,16 +1,24 @@
 import {useEffect, useState, useTransition} from 'react';
+import * as z from 'zod/mini';
 
-import type {Listening} from './spotify';
+import {type Listening, listeningSchema} from './listening';
 
 const MUSIC_URL = '/api/music';
+const answerSchema = z.nullable(listeningSchema);
 
-// The server answers null when it could not read Spotify; to the panel a failed request means
-// the same: it keeps the track it has.
+// The server answers null when it could not read Spotify; to the panel a failed request or an
+// answer of the wrong shape means the same: it keeps the track it has.
 const fetchListening = async () => {
   try {
     const response = await fetch(MUSIC_URL);
 
-    return response.ok ? ((await response.json()) as Listening | null) : null;
+    if (!response.ok) {
+      return null;
+    }
+
+    const answer = answerSchema.safeParse(await response.json());
+
+    return answer.success ? answer.data : null;
   } catch {
     return null;
   }
