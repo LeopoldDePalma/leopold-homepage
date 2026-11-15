@@ -1,6 +1,6 @@
 import {type PointerEvent, useRef} from 'react';
 
-import {usePrefersReducedMotion} from '@/lib/hooks/usePrefersReducedMotion';
+import {usePrefersReducedMotion} from './usePrefersReducedMotion';
 
 const MAGNET_PULL = 0.25;
 

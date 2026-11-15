@@ -3,6 +3,9 @@
     "name": "Konstantin Konyushkin",
     "description": "Ingénieur logiciel et développeur full-stack épris d’histoire et d’héraldique. Page personnelle et collection de projets."
   },
+  "ShareCard": {
+    "alt": "{name}, {role}"
+  },
   "HomePage": {
     "greeting": "Bonjour. Je construis des logiciels le jour et je lis des chroniques la nuit.",
     "about": {
@@ -70,8 +73,8 @@
     "label": "Jeu de joute",
     "hint": "Appuyez sur Espace ou touchez pour partir",
     "slain": "Vous voilà occis",
-    "best": "Record",
-    "result": "Score : {score}."
+    "best": "Record {score}",
+    "result": "{slain}. Score : {score}."
   },
   "ErrorPage": {
     "title": "Quelque chose s'est mal passé",

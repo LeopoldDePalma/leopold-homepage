@@ -16,7 +16,7 @@ export const LocaleSwitcher = () => {
 
   return (
     <nav aria-label={t('label')}>
-      <HStack as="ul" gap="3" listStyle="none">
+      <HStack as="ul" gap="3">
         {map(otherLocales, (locale) => (
           <li key={locale}>
             <Link asChild variant="muted" textStyle="sm">

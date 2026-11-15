@@ -22,7 +22,7 @@ export default defineConfig([
       'simple-import-sort': simpleImportSort,
     },
     rules: {
-      'no-console': ['warn', {allow: ['warn', 'error']}],
+      'no-console': ['error', {allow: ['error']}],
       eqeqeq: ['error', 'always'],
 
       'simple-import-sort/imports': 'error',
@@ -112,9 +112,16 @@ export default defineConfig([
         'error',
         {
           paths: [{name: 'lodash', message: 'Import from lodash-es (tree-shakeable ESM build).'}],
-          patterns: [{group: ['lodash/*'], message: 'Import from lodash-es.'}],
+          patterns: [
+            {group: ['lodash/*'], message: 'Import from lodash-es.'},
+            {
+              regex: String.raw`^(\.\./|\./[^/]+/)`,
+              message: 'Outside the current folder, import through the @/ alias.',
+            },
+          ],
         },
       ],
+      'react/jsx-no-leaked-render': ['error', {validStrategies: ['ternary']}],
       'react/function-component-definition': [
         'error',
         {namedComponents: 'arrow-function', unnamedComponents: 'arrow-function'},

@@ -1,5 +1,5 @@
 import {Flex, Grid, Span, Stack, Text} from '@chakra-ui/react';
-import {flatMap, map, takeRight} from 'lodash-es';
+import {flatMap, head, map, takeRight} from 'lodash-es';
 import {getFormatter, getTranslations} from 'next-intl/server';
 
 import {ExternalLink} from '@/components/ui/ExternalLink';
@@ -80,6 +80,7 @@ export const ContributionGraph = async ({calendar}: {calendar: ContributionCalen
   const format = await getFormatter();
 
   const {weeks, totalContributions} = calendar;
+  const firstDay = head(head(weeks)?.contributionDays);
   const oldWeeks = weeks.length - RECENT_WEEKS;
   const summary = t('total', {count: totalContributions});
   const templateColumns = {base: columns(RECENT_WEEKS), sm: columns(weeks.length)};
@@ -120,11 +121,11 @@ export const ContributionGraph = async ({calendar}: {calendar: ContributionCalen
           gap="0.75"
         >
           {flatMap(weeks, ({contributionDays}, week) =>
-            map(contributionDays, (day, index) => (
+            map(contributionDays, (day) => (
               <Day
                 key={day.date}
                 day={day}
-                first={week === 0 && index === 0}
+                first={day === firstDay}
                 recent={week >= oldWeeks}
                 describe={describe}
               />

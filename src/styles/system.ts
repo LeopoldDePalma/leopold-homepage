@@ -1,5 +1,5 @@
 import {createSystem, defaultConfig, defineConfig, type SystemStyleObject} from '@chakra-ui/react';
-import {has, isPlainObject, mapValues} from 'lodash-es';
+import {isPlainObject, isString, mapValues} from 'lodash-es';
 
 import {palette} from './palette';
 
@@ -9,17 +9,20 @@ type ColorModeValue = {_light: string; _dark: string};
 const lightDark = ({light, dark}: {light: string; dark: string}, alpha = '') =>
   `light-dark(${light}${alpha}, ${dark}${alpha})`;
 
+const isRecord = (value: unknown): value is Record<string, unknown> => isPlainObject(value);
+
 const isColorModeValue = (value: unknown): value is ColorModeValue =>
-  isPlainObject(value) && has(value, '_light') && has(value, '_dark');
+  isRecord(value) && isString(value['_light']) && isString(value['_dark']);
 
 // Chakra's `_dark` needs a `.dark` class set by a client script. Our theme lives in
-// `color-scheme`, so every `{_light, _dark}` colour becomes `light-dark()` instead.
+// `color-scheme`, so every `{_light, _dark}` colour becomes `light-dark()` instead. The walk
+// replaces values and keeps the shape, which TypeScript cannot follow through `mapValues`.
 const toLightDark = <T>(tokens: T): T => {
-  if (!isPlainObject(tokens)) {
+  if (!isRecord(tokens)) {
     return tokens;
   }
 
-  return mapValues(tokens as Record<string, unknown>, (node, key) => {
+  return mapValues(tokens, (node, key) => {
     if (key === 'value' && isColorModeValue(node)) {
       return lightDark({light: node._light, dark: node._dark});
     }

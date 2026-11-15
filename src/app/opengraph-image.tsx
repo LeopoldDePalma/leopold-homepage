@@ -11,7 +11,7 @@ const t = createTranslator({locale: 'en', messages});
 const name = t('Site.name');
 const role = t('ProfileHeader.role');
 
-export const alt = `${name}, ${role}`;
+export const alt = t('ShareCard.alt', {name, role});
 export const size = shareCardSize;
 
 const OpenGraphImage = async () => {

@@ -1,14 +1,4 @@
-import {
-  difference,
-  flatMap,
-  forEach,
-  fromPairs,
-  isString,
-  keys,
-  map,
-  sortBy,
-  toPairs,
-} from 'lodash-es';
+import {flatMap, forEach, fromPairs, isString, keys, map, sortBy, toPairs} from 'lodash-es';
 
 import ar from '@/messages/ar.json';
 import en from '@/messages/en.json';
@@ -23,7 +13,13 @@ const flatten = (messages: MessageTree, prefix = ''): [string, string][] =>
   flatMap(toPairs(messages), ([key, value]) => {
     const path = `${prefix}${key}`;
 
-    return isString(value) ? [[path, value] as [string, string]] : flatten(value, `${path}.`);
+    if (isString(value)) {
+      const entry: [string, string] = [path, value];
+
+      return [entry];
+    }
+
+    return flatten(value, `${path}.`);
   });
 
 const placeholders = (message: string) =>
@@ -35,9 +31,9 @@ forEach({ar, fr}, (messages, locale) => {
   describe(`${locale} messages`, () => {
     const translation = fromPairs(flatten(messages));
 
-    it('has exactly the keys English has', () => {
-      expect(difference(keys(source), keys(translation))).toEqual([]);
-      expect(difference(keys(translation), keys(source))).toEqual([]);
+    // The same order too, so a key sits in the same place in every file.
+    it('has exactly the keys English has, in the same order', () => {
+      expect(keys(translation)).toEqual(keys(source));
     });
 
     it('keeps the placeholders of every message', () => {

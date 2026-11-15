@@ -46,7 +46,7 @@ export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'c
       </Span>
       <Span aria-hidden {...sharedCell}>
         {prefersReducedMotion ? text : graphemes.slice(0, typedCount).join('')}
-        {!prefersReducedMotion && (
+        {prefersReducedMotion ? null : (
           <Span
             display="inline-block"
             ms="0.05em"

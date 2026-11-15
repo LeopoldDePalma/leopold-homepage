@@ -86,7 +86,13 @@ const Helmet = ({onModelReady}: {onModelReady: () => void}) => {
   );
 };
 
-const HelmetScene = ({active, onModelReady}: {active: boolean; onModelReady: () => void}) => {
+export const HelmetScene = ({
+  active,
+  onModelReady,
+}: {
+  active: boolean;
+  onModelReady: () => void;
+}) => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const turning = active && !prefersReducedMotion;
@@ -105,5 +111,3 @@ const HelmetScene = ({active, onModelReady}: {active: boolean; onModelReady: () 
     </Canvas>
   );
 };
-
-export default HelmetScene;

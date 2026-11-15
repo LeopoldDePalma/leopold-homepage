@@ -1,4 +1,4 @@
-import {Box, Flex, Heading, Text} from '@chakra-ui/react';
+import {Box, Flex, Heading, Stack, Text} from '@chakra-ui/react';
 import {useTranslations} from 'next-intl';
 
 import {OptimizedImage} from '@/components/ui/OptimizedImage';
@@ -16,14 +16,12 @@ export const ProfileHeader = () => {
 
   return (
     <Flex align="center" gap="6">
-      <Box flex="1">
+      <Stack flex="1" gap="1">
         <Heading as="h1" fontSize="4xl">
           {tSite('name')}
         </Heading>
-        <Text mt="1" color="fg.muted">
-          {t('role')}
-        </Text>
-      </Box>
+        <Text color="fg.muted">{t('role')}</Text>
+      </Stack>
       <Box flexShrink="0" p="0.1875rem" rounded="full" bgImage={GILT_BEZEL} shadow="md">
         <OptimizedImage
           src="/images/avatar.jpg"
@@ -32,11 +30,8 @@ export const ProfileHeader = () => {
           height={640}
           sizes="7rem"
           loading="eager"
-          display="block"
           boxSize="28"
           rounded="full"
-          borderWidth="3px"
-          borderColor="bg"
         />
       </Box>
     </Flex>

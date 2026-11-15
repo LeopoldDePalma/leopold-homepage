@@ -6,7 +6,6 @@ import {useTranslations} from 'next-intl';
 import {useId} from 'react';
 
 import {knightDrawing, obstacleDrawings} from '@/features/joust/art';
-import {PlacedDrawing} from '@/features/joust/components/PlacedDrawing';
 import {
   type Game,
   getObstacleX,
@@ -16,6 +15,8 @@ import {
   world,
 } from '@/features/joust/engine';
 import {useJoust} from '@/features/joust/hooks/useJoust';
+
+import {PlacedDrawing} from './PlacedDrawing';
 
 const pebbles = {width: 64, height: 8};
 const stride = {length: 12, bounce: 1.5};
@@ -85,15 +86,12 @@ export const JoustGame = () => {
           textStyle="xs"
           fontVariantNumeric="tabular-nums"
         >
-          <Span color="fg.muted">
-            {t('best')} {formatScore(best)}
-          </Span>
+          <Span color="fg.muted">{t('best', {score: formatScore(best)})}</Span>
           <Span color="accent">{formatScore(score)}</Span>
         </Span>
         <Span display="grid">
           <chakra.svg
             viewBox={`0 0 ${String(world.width)} ${String(world.height)}`}
-            display="block"
             w="full"
             fill="currentColor"
             _rtl={{transform: 'scaleX(-1)'}}
@@ -147,11 +145,11 @@ export const JoustGame = () => {
             textAlign="center"
             visibility={running ? 'hidden' : 'visible'}
           >
-            {over && (
+            {over ? (
               <Span fontFamily="heading" fontSize="lg" fontWeight="bold">
                 {t('slain')}
               </Span>
-            )}
+            ) : null}
             <Span id={hintId} textStyle="xs" color="fg.muted">
               {t('hint')}
             </Span>
@@ -159,7 +157,7 @@ export const JoustGame = () => {
         </Span>
       </chakra.button>
       <VisuallyHidden role="status" aria-atomic>
-        {over && `${t('slain')} ${t('result', {score: String(score)})}`}
+        {over ? t('result', {slain: t('slain'), score: String(score)}) : null}
       </VisuallyHidden>
     </>
   );

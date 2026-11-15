@@ -22,7 +22,7 @@ export default getRequestConfig(async (params) => {
     notFound();
   }
 
-  const {default: messages} = (await import(`../messages/${locale}.json`)) as {
+  const {default: messages} = (await import(`@/messages/${locale}.json`)) as {
     default: Messages;
   };
 

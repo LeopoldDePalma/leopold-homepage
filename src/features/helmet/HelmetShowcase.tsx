@@ -6,7 +6,9 @@ import {useRef, useState} from 'react';
 
 import {useOnScreen} from '@/lib/hooks/useOnScreen';
 
-const HelmetScene = dynamic(() => import('./HelmetScene'), {ssr: false});
+const HelmetScene = dynamic(() => import('./HelmetScene').then((module) => module.HelmetScene), {
+  ssr: false,
+});
 
 export const HelmetShowcase = () => {
   const rootRef = useRef<HTMLDivElement>(null);

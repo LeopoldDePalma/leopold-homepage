@@ -4,12 +4,13 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getLocale} from 'next-intl/server';
 import type {ReactNode} from 'react';
 
-import {SiteFooter} from '@/components/layout/SiteFooter';
-import {SiteHeader} from '@/components/layout/SiteHeader';
 import {isTheme, THEME_COOKIE} from '@/features/theme/theme';
 import {localeDirection} from '@/i18n/routing';
 import {fontVariables} from '@/styles/fonts';
 import {StyleProvider} from '@/styles/StyleProvider';
+
+import {SiteFooter} from './SiteFooter';
+import {SiteHeader} from './SiteHeader';
 
 export const SiteDocument = async ({children}: {children: ReactNode}) => {
   const locale = await getLocale();

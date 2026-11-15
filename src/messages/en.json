@@ -3,6 +3,9 @@
     "name": "Konstantin Konyushkin",
     "description": "Software engineer and full-stack developer with a love for history and heraldry. Homepage and project collection."
   },
+  "ShareCard": {
+    "alt": "{name}, {role}"
+  },
   "HomePage": {
     "greeting": "Hello. I build software by day and read chronicles by night.",
     "about": {
@@ -70,8 +73,8 @@
     "label": "Jousting game",
     "hint": "Press Space or tap to ride",
     "slain": "Thou art slain",
-    "best": "Best",
-    "result": "Score: {score}."
+    "best": "Best {score}",
+    "result": "{slain}. Score: {score}."
   },
   "ErrorPage": {
     "title": "Something went wrong",
