@@ -14,14 +14,7 @@ export const NotFound = async () => {
 
   return (
     <Stack flex="1" align="center" gap="4" py="8" textAlign="center">
-      <OptimizedImage
-        src="/images/arms-of-swabia.svg"
-        alt=""
-        width={220}
-        height={260}
-        w="7em"
-        h="auto"
-      />
+      <OptimizedImage src="/images/arms-of-swabia.svg" alt="" width={353} height={403} w="7em" />
       <HStack gap="0">
         <Text
           pe="4"

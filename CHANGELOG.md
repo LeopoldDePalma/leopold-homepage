@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   marks the CC-licensed files, the logo and the photo as exceptions to MIT.
 - The music panel says when it could not refresh the track, instead of showing an old one as
   current.
+- The emblem on the 404 page keeps its real proportions, so the page no longer shifts as it loads.
 
 ## [1.0.0] - 2026-09-28
 
