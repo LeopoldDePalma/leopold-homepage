@@ -26,17 +26,18 @@ export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'c
     setTypedCount(0);
   }
 
-  useEffect(() => {
-    const done = typedCount >= graphemes.length;
+  // The caret shows only while letters are still coming.
+  const typing = !prefersReducedMotion && typedCount < graphemes.length;
 
-    if (done || prefersReducedMotion) {
+  useEffect(() => {
+    if (!typing) {
       return;
     }
 
     const timer = setTimeout(() => setTypedCount(typedCount + 1), TYPING_DELAY_MS);
 
     return () => clearTimeout(timer);
-  }, [typedCount, graphemes.length, prefersReducedMotion]);
+  }, [typing, typedCount]);
 
   return (
     <Text display="grid" {...props}>
@@ -46,7 +47,7 @@ export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'c
       </Span>
       <Span aria-hidden {...sharedCell}>
         {prefersReducedMotion ? text : graphemes.slice(0, typedCount).join('')}
-        {prefersReducedMotion ? null : (
+        {typing ? (
           <Span
             display="inline-block"
             ms="0.05em"
@@ -56,7 +57,7 @@ export const Typewriter = ({text, ...props}: {text: string} & Omit<TextProps, 'c
             bg="accent"
             animation="caret 1s steps(1) infinite"
           />
-        )}
+        ) : null}
       </Span>
     </Text>
   );

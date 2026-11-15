@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The music panel's status reads in sentence case instead of spaced capitals, and the greeting's
+  caret goes away once the line is typed instead of blinking for ever.
+
 ## [1.1.0] - 2026-11-15
 
 ### Added

@@ -67,13 +67,7 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
               ) : null}
 
               <Stack gap="0.5" minW="0">
-                <Status.Root
-                  size="sm"
-                  gap="0.4em"
-                  letterSpacing="wide"
-                  textTransform="uppercase"
-                  color="fg.muted"
-                >
+                <Status.Root size="sm" gap="0.4em" color="fg.muted">
                   <Status.Indicator
                     bg="accent"
                     animation={listening.playing ? 'pulse' : undefined}

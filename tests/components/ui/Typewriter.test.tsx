@@ -23,7 +23,10 @@ const renderTypewriter = () => {
 
   const retype = (text: string) => rerender(<Typewriter text={text} />);
 
-  return {container, typedText: () => typedLayer?.textContent, retype};
+  // The caret is the typed layer's only element child.
+  const caretShown = () => typedLayer?.childElementCount === 1;
+
+  return {container, typedText: () => typedLayer?.textContent, caretShown, retype};
 };
 
 // Each tick runs every timer pending at that moment: the typing step and any of jsdom's own.
@@ -57,6 +60,16 @@ describe('Typewriter', () => {
 
     typeGraphemes(10);
     expect(typedText()).toBe(TEXT);
+  });
+
+  it('shows the caret while typing and drops it once the text is complete', () => {
+    const {caretShown} = renderTypewriter();
+
+    typeGraphemes(3);
+    expect(caretShown()).toBe(true);
+
+    typeGraphemes(10);
+    expect(caretShown()).toBe(false);
   });
 
   it('starts over when the text changes, as it does on a locale switch', () => {
