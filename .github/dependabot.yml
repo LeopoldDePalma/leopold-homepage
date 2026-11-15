@@ -16,6 +16,15 @@ updates:
         versions: ['>=0.183.0']
       - dependency-name: '@types/three'
         versions: ['>=0.183.0']
+      # typescript-eslint 8 accepts TypeScript below 6.1.
+      - dependency-name: typescript
+        versions: ['>=6.1.0']
+      # eslint-plugin-react, through eslint-config-next, does not run on ESLint 10.
+      - dependency-name: eslint
+        versions: ['>=10.0.0']
+      # The types follow the Node version the site runs on (.nvmrc).
+      - dependency-name: '@types/node'
+        versions: ['>=25.0.0']
   - package-ecosystem: github-actions
     directory: /
     schedule:
