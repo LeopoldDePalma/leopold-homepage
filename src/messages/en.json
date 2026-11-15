@@ -38,7 +38,8 @@
   },
   "Music": {
     "title": "Now playing",
-    "lastPlayed": "Last played"
+    "lastPlayed": "Last played",
+    "refreshFailed": "Could not refresh, so this may be out of date."
   },
   "ProfileHeader": {
     "role": "Software Engineer & Full Stack Developer",

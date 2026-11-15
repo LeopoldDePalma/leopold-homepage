@@ -25,7 +25,7 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
   const t = useTranslations('Music');
   const format = useFormatter();
   const [open, setOpen] = useMusicPanelStore(useShallow((state) => [state.open, state.setOpen]));
-  const listening = useListening(initial, open);
+  const {listening, refreshing, failed} = useListening(initial, open);
 
   const status = listening.playing ? t('title') : t('lastPlayed');
 
@@ -47,7 +47,13 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
 
       <Portal>
         <Popover.Positioner>
-          <Popover.Content w="xs" maxW="calc(100vw - 2rem)" p="3" textStyle="sm">
+          <Popover.Content
+            w="xs"
+            maxW="calc(100vw - 2rem)"
+            p="3"
+            textStyle="sm"
+            aria-busy={refreshing}
+          >
             <HStack gap="3">
               {listening.cover ? (
                 <Image
@@ -89,6 +95,11 @@ export const MusicToggle = ({initial}: {initial: Listening}) => {
                     {format.list(listening.artists, {type: 'conjunction'})}
                   </Text>
                 </ExternalLink>
+                {failed ? (
+                  <Text textStyle="xs" color="fg.muted">
+                    {t('refreshFailed')}
+                  </Text>
+                ) : null}
               </Stack>
             </HStack>
           </Popover.Content>

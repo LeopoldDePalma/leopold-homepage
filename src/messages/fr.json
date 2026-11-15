@@ -38,7 +38,8 @@
   },
   "Music": {
     "title": "À l'écoute",
-    "lastPlayed": "Dernière écoute"
+    "lastPlayed": "Dernière écoute",
+    "refreshFailed": "Actualisation impossible : ces informations peuvent être périmées."
   },
   "ProfileHeader": {
     "role": "Ingénieur logiciel et développeur full-stack",

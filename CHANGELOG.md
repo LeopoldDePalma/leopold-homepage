@@ -34,6 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The 404 page is rendered on the server, so it no longer stays blank until JavaScript loads.
 - The credits name the helmet's scanner and link each author of the Swabian arms, and the README
   marks the CC-licensed files, the logo and the photo as exceptions to MIT.
+- The music panel says when it could not refresh the track, instead of showing an old one as
+  current.
 
 ## [1.0.0] - 2026-09-28
 
