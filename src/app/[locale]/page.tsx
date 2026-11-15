@@ -1,11 +1,6 @@
-import {Flex, Icon, Stack, type SystemStyleObject, Text} from '@chakra-ui/react';
-import {IconBrandGithub, IconBrandLinkedin} from '@tabler/icons-react';
-import {map} from 'lodash-es';
-import {Mail} from 'lucide-react';
-import {getFormatter, getTranslations} from 'next-intl/server';
+import {Stack, Text} from '@chakra-ui/react';
+import {getTranslations} from 'next-intl/server';
 
-import {BrandButton} from '@/components/ui/BrandButton';
-import {ExternalLink, externalLinkProps} from '@/components/ui/ExternalLink';
 import {Section} from '@/components/ui/Section';
 import {Typewriter} from '@/components/ui/Typewriter';
 import {site} from '@/content/site';
@@ -13,53 +8,13 @@ import {ContributionGraph} from '@/features/github/ContributionGraph';
 import {getContributionCalendar} from '@/features/github/github';
 import {HelmetShowcase} from '@/features/helmet/HelmetShowcase';
 import {Bio} from '@/features/home/Bio';
+import {Contact} from '@/features/home/Contact';
+import {Interests} from '@/features/home/Interests';
 import {ProfileHeader} from '@/features/home/ProfileHeader';
-import {MusicMention} from '@/features/music/MusicMention';
-import {getListening} from '@/features/music/spotify';
-
-const interestLink = {
-  display: 'inline',
-  color: 'seal',
-  textDecoration: 'underline',
-  textUnderlineOffset: '0.25em',
-  transitionProperty: 'opacity',
-  transitionDuration: 'moderate',
-  _hover: {opacity: 0.8},
-} satisfies SystemStyleObject;
-
-const profileButtons = [
-  {palette: 'linkedin', BrandIcon: IconBrandLinkedin, ...site.profiles.linkedin},
-  {palette: 'github', BrandIcon: IconBrandGithub, ...site.profiles.github},
-] as const;
-
-const interestKeys = ['programming', 'history', 'heraldry', 'books', 'music'] as const;
 
 const HomePage = async () => {
   const t = await getTranslations('HomePage');
-  const format = await getFormatter();
-  const [listening, contributions] = await Promise.all([getListening(), getContributionCalendar()]);
-
-  const interests = map(interestKeys, (interest) => {
-    const label = t(`interests.${interest}`);
-
-    if (interest === 'heraldry') {
-      return (
-        <ExternalLink key={interest} href={site.links.heraldry} {...interestLink}>
-          {label}
-        </ExternalLink>
-      );
-    }
-
-    if (interest === 'music' && listening) {
-      return (
-        <MusicMention key={interest} {...interestLink}>
-          {label}
-        </MusicMention>
-      );
-    }
-
-    return label;
-  });
+  const contributions = await getContributionCalendar();
 
   return (
     <Stack gap="10">
@@ -78,7 +33,7 @@ const HomePage = async () => {
       </Section>
 
       <Section title={t('interests.title')}>
-        <Text lineHeight="relaxed">{format.list(interests, {type: 'conjunction'})}</Text>
+        <Interests />
       </Section>
 
       {contributions ? (
@@ -88,25 +43,7 @@ const HomePage = async () => {
       ) : null}
 
       <Section title={t('contact.title')}>
-        <Stack gap="20">
-          <Text lineHeight="relaxed">{t('contact.text')}</Text>
-          <Flex wrap="wrap" justify="center" gap="3">
-            <BrandButton href={`mailto:${site.email}`} colorPalette="mail" borderColor="ink/10">
-              <Icon color="seal">
-                <Mail />
-              </Icon>
-              {t('contact.action')}
-            </BrandButton>
-            {map(profileButtons, ({name, url, palette, BrandIcon}) => (
-              <BrandButton key={name} href={url} {...externalLinkProps} colorPalette={palette}>
-                <Icon>
-                  <BrandIcon />
-                </Icon>
-                <bdi lang="en">{name}</bdi>
-              </BrandButton>
-            ))}
-          </Flex>
-        </Stack>
+        <Contact />
       </Section>
     </Stack>
   );
