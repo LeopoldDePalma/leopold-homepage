@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The music panel says when it could not refresh the track, instead of showing an old one as
   current.
 - The emblem on the 404 page keeps its real proportions, so the page no longer shifts as it loads.
+- Paragraphs get the roomier line spacing they were meant to have; the value never reached the page.
 
 ## [1.0.0] - 2026-09-28
 

@@ -46,5 +46,5 @@ export const Interests = async () => {
     return label;
   });
 
-  return <Text lineHeight="relaxed">{format.list(interests, {type: 'conjunction'})}</Text>;
+  return <Text lineHeight="tall">{format.list(interests, {type: 'conjunction'})}</Text>;
 };

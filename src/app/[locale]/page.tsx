@@ -25,7 +25,7 @@ const HomePage = async () => {
       <ProfileHeader />
 
       <Section title={t('about.title')}>
-        <Text lineHeight="relaxed">{t('about.text')}</Text>
+        <Text lineHeight="tall">{t('about.text')}</Text>
       </Section>
 
       <Section title={t('bio.title')}>

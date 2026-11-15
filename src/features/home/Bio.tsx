@@ -27,7 +27,7 @@ export const Bio = () => {
               ? t('yearRange', {year: String(entry.year), untilNow: t('untilNow')})
               : entry.year}
           </Box>
-          <Box as="dd" lineHeight="relaxed">
+          <Box as="dd" lineHeight="tall">
             {t.rich(entry.id, languageTags)}
           </Box>
         </Grid>
