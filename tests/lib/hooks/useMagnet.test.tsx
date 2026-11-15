@@ -44,10 +44,10 @@ describe('useMagnet', () => {
     const link = renderLink();
 
     fireEvent.pointerEnter(link, pointer(200, 120));
-    fireEvent.pointerMove(link, pointer(240, 120));
-    fireEvent.pointerMove(link, pointer(240, 120));
+    fireEvent.pointerMove(link, pointer(240, 140));
+    fireEvent.pointerMove(link, pointer(240, 140));
 
-    expect(link.style.translate).toBe('10px 0px');
+    expect(link.style.translate).toBe('10px 5px');
   });
 
   it('stays put for touch, which lands on the link anyway', () => {

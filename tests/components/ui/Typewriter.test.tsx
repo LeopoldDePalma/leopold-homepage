@@ -26,10 +26,11 @@ const renderTypewriter = () => {
   return {container, typedText: () => typedLayer?.textContent, retype};
 };
 
+// Each tick runs every timer pending at that moment: the typing step and any of jsdom's own.
 const typeGraphemes = (count: number) => {
   for (let tick = 0; tick < count; tick++) {
     act(() => {
-      vi.advanceTimersToNextTimer();
+      vi.runOnlyPendingTimers();
     });
   }
 };
