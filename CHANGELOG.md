@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-15
+
 ### Added
 
 - A jousting mini-game on the 404 page: a knight on horseback leaps over barrels, stakes and
@@ -81,5 +83,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a Content Security Policy with a fresh nonce on every request, so only the site's own
   scripts run and the page cannot be framed, and stopped browsers from sniffing file types.
 
-[Unreleased]: https://github.com/LeopoldDePalma/leopold-homepage/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/LeopoldDePalma/leopold-homepage/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/LeopoldDePalma/leopold-homepage/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/LeopoldDePalma/leopold-homepage/releases/tag/v1.0.0
