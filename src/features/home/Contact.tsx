@@ -20,8 +20,8 @@ export const Contact = async () => {
     <Stack gap="20">
       <Text lineHeight="tall">{t('text')}</Text>
       <Flex wrap="wrap" justify="center" gap="3">
-        <BrandButton href={`mailto:${site.email}`} colorPalette="mail" borderColor="ink/10">
-          <Icon color="seal">
+        <BrandButton href={`mailto:${site.email}`} colorPalette="mail">
+          <Icon color="colorPalette.fg">
             <Mail />
           </Icon>
           {t('action')}

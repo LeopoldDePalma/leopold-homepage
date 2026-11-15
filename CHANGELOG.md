@@ -38,6 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   current.
 - The emblem on the 404 page keeps its real proportions, so the page no longer shifts as it loads.
 - Paragraphs get the roomier line spacing they were meant to have; the value never reached the page.
+- The Heraldry and Music links stay legible in the dark theme, the GitHub button keeps a visible
+  edge there, the 404's credits are no longer faded below a readable contrast, and a heading that
+  wraps no longer sets its lines on top of each other.
 
 ## [1.0.0] - 2026-09-28
 

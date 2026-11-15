@@ -69,7 +69,6 @@ const siteTheme = defineConfig({
       colors: {
         paper: {value: '#faf7f2'},
         ink: {value: palette.fg.light},
-        seal: {value: '#9b2226'},
       },
       fonts: {
         body: {value: 'var(--font-body)'},
@@ -95,26 +94,35 @@ const siteTheme = defineConfig({
           border: {value: '{colors.border}'},
           focusRing: {value: '{colors.accent}'},
         },
+        seal: {value: lightDark(palette.seal)},
+        // Each palette is one contact button: its fill, label, hover and edge.
         mail: {
           solid: {value: '{colors.paper}'},
           contrast: {value: '{colors.ink}'},
           emphasized: {value: 'color-mix(in srgb, {colors.paper} 95%, black)'},
+          // The paper ground stays light in both themes, so the mail icon keeps the dark red.
+          fg: {value: palette.seal.light},
+          border: {value: '{colors.ink/10}'},
         },
         linkedin: {
           solid: {value: '#0a66c2'},
           contrast: {value: '#ffffff'},
           emphasized: {value: '#084e96'},
+          border: {value: 'transparent'},
         },
         github: {
           solid: {value: '#2d2d31'},
           contrast: {value: '#ffffff'},
           emphasized: {value: '#38383d'},
+          // By night the dark fill nearly matches the ground: a hairline at 3:1 keeps its edge.
+          border: {value: `light-dark(transparent, ${palette.fg.dark}61)`},
         },
       },
     },
     recipes: {
       container: {base: {maxWidth: '2xl', px: '4'}},
-      heading: {base: {fontWeight: 'bold'}},
+      // The size's text style would set a fixed 1.875rem; a larger heading needs its own leading.
+      heading: {base: {fontWeight: 'bold'}, variants: {size: {xl: {lineHeight: 'shorter'}}}},
       button: {
         variants: {
           variant: {
@@ -145,7 +153,7 @@ const siteTheme = defineConfig({
               py: '0.6em',
               fontWeight: 'medium',
               borderWidth: '1px',
-              borderColor: 'transparent',
+              borderColor: 'colorPalette.border',
               rounded: 'md',
               bg: 'colorPalette.solid',
               color: 'colorPalette.contrast',

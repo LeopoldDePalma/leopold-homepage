@@ -49,7 +49,7 @@ export const NotFound = async () => {
           </Link>
         </Button>
       </Flex>
-      <Text textStyle="xs" color="fg.muted/80">
+      <Text textStyle="xs" color="fg.muted">
         {t.rich('gameArtCredit', externalLinkTags(site.gameArtCredit, {variant: 'credit'}))}
       </Text>
     </Stack>
